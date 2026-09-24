@@ -34,10 +34,59 @@ contrast ratios live, and offers the palette as CSS or JSON on the clipboard.
 Ports live in this repository, one top-level folder each, built from `SPEC.md`.
 Each port records its spec version and deviation log in its own files.
 
-| Port    | Folder     | Install |
-| ------- | ---------- | ------- |
-| Ghostty | `ghostty/` | Copy `ghostty/MOSS` to `~/.config/ghostty/themes/MOSS`, then set `theme = MOSS` in your Ghostty config. |
-| Zed     | `zed/`     | Copy `zed/moss.json` to `~/.config/zed/themes/moss.json`, then select **MOSS** in the theme selector. Deviation log: `zed/README.md`. |
+| Port    | Folder     | Deviation log      |
+| ------- | ---------- | ------------------ |
+| Ghostty | `ghostty/` | in `ghostty/MOSS`  |
+| Zed     | `zed/`     | `zed/README.md`    |
+
+## Usage
+
+Clone the repository once, then symlink the port files into each app's config.
+Symlinks mean a `git pull` updates the theme everywhere; no re-copying.
+
+```sh
+git clone git@github.com:gentilfp/moss_theme.git ~/Developer/moss_theme
+```
+
+### Ghostty
+
+```sh
+mkdir -p ~/.config/ghostty/themes
+ln -sf ~/Developer/moss_theme/ghostty/MOSS ~/.config/ghostty/themes/MOSS
+```
+
+Add to `~/.config/ghostty/config`:
+
+```
+theme = MOSS
+```
+
+Reload with `cmd+shift+,` (or restart Ghostty). `ghostty +list-themes` should list MOSS.
+
+### Zed
+
+```sh
+mkdir -p ~/.config/zed/themes
+ln -sf ~/Developer/moss_theme/zed/moss.json ~/.config/zed/themes/moss.json
+```
+
+Open the theme selector (`cmd-k cmd-t`) and pick **MOSS**, or set it in
+`~/.config/zed/settings.json`:
+
+```json
+"theme": { "mode": "dark", "dark": "MOSS", "light": "MOSS" }
+```
+
+Zed reloads theme files on save. If MOSS is missing from the selector, run
+**zed: open log** and look for a theme error.
+
+### Updating
+
+```sh
+git -C ~/Developer/moss_theme pull
+```
+
+Ghostty picks up the change on reload; Zed on its own.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
