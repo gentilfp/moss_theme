@@ -179,13 +179,15 @@ See §4.2 for the full element table. Explicit state rules:
 
 | Severity | Token          | Presentation                                                   |
 | -------- | -------------- | -------------------------------------------------------------- |
-| error    | `red`          | Text/icon `red`; squiggle `red-bright`; popup header `red`.    |
+| error    | `red`          | Text `red-bright`; icon, squiggle and popup header `red`.      |
 | warning  | `ochre`        | Text/icon `ochre`; squiggle `ochre-bright`; stronger variants use `ochre-bright` text. |
 | info     | `moss`         | Text/icon `moss`; squiggle `moss`.                             |
 | hint     | `muted`        | Deliberately quiet. *Provisional — may move to `forest` if hints need more presence.* |
 
-`red-bright` is for critical errors (build failures, fatal panics, broken
-config) where `red` alone would be too gentle.
+Error **text** always uses `red-bright`: `red` is almost as dark as `muted`
+(≈ 1.03:1), so red text would look like a comment. `red` stays for icons,
+squiggles, and other marks next to the text. `red-bright` also covers critical
+errors (build failures, fatal panics, broken config).
 
 ## 8. Git / Diff Colors
 
@@ -269,9 +271,9 @@ below it.
 | `ochre`        | 7.1     | 6.7          | numbers, warnings           | AA.                                |
 | `olive`        | 6.5     | 6.1          | strings                     | AA.                                |
 | `moss`         | 5.7     | 5.4          | keywords, accents, cursor   | AA.                                |
-| `red-bright`   | 5.1     | 4.8          | critical errors             | AA.                                |
+| `red-bright`   | 5.1     | 4.8          | error text, critical errors | AA.                                |
 | `muted`        | 4.1     | 3.9          | comments, secondary text    | ≈ AA-large; intentionally below 4.5 |
-| `red`          | 4.0     | 3.7          | errors                      | slightly below AA; acceptable for short emphasis, `red-bright` for critical |
+| `red`          | 4.0     | 3.7          | error icons, squiggles      | slightly below AA; not for error text (§7) |
 | `forest`       | 3.3     | 3.1          | operators, tags, decoration | intentionally low; never essential text |
 | `faint`        | 2.4     | 2.2          | disabled, line numbers      | exempt categories; never for active content |
 | `border` / `active` / `selection` | 1.0–1.5 | — | backgrounds, borders | intentionally low; they are not text |
@@ -284,7 +286,7 @@ intended.
 on every token. Comments and errors are intentionally near, but below, the
 4.5:1 body-text threshold; this keeps them visually quiet, which is part of the
 identity. Future ports may adapt for platform constraints (see §11): small
-lightness lifts (e.g. `muted` by ≤ 6%, `red` → `red-bright` for error text)
+lightness lifts (e.g. `muted` by ≤ 6%)
 are permitted **with documentation**, and the **hue must never change**.
 Core identity colors (`bg`, `fg`, `moss`, `ochre`, palette §3.1) must never be
 altered silently.

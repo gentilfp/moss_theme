@@ -341,7 +341,7 @@
     outline-offset: 1px;
   }
   .search-other { background: var(--moss-selection); color: var(--moss-moss); }
-  .wave-err  { color: var(--moss-red);    text-decoration: underline wavy var(--moss-red-bright); }
+  .wave-err  { color: var(--moss-red-bright); text-decoration: underline wavy var(--moss-red); }
   .wave-warn { color: var(--moss-ochre);  text-decoration: underline wavy var(--moss-ochre-bright); }
   .wave-info { color: var(--moss-moss);   text-decoration: underline wavy var(--moss-moss); }
   .dot-hint  { color: var(--moss-muted);  text-decoration: underline dotted var(--moss-muted); }
@@ -737,7 +737,8 @@
           <tr><td class="role">Active line number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
 
           <tr class="group group-diag"><td colspan="2">Diagnostics</td></tr>
-          <tr><td class="role">Error</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td></tr>
+          <tr><td class="role">Error text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td></tr>
+          <tr><td class="role">Error icon, squiggle</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td></tr>
           <tr><td class="role">Warning</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
           <tr><td class="role">Info</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
           <tr><td class="role">Hint</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
@@ -1067,7 +1068,7 @@
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td>
             <td class="ratio" data-ratio="red-bright|bg">5.1<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="red-bright|surface">4.8</td>
-            <td class="dim">critical errors</td>
+            <td class="dim">error text, critical errors</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td>
@@ -1079,7 +1080,7 @@
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td>
             <td class="ratio" data-ratio="red|bg">4.0<span class="aa under">below</span></td>
             <td class="ratio" data-ratio="red|surface">3.7</td>
-            <td class="dim">errors</td>
+            <td class="dim">error icons, squiggles</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td>
