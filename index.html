@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="MOSS — a very dark, muted colorscheme. Visual reference for the palette, semantic roles, syntax mapping, UI states, ANSI slots and contrast ratios defined in SPEC.md.">
+<title>MOSS — Colorscheme Specification Reference</title>
+<link rel="stylesheet" href="tokens/moss.css">
+<style>
+  /* Palette tokens live in tokens/moss.css, generated from tokens/moss.json
+     (itself a projection of SPEC.md §3). Nothing below re-declares a hex:
+     every color on this page resolves through a --moss-* variable.
+     Only page-local, non-palette variables belong here. */
+  :root {
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--moss-bg); }
+
+  body {
+    margin: 0;
+    background: var(--moss-bg);
+    color: var(--moss-fg);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* page-level text selection uses the theme's own selection token */
+  ::selection { background: var(--moss-selection); color: var(--moss-fg); }
+
+  /* ---------- header ---------- */
+  header {
+    position: relative;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 72px 28px 48px;
+  }
+  header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 28px;
+    right: 28px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--moss-moss) 0%, var(--moss-olive) 50%, var(--moss-ochre) 100%);
+  }
+  .kicker {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss-moss);
+  }
+  h1 {
+    margin: 0;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    color: var(--moss-moss);
+  }
+  .subtitle {
+    margin: 16px 0 0;
+    font-size: 19px;
+    color: var(--moss-olive);
+  }
+  .tagline {
+    margin: 10px 0 0;
+    max-width: 560px;
+    color: var(--moss-muted);
+    font-size: 14px;
+  }
+
+  /* ---------- layout ---------- */
+  main {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 28px 40px;
+  }
+  section {
+    margin-top: 52px;
+  }
+
+  /* per-section accent — each section gets a hue from the family */
+  #palette    { --acc: var(--moss-moss); }
+  #roles      { --acc: var(--moss-olive); }
+  #syntax     { --acc: var(--moss-ochre); }
+  #states     { --acc: var(--moss-forest); }
+  #ansi       { --acc: var(--moss-olive); }
+  #contrast   { --acc: var(--moss-ochre-bright); }
+  #principles { --acc: var(--moss-moss); }
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: 13px;
+    font-family: var(--mono);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss-fg);
+  }
+  h2 .n { color: var(--acc, var(--moss-moss)); margin-right: 10px; }
+  h2::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 2px;
+    margin-top: 10px;
+    border-radius: 1px;
+    background: var(--acc, var(--moss-moss));
+  }
+  .section-intro {
+    margin: 12px 0 22px;
+    max-width: 660px;
+    color: var(--moss-muted);
+    font-size: 14px;
+  }
+
+  /* ---------- tables ---------- */
+  .tbl-wrap {
+    background: var(--moss-surface);
+    border: 1px solid var(--moss-border);
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--moss-muted);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--moss-border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--moss-border);
+    color: var(--moss-fg);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--moss-active); }
+
+  tr.group td {
+    padding: 14px 16px 4px;
+    border-bottom: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss-moss);
+    background: transparent;
+  }
+  tr.group:hover td { background: transparent; }
+  /* group labels carry the family hue of their content */
+  tr.group-core td    { color: var(--moss-moss); }
+  tr.group-derived td { color: var(--moss-olive); }
+  tr.group-text td    { color: var(--moss-fg); }
+  tr.group-ui td      { color: var(--moss-moss); }
+  tr.group-diag td    { color: var(--moss-ochre); }
+  tr.group-git td     { color: var(--moss-red); }
+
+  td .role { font-weight: 600; }
+  .mono { font-family: var(--mono); }
+  .dim { color: var(--moss-muted); }
+  .faint { color: var(--moss-faint); }
+
+  .token-cell { display: flex; align-items: center; gap: 10px; }
+  .chip {
+    /* inline-block so a bare chip in a table cell keeps its box; as a flex
+       item inside .token-cell this is blockified anyway */
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    /* hairline frame derived from fg at 30% alpha — presentation only, so the
+       near-black token swatches stay visible on the surface; the fill is always
+       the pure token color and no new palette color is introduced */
+    outline: 1px solid color-mix(in srgb, var(--moss-fg) 30%, transparent);
+  }
+  .chip + .mono { color: var(--moss-fg); }
+  .token-cell .hex { color: var(--moss-faint); margin-left: 6px; }
+
+  /* token names render in their own color — the tables are a live legend.
+     Only readable-on-surface tokens self-render; surface-family tokens
+     (bg, surface, overlay, border, active, selection) keep neutral fg. */
+  .mono[data-tok="fg"]           { color: var(--moss-fg); }
+  .mono[data-tok="muted"]        { color: var(--moss-muted); }
+  .mono[data-tok="faint"]        { color: var(--moss-faint); }
+  .mono[data-tok="moss"]         { color: var(--moss-moss); }
+  .mono[data-tok="forest"]       { color: var(--moss-forest); }
+  .mono[data-tok="olive"]        { color: var(--moss-olive); }
+  .mono[data-tok="ochre"]        { color: var(--moss-ochre); }
+  .mono[data-tok="red"]          { color: var(--moss-red); }
+  .mono[data-tok="ochre-bright"] { color: var(--moss-ochre-bright); }
+  .mono[data-tok="red-bright"]   { color: var(--moss-red-bright); }
+
+  .prov {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 6px;
+    border: 1px solid var(--moss-border);
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--moss-ochre-bright);
+    vertical-align: 1px;
+    white-space: nowrap;
+  }
+  .prov-note { color: var(--moss-muted); font-size: 12.5px; margin-top: 12px; }
+
+  /* ---------- luminance ladder ---------- */
+  .ladder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 20px 0 4px;
+    padding: 16px 18px;
+    background: var(--moss-bg);
+    border: 1px solid var(--moss-border);
+    border-radius: 8px;
+  }
+  .ladder .step { display: flex; align-items: center; gap: 8px; }
+  .ladder .sq {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    border: 1px solid var(--moss-border);
+  }
+  .ladder .lbl { font-size: 12px; color: var(--moss-fg); }
+  .ladder .lbl .r { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--moss-faint); }
+
+  /* ---------- code sample ---------- */
+  .sample-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 24px 0 10px;
+  }
+  .sample-head .fname { font-family: var(--mono); font-size: 12.5px; color: var(--moss-muted); }
+  .sample-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--moss-moss); align-self: center; }
+  .sample-head .legend { font-size: 12.5px; color: var(--moss-faint); }
+  pre.code {
+    margin: 0;
+    padding: 20px 22px;
+    background: var(--moss-bg);
+    border: 1px solid var(--moss-border);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.75;
+    tab-size: 4;
+  }
+  /* sample code token classes — presentation only, per SPEC §5 */
+  .kw   { color: var(--moss-moss); }      /* keyword                   */
+  .fun  { color: var(--moss-fg); }        /* function call (provisional) */
+  .dcl  { font-weight: 700; }             /* declaration emphasis      */
+  .var  { color: var(--moss-fg); }        /* variable                  */
+  .typ  { color: var(--moss-fg); }        /* type / class / variant    */
+  .mod  { color: var(--moss-fg); }        /* module / namespace        */
+  .str  { color: var(--moss-olive); }     /* string / char literal     */
+  .esc  { color: var(--moss-ochre-bright); } /* escape sequence        */
+  .num  { color: var(--moss-ochre); }     /* number / constant         */
+  .boo  { color: var(--moss-ochre); }     /* boolean                   */
+  .op   { color: var(--moss-forest); }    /* operator                  */
+  .punc { color: var(--moss-muted); }     /* punctuation               */
+  .com  { color: var(--moss-muted); font-style: italic; }  /* comment */
+  .dcom { color: var(--moss-muted); font-style: italic; }  /* doc comment */
+  .err  { color: var(--moss-red-bright); font-weight: 700; } /* panic!/raise */
+
+  /* ---------- UI states ---------- */
+  .states {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 14px;
+  }
+  .state {
+    background: var(--moss-surface);
+    border: 1px solid var(--moss-border);
+    border-top: 2px solid var(--moss-border);
+    border-radius: 8px;
+    padding: 14px 16px 16px;
+  }
+  .state-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss-muted);
+    margin-bottom: 10px;
+  }
+  /* each state card carries the accent of its semantic role */
+  .ac-fg   { border-top-color: var(--moss-fg); }         .ac-fg .state-label { color: var(--moss-fg); }
+  .ac-muted{ border-top-color: var(--moss-muted); }      .ac-muted .state-label { color: var(--moss-muted); }
+  .ac-moss { border-top-color: var(--moss-moss); }       .ac-moss .state-label { color: var(--moss-moss); }
+  .ac-ochre{ border-top-color: var(--moss-ochre); }      .ac-ochre .state-label { color: var(--moss-ochre); }
+  .ac-red  { border-top-color: var(--moss-red); }        .ac-red .state-label { color: var(--moss-red); }
+  .ac-red-bright { border-top-color: var(--moss-red-bright); } .ac-red-bright .state-label { color: var(--moss-red-bright); }
+  /* dark background tokens stay subtle by design; label picks a readable hue */
+  .ac-sel   { border-top-color: var(--moss-selection); } .ac-sel .state-label { color: var(--moss-moss); }
+  .ac-active{ border-top-color: var(--moss-active); }    .ac-active .state-label { color: var(--moss-forest); }
+
+  .state-demo {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background: var(--moss-bg);
+  }
+  .sel-bg { background: var(--moss-selection); }
+  .curline { background: var(--moss-active); display: block; }
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 1.05em;
+    margin-left: 3px;
+    vertical-align: -2px;
+    background: var(--moss-moss);
+  }
+  .search-cur {
+    background: var(--moss-selection);
+    color: var(--moss-fg);
+    outline: 1px solid var(--moss-moss);
+    outline-offset: 1px;
+  }
+  .search-other { background: var(--moss-selection); color: var(--moss-moss); }
+  .wave-err  { color: var(--moss-red);    text-decoration: underline wavy var(--moss-red-bright); }
+  .wave-warn { color: var(--moss-ochre);  text-decoration: underline wavy var(--moss-ochre-bright); }
+  .wave-info { color: var(--moss-moss);   text-decoration: underline wavy var(--moss-moss); }
+  .dot-hint  { color: var(--moss-muted);  text-decoration: underline dotted var(--moss-muted); }
+  .gutter { display: inline-block; width: 1.4em; }
+  .diff-add { background: var(--moss-tint-moss); color: var(--moss-moss); }
+  .diff-mod { background: var(--moss-tint-ochre); color: var(--moss-ochre); }
+  .diff-del { background: var(--moss-tint-red); color: var(--moss-red); text-decoration: line-through; }
+  .diff-con { background: var(--moss-tint-red-strong); color: var(--moss-red-bright); }
+
+  /* ---------- principles ---------- */
+  ol.principles {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: p;
+  }
+  ol.principles li {
+    counter-increment: p;
+    position: relative;
+    padding: 12px 0 12px 46px;
+    border-bottom: 1px solid var(--moss-border);
+    font-size: 14px;
+  }
+  ol.principles li:last-child { border-bottom: none; }
+  ol.principles li::before {
+    content: counter(p, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--acc, var(--moss-forest));
+  }
+  ol.principles li b { color: var(--moss-moss); font-weight: 600; }
+
+  /* ---------- footer ---------- */
+  footer {
+    position: relative;
+    max-width: 1060px;
+    margin: 48px auto 0;
+    padding: 26px 28px 56px;
+    color: var(--moss-faint);
+    font-size: 12.5px;
+    font-family: var(--mono);
+  }
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 28px;
+    right: 28px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--moss-moss) 0%, var(--moss-olive) 50%, var(--moss-ochre) 100%);
+    opacity: 0.5;
+  }
+  footer a { color: var(--moss-moss); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ---------- navigation ---------- */
+  :focus-visible {
+    outline: 2px solid var(--moss-moss);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    padding: 8px 14px;
+    background: var(--moss-overlay);
+    border: 1px solid var(--moss-border);
+    border-radius: 6px;
+    color: var(--moss-moss);
+    font-family: var(--mono);
+    font-size: 12px;
+    text-decoration: none;
+    z-index: 20;
+  }
+  .skip:focus { left: 28px; }
+
+  nav.toc {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--moss-bg) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--moss-border);
+  }
+  nav.toc ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 20px;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 11px 28px;
+    list-style: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  nav.toc a { color: var(--moss-muted); text-decoration: none; }
+  nav.toc a:hover { color: var(--moss-fg); }
+  nav.toc a .n { color: var(--moss-faint); margin-right: 7px; }
+  /* the section currently in view, set by the scroll observer */
+  nav.toc a[aria-current="true"] { color: var(--moss-moss); }
+  nav.toc a[aria-current="true"] .n { color: var(--moss-moss); }
+
+  /* sections clear the sticky bar when jumped to */
+  section { scroll-margin-top: 58px; }
+  h2 .anchor { color: inherit; text-decoration: none; }
+  h2 .anchor::after {
+    content: "#";
+    margin-left: 10px;
+    color: var(--moss-faint);
+    opacity: 0;
+    transition: opacity 90ms linear;
+  }
+  h2:hover .anchor::after,
+  h2 .anchor:focus-visible::after { opacity: 1; }
+
+  /* ---------- copy affordances (added by script; inert without JS) ---------- */
+  .copyable {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    border-bottom: 1px dashed var(--moss-border);
+  }
+  .copyable:hover { color: var(--moss-moss); border-bottom-color: var(--moss-moss); }
+  .copyable.copied { color: var(--moss-moss); border-bottom-color: transparent; }
+
+  .tbl-tools {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 12px;
+  }
+  .tbl-tools button {
+    padding: 5px 11px;
+    background: var(--moss-surface);
+    border: 1px solid var(--moss-border);
+    border-radius: 5px;
+    color: var(--moss-muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .tbl-tools button:hover { color: var(--moss-moss); border-color: var(--moss-forest); }
+
+  /* ---------- ANSI slots ---------- */
+  .ansi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    gap: 10px;
+  }
+  .slot {
+    background: var(--moss-surface);
+    border: 1px solid var(--moss-border);
+    border-radius: 7px;
+    padding: 10px 12px 11px;
+  }
+  .slot .fill {
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--moss-fg) 22%, transparent);
+    margin-bottom: 9px;
+  }
+  /* TBD slots carry no color: a hatch stands in for the undecided value */
+  .slot.tbd .fill {
+    border-style: dashed;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--moss-active) 0 6px,
+      var(--moss-bg) 6px 12px
+    );
+  }
+  .slot .num {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--moss-faint);
+  }
+  .slot .nm {
+    font-size: 12.5px;
+    color: var(--moss-fg);
+    margin-top: 1px;
+  }
+  .slot .src {
+    font-family: var(--mono);
+    font-size: 11px;
+    margin-top: 3px;
+    color: var(--moss-muted);
+  }
+  .slot.tbd .src { color: var(--moss-ochre-bright); }
+
+  .rules {
+    margin: 18px 0 0;
+    padding: 0 0 0 18px;
+    color: var(--moss-muted);
+    font-size: 13.5px;
+  }
+  .rules li { margin: 5px 0; }
+  .rules code { font-family: var(--mono); color: var(--moss-fg); }
+
+  /* ---------- contrast table ---------- */
+  td.ratio {
+    font-family: var(--mono);
+    text-align: right;
+    white-space: nowrap;
+  }
+  th.ratio { text-align: right; }
+  .aa {
+    display: inline-block;
+    min-width: 34px;
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--moss-faint);
+  }
+  .aa.pass { color: var(--moss-moss); }
+  .aa.under { color: var(--moss-ochre); }
+
+  @media (max-width: 640px) {
+    header { padding-top: 48px; }
+    h1 { font-size: 44px; }
+    .prov { display: none; }
+    nav.toc ol { padding: 9px 16px; gap: 2px 14px; }
+    header, main, footer { padding-left: 16px; padding-right: 16px; }
+    header::before, footer::before { left: 16px; right: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  /* the page is a reference document: it should print as one */
+  @media print {
+    nav.toc, .tbl-tools, .skip { display: none; }
+    html, body { background: #fff; color: #000; }
+    .tbl-wrap, .state, .slot, pre.code, .ladder { break-inside: avoid; }
+    section { break-before: page; }
+    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="kicker">Colorscheme specification &middot; v0.1 &middot; specification phase</p>
+  <h1>MOSS</h1>
+  <p class="subtitle">A dark colorscheme</p>
+  <p class="tagline">
+    Very dark, muted, and low-noise. A green family — moss, forest, olive — used
+    with restraint, warm ochre for contrast, red reserved. Built for long sessions.
+  </p>
+</header>
+
+<a class="skip" href="#palette">Skip to content</a>
+
+<nav class="toc" aria-label="Sections">
+  <ol>
+    <li><a href="#palette"><span class="n">01</span>Palette</a></li>
+    <li><a href="#roles"><span class="n">02</span>Roles</a></li>
+    <li><a href="#syntax"><span class="n">03</span>Syntax</a></li>
+    <li><a href="#states"><span class="n">04</span>States</a></li>
+    <li><a href="#ansi"><span class="n">05</span>Terminal</a></li>
+    <li><a href="#contrast"><span class="n">06</span>Contrast</a></li>
+    <li><a href="#principles"><span class="n">07</span>Principles</a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- ============ 01 · PALETTE ============ -->
+  <section id="palette">
+    <h2><span class="n">01</span><a class="anchor" href="#palette">Palette</a></h2>
+    <p class="section-intro">
+      Sixteen tokens: ten core identity colors and six derived colors anchored to
+      them. Every swatch below renders the actual palette value; token names are
+      set in their own color where that color is readable on the surface.
+      Near-black swatches carry a hairline frame so they stay visible on the page.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Swatch</th><th>Token</th><th>Hex</th><th>Role</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr class="group group-core"><td colspan="5">Core &mdash; fixed identity</td></tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-bg)"></span></td>
+            <td class="mono">bg</td>
+            <td class="mono dim">#0D0F0C</td>
+            <td>Main background</td>
+            <td class="dim">Near-black with a green-grey cast. Never pure black.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-surface)"></span></td>
+            <td class="mono">surface</td>
+            <td class="mono dim">#141713</td>
+            <td>Secondary surfaces</td>
+            <td class="dim">Sidebars, status bar. Close to bg for cohesion.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-overlay)"></span></td>
+            <td class="mono">overlay</td>
+            <td class="mono dim">#1B1F1A</td>
+            <td>Elevated surfaces</td>
+            <td class="dim">Panels, popups, menus, floating windows.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-fg)"></span></td>
+            <td class="mono" data-tok="fg">fg</td>
+            <td class="mono dim">#D7D9D2</td>
+            <td>Normal foreground</td>
+            <td class="dim">The brightest token in the theme. Never pure white.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-muted)"></span></td>
+            <td class="mono" data-tok="muted">muted</td>
+            <td class="mono dim">#70766B</td>
+            <td>Muted text / comments</td>
+            <td class="dim">Readable but clearly subdued.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-moss)"></span></td>
+            <td class="mono" data-tok="moss">moss</td>
+            <td class="mono dim">#7E9273</td>
+            <td>Primary identity green</td>
+            <td class="dim">Keywords, cursor, focus, git-added, search.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-forest)"></span></td>
+            <td class="mono" data-tok="forest">forest</td>
+            <td class="mono dim">#536B4F</td>
+            <td>Deep green, receding roles</td>
+            <td class="dim">Operators, markup tags. Low contrast by design.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-olive)"></span></td>
+            <td class="mono" data-tok="olive">olive</td>
+            <td class="mono dim">#9A9968</td>
+            <td>Warm green for strings</td>
+            <td class="dim">Strings, char literals.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-ochre)"></span></td>
+            <td class="mono" data-tok="ochre">ochre</td>
+            <td class="mono dim">#B69A64</td>
+            <td>Warm gold for values</td>
+            <td class="dim">Numbers, booleans, constants, decorators, warnings.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-red)"></span></td>
+            <td class="mono" data-tok="red">red</td>
+            <td class="mono dim">#A75D57</td>
+            <td>Errors, destructive states</td>
+            <td class="dim">Muted brick red — unmistakable, not alarming.</td>
+          </tr>
+          <tr class="group group-derived"><td colspan="5">Derived &mdash; anchored to core (SPEC &sect;3.2)</td></tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-border)"></span></td>
+            <td class="mono">border</td>
+            <td class="mono dim">#272C24</td>
+            <td>Borders, dividers</td>
+            <td class="dim">Overlay lifted toward the bg hue family.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-active)"></span></td>
+            <td class="mono">active</td>
+            <td class="mono dim">#191D18</td>
+            <td>Cursor line / hover</td>
+            <td class="dim">Between surface and overlay; subtle by design.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-selection)"></span></td>
+            <td class="mono">selection</td>
+            <td class="mono dim">#2A3527</td>
+            <td>Selection background</td>
+            <td class="dim">Moss scaled to ~30% brightness — a tint, not a block.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-faint)"></span></td>
+            <td class="mono" data-tok="faint">faint</td>
+            <td class="mono dim">#4B5147</td>
+            <td>Disabled text, line numbers</td>
+            <td class="dim">Muted darkened ~40%. Never used for active content.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-ochre-bright)"></span></td>
+            <td class="mono" data-tok="ochre-bright">ochre-bright</td>
+            <td class="mono dim">#C7A46B</td>
+            <td>Strong warnings, escapes</td>
+            <td class="dim">Lifted ochre for attention states.</td>
+          </tr>
+          <tr>
+            <td><span class="chip" style="background: var(--moss-red-bright)"></span></td>
+            <td class="mono" data-tok="red-bright">red-bright</td>
+            <td class="mono dim">#C06B63</td>
+            <td>Strong errors, conflict</td>
+            <td class="dim">Lifted red for critical states.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 02 · SEMANTIC ROLES ============ -->
+  <section id="roles">
+    <h2><span class="n">02</span><a class="anchor" href="#roles">Semantic Roles</a></h2>
+    <p class="section-intro">
+      Roles are the contract between MOSS and a platform: each role maps to one
+      token (or a documented combination). Ports must cover every role, using
+      documented fallbacks where a platform lacks a scope.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Role</th><th>Token</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr class="group group-text"><td colspan="3">Text</td></tr>
+          <tr><td class="role">Normal text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Default foreground everywhere.</td></tr>
+          <tr><td class="role">Secondary text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Captions, secondary labels.</td></tr>
+          <tr><td class="role">Comments</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">May add italics, never brightness.</td></tr>
+          <tr><td class="role">Disabled text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Disabled items, empty states, non-essential data.</td></tr>
+
+          <tr class="group group-ui"><td colspan="3">UI</td></tr>
+          <tr><td class="role">Editor / main background</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td><td class="dim">Also workspace and empty space.</td></tr>
+          <tr><td class="role">Sidebar, titlebar, toolbar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td><td class="dim">Quietly distinct from bg.</td></tr>
+          <tr><td class="role">Panel, popup, menu, tooltip</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td><td class="dim">Adds a border outline when floating.</td></tr>
+          <tr><td class="role">Active tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td><td class="dim">Text fg; moss underline / indicator.</td></tr>
+          <tr><td class="role">Inactive tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td><td class="dim">Transparent over chrome; text muted.</td></tr>
+          <tr><td class="role">Borders, dividers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-border)"></span><span class="mono">border</span></span></td><td class="dim">Subtle; never a pure grey.</td></tr>
+          <tr><td class="role">Cursor</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Single color, beam or block.<span class="prov">provisional</span></td></tr>
+          <tr><td class="role">Selection</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection</span></span></td><td class="dim">Text keeps fg; no extra border.</td></tr>
+          <tr><td class="role">Cursor line</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td><td class="dim">No border, no left marker, no text change.</td></tr>
+          <tr><td class="role">Search match</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection + moss</span></span></td><td class="dim">Current match: fg text + moss outline.</td></tr>
+          <tr><td class="role">Focus (ring / outline)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Never red or ochre for focus.</td></tr>
+          <tr><td class="role">Hover (rows, buttons)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td><td class="dim">Subtle lift; no color change.</td></tr>
+          <tr><td class="role">Status bar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td><td class="dim">Mode indicator moss; warnings ochre; errors red.</td></tr>
+          <tr><td class="role">Line numbers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Non-current lines.</td></tr>
+          <tr><td class="role">Active line number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">The only "you are here" concession.</td></tr>
+
+          <tr class="group group-diag"><td colspan="3">Diagnostics (SPEC &sect;7)</td></tr>
+          <tr><td class="role">Error</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">Squiggle red-bright; critical errors use red-bright text.</td></tr>
+          <tr><td class="role">Warning</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Strong warnings use ochre-bright.</td></tr>
+          <tr><td class="role">Info</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Calm by default.</td></tr>
+          <tr><td class="role">Hint</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Deliberately quiet.<span class="prov">provisional</span></td></tr>
+
+          <tr class="group group-git"><td colspan="3">Git / Diff (SPEC &sect;8)</td></tr>
+          <tr><td class="role">Added / untracked</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Line tint: moss at ~10% alpha over bg.</td></tr>
+          <tr><td class="role">Modified</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Line tint: ochre at ~10% alpha over bg.</td></tr>
+          <tr><td class="role">Deleted</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">Line tint: red at ~10% alpha over bg.</td></tr>
+          <tr><td class="role">Conflict</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td><td class="dim">Markers and both-sides churn.</td></tr>
+          <tr><td class="role">Ignored</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Certainly quiet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 03 · SYNTAX ============ -->
+  <section id="syntax">
+    <h2><span class="n">03</span><a class="anchor" href="#syntax">Syntax Highlighting</a></h2>
+    <p class="section-intro">
+      Calm and hierarchical: structure in green, values in warm tones, everything
+      else neutral. Normal text is always the brightest token. Roles marked
+      <span class="prov">provisional</span> are open for revision before ports.
+    </p>
+
+    <div class="ladder">
+      <div class="step"><span class="sq" style="background: var(--moss-fg)"></span><span class="lbl">normal text<span class="r">fg &middot; 13.5:1</span></span></div>
+      <div class="step"><span class="sq" style="background: var(--moss-ochre)"></span><span class="lbl">numbers<span class="r">ochre &middot; 7.2:1</span></span></div>
+      <div class="step"><span class="sq" style="background: var(--moss-olive)"></span><span class="lbl">strings<span class="r">olive &middot; 6.5:1</span></span></div>
+      <div class="step"><span class="sq" style="background: var(--moss-moss)"></span><span class="lbl">keywords<span class="r">moss &middot; 5.7:1</span></span></div>
+      <div class="step"><span class="sq" style="background: var(--moss-muted)"></span><span class="lbl">comments<span class="r">muted &middot; 4.1:1</span></span></div>
+      <div class="step"><span class="sq" style="background: var(--moss-forest)"></span><span class="lbl">operators<span class="r">forest &middot; 3.3:1</span></span></div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top: 16px">
+      <table>
+        <thead>
+          <tr><th>Syntax group</th><th>Token</th><th>Rationale</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="role">keyword</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Structural words are the identity green.</td></tr>
+          <tr><td class="role">function<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Calls read as plain code; calm.</td></tr>
+          <tr><td class="role">method<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Same treatment as functions.</td></tr>
+          <tr><td class="role">variable</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Most common token; stays neutral.</td></tr>
+          <tr><td class="role">parameter<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ italic</span></span></td><td class="dim">Italics separate parameters without color.</td></tr>
+          <tr><td class="role">property / field<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Keeps <span class="mono">.chain.here</span> quiet.</td></tr>
+          <tr><td class="role">constant</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Values the eye may need to spot.</td></tr>
+          <tr><td class="role">string / char</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-olive)"></span><span class="mono" data-tok="olive">olive</span></span></td><td class="dim">Warm green, distinct from fg and moss.</td></tr>
+          <tr><td class="role">number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Gold catches the eye for bug-hunting.</td></tr>
+          <tr><td class="role">boolean</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Value family, same as numbers.</td></tr>
+          <tr><td class="role">type<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Context (generics, annotations) does the work.</td></tr>
+          <tr><td class="role">class<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ bold ok</span></span></td><td class="dim">Bold for declarations; color stays neutral.</td></tr>
+          <tr><td class="role">module / namespace</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Path segments neutral; separators muted.</td></tr>
+          <tr><td class="role">operator</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td><td class="dim">Grammar recedes below keywords.</td></tr>
+          <tr><td class="role">punctuation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Separators stay quiet.</td></tr>
+          <tr><td class="role">tag (HTML/XML)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td><td class="dim">Markup structure recedes.</td></tr>
+          <tr><td class="role">attribute</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">The brightest green stage in markup.</td></tr>
+          <tr><td class="role">decorator / annotation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Gently warm, visually distinct.</td></tr>
+          <tr><td class="role">comment</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Readable but clearly subdued.</td></tr>
+          <tr><td class="role">doc comment<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span> <span class="dim">+ italic</span></span></td><td class="dim">Same color; typography separates.</td></tr>
+          <tr><td class="role">escape sequence</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre-bright)"></span><span class="mono" data-tok="ochre-bright">ochre-bright</span></span></td><td class="dim">Slightly stronger warm pop inside strings.</td></tr>
+          <tr><td class="role">regex</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Value-like literal, warm family.</td></tr>
+          <tr><td class="role">special / builtin values</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">self, None, nil, this — special, not alarming.</td></tr>
+          <tr><td class="role">error-raising constructs</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">panic!, raise, throw — the reserved hue. red-bright when extra visibility is needed.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sample-head">
+      <span class="dot"></span>
+      <span class="fname">tokenizer.rs</span>
+      <span class="legend">Rust &middot; synthetic sample &middot; keywords moss &middot; strings olive &middot; values ochre &middot; grammar forest &middot; exceptional syntax red-bright</span>
+    </div>
+    <pre class="code"><code><span class="dcom">//! tokenizer.rs — synthetic sample for the MOSS reference page.</span>
+<span class="dcom">//! Comments stay muted: readable, but always behind the code.</span>
+
+<span class="kw">use</span> <span class="mod">std</span><span class="punc">::</span><span class="mod">collections</span><span class="punc">::</span><span class="typ">HashMap</span><span class="punc">;</span>
+
+<span class="kw">const</span> <span class="num">MAX_DEPTH</span><span class="punc">:</span> <span class="typ">usize</span> <span class="op">=</span> <span class="num">64</span><span class="punc">;</span>
+
+<span class="dcom">/// Tokenizes a source string into a flat list of tokens.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="fun dcl">tokenize</span><span class="punc">(</span><span class="var">input</span><span class="punc">:</span> <span class="op">&amp;</span><span class="typ">str</span><span class="punc">)</span> <span class="op">-&gt;</span> <span class="typ">Result</span><span class="punc">&lt;</span><span class="typ">Vec</span><span class="punc">&lt;</span><span class="typ">Token</span><span class="punc">&gt;</span><span class="punc">,</span> <span class="typ">ParseError</span><span class="punc">&gt;</span> <span class="punc">{</span>
+    <span class="kw">let</span> <span class="kw">mut</span> <span class="var">tokens</span><span class="punc">:</span> <span class="typ">Vec</span><span class="punc">&lt;</span><span class="typ">Token</span><span class="punc">&gt;</span> <span class="op">=</span> <span class="typ">Vec</span><span class="punc">::</span><span class="fun">new</span><span class="punc">();</span>
+    <span class="kw">let</span> <span class="kw">mut</span> <span class="var">depth</span><span class="punc">:</span> <span class="typ">usize</span> <span class="op">=</span> <span class="num">0</span><span class="punc">;</span>
+    <span class="kw">let</span> <span class="var">keep_eol</span> <span class="op">=</span> <span class="boo">false</span><span class="punc">;</span>
+
+    <span class="kw">for</span> <span class="var">ch</span> <span class="kw">in</span> <span class="var">input</span><span class="punc">.</span><span class="fun">chars</span><span class="punc">()</span> <span class="punc">{</span>
+        <span class="kw">match</span> <span class="var">ch</span> <span class="punc">{</span>
+            <span class="str">'('</span> <span class="op">=&gt;</span> <span class="var">depth</span> <span class="op">+=</span> <span class="num">1</span><span class="punc">,</span>
+            <span class="str">')'</span> <span class="op">=&gt;</span> <span class="var">depth</span> <span class="op">=</span> <span class="var">depth</span><span class="punc">.</span><span class="fun">saturating_sub</span><span class="punc">(</span><span class="num">1</span><span class="punc">),</span>
+            <span class="str">'</span><span class="esc">\n</span><span class="str">'</span> <span class="kw">if</span> <span class="var">keep_eol</span> <span class="op">=&gt;</span> <span class="var">tokens</span><span class="punc">.</span><span class="fun">push</span><span class="punc">(</span><span class="typ">Token</span><span class="punc">::</span><span class="typ">Eol</span><span class="punc">),</span>
+            <span class="var">_</span> <span class="kw">if</span> <span class="var">ch</span><span class="punc">.</span><span class="fun">is_whitespace</span><span class="punc">()</span> <span class="op">=&gt;</span> <span class="punc">{}</span>
+            <span class="var">_</span> <span class="op">=&gt;</span> <span class="var">tokens</span><span class="punc">.</span><span class="fun">push</span><span class="punc">(</span><span class="typ">Token</span><span class="punc">::</span><span class="typ">Char</span><span class="punc">(</span><span class="var">ch</span><span class="punc">)),</span>
+        <span class="punc">}</span>
+        <span class="kw">if</span> <span class="var">depth</span> <span class="op">&gt;</span> <span class="num">MAX_DEPTH</span> <span class="punc">{</span>
+            <span class="err">panic!</span><span class="punc">(</span><span class="str">"tree too deep"</span><span class="punc">);</span>
+        <span class="punc">}</span>
+    <span class="punc">}</span>
+
+    <span class="kw">let</span> <span class="var">balanced</span> <span class="op">=</span> <span class="var">depth</span> <span class="op">==</span> <span class="num">0</span><span class="punc">;</span>
+    <span class="kw">if</span> <span class="op">!</span><span class="var">balanced</span> <span class="punc">{</span>
+        <span class="kw">return</span> <span class="typ">Err</span><span class="punc">(</span><span class="typ">ParseError</span><span class="punc">::</span><span class="typ">Unbalanced</span> <span class="punc">{</span> <span class="var">depth</span><span class="punc">,</span> <span class="var">line</span><span class="punc">:</span> <span class="num">1</span> <span class="punc">});</span>
+    <span class="punc">}</span>
+    <span class="typ">Ok</span><span class="punc">(</span><span class="var">tokens</span><span class="punc">)</span>
+<span class="punc">}</span></code></pre>
+    <p class="prov-note">
+      Functions, parameters, properties, and types deliberately share the
+      foreground — the hierarchy comes from green structure and warm values, not
+      from coloring every role. Revision candidates are tagged provisional
+      (SPEC.md &sect;14).
+    </p>
+  </section>
+
+  <!-- ============ 04 · UI & EDITOR STATES ============ -->
+  <section id="states">
+    <h2><span class="n">04</span><a class="anchor" href="#states">UI &amp; Editor States</a></h2>
+    <p class="section-intro">
+      Small samples of how the palette behaves in states — each card is topped
+      with the accent of its semantic role. Selection and cursor line are subtle
+      tints; text on top always keeps the normal foreground.
+    </p>
+    <div class="states">
+
+      <div class="state ac-fg">
+        <div class="state-label">Normal text</div>
+        <div class="state-demo">The quiet hum of the forest floor.</div>
+      </div>
+
+      <div class="state ac-muted">
+        <div class="state-label">Muted text</div>
+        <div class="state-demo" style="color: var(--moss-muted)">The quiet hum of the forest floor.</div>
+      </div>
+
+      <div class="state ac-sel">
+        <div class="state-label">Selected text</div>
+        <div class="state-demo"><span class="sel-bg">this phrase is selected</span> and continues normally</div>
+      </div>
+
+      <div class="state ac-active">
+        <div class="state-label">Cursor line</div>
+        <div class="state-demo">
+          <span class="curline"><span class="faint">12</span> let moss = grow(&amp;soil);<span class="cursor"></span></span>
+        </div>
+      </div>
+
+      <div class="state ac-moss">
+        <div class="state-label">Search match</div>
+        <div class="state-demo">the <span class="search-other">moss</span> grew slowly, the <span class="search-cur">moss</span> grew quietly</div>
+      </div>
+
+      <div class="state ac-red">
+        <div class="state-label">Error</div>
+        <div class="state-demo"><span class="wave-err">E0308: mismatched types — expected <span class="mono">Token</span>, found <span class="mono">&amp;str</span></span></div>
+      </div>
+
+      <div class="state ac-ochre">
+        <div class="state-label">Warning</div>
+        <div class="state-demo"><span class="wave-warn">unused variable: <span class="mono">depth</span></span></div>
+      </div>
+
+      <div class="state ac-moss">
+        <div class="state-label">Info</div>
+        <div class="state-demo"><span class="wave-info">3 references to <span class="mono">tokenize</span></span></div>
+      </div>
+
+      <div class="state ac-muted">
+        <div class="state-label">Hint</div>
+        <div class="state-demo"><span class="dot-hint">consider <span class="mono">else if</span> instead</span></div>
+      </div>
+
+      <div class="state ac-moss">
+        <div class="state-label">Added</div>
+        <div class="state-demo diff-add"><span class="gutter">+</span><span class="mono">const MAX_DEPTH: usize = 64;</span></div>
+      </div>
+
+      <div class="state ac-ochre">
+        <div class="state-label">Modified</div>
+        <div class="state-demo diff-mod"><span class="gutter">~</span><span class="mono">let mut depth: usize = 0;</span></div>
+      </div>
+
+      <div class="state ac-red">
+        <div class="state-label">Deleted</div>
+        <div class="state-demo diff-del"><span class="gutter">−</span><span class="mono">let keep_eol = false;</span></div>
+      </div>
+
+      <div class="state ac-red-bright">
+        <div class="state-label">Conflict</div>
+        <div class="state-demo diff-con"><span class="mono">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD — merge conflict marker</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 05 · TERMINAL / ANSI ============ -->
+  <section id="ansi">
+    <h2><span class="n">05</span><a class="anchor" href="#ansi">Terminal &amp; ANSI Slots</a></h2>
+    <p class="section-intro">
+      ANSI is a <em>projection</em> of the semantic palette onto a 16-slot model, so it
+      depends on the terminal's color model. Nine slots are fixed by identity; seven are
+      deliberately undecided and shown hatched — they are settled when the first
+      terminal port lands, and a port that needs one documents its choice as a deviation.
+    </p>
+    <div class="ansi">
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-bg)"></div>
+          <div class="num">00</div>
+          <div class="nm">black</div>
+          <div class="src mono">bg</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-red)"></div>
+          <div class="num">01</div>
+          <div class="nm">red</div>
+          <div class="src mono">red</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-moss)"></div>
+          <div class="num">02</div>
+          <div class="nm">green</div>
+          <div class="src mono">moss</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ochre)"></div>
+          <div class="num">03</div>
+          <div class="nm">yellow</div>
+          <div class="src mono">ochre</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">04</div>
+          <div class="nm">blue</div>
+          <div class="src mono">TBD</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">05</div>
+          <div class="nm">magenta</div>
+          <div class="src mono">TBD</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-olive)"></div>
+          <div class="num">06</div>
+          <div class="nm">cyan</div>
+          <div class="src mono">olive</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-fg)"></div>
+          <div class="num">07</div>
+          <div class="nm">white</div>
+          <div class="src mono">fg</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-surface)"></div>
+          <div class="num">08</div>
+          <div class="nm">bright black</div>
+          <div class="src mono">surface</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-red-bright)"></div>
+          <div class="num">09</div>
+          <div class="nm">bright red</div>
+          <div class="src mono">red-bright</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">10</div>
+          <div class="nm">bright green</div>
+          <div class="src mono">moss lifted</div>
+        </div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ochre-bright)"></div>
+          <div class="num">11</div>
+          <div class="nm">bright yellow</div>
+          <div class="src mono">ochre-bright</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">12</div>
+          <div class="nm">bright blue</div>
+          <div class="src mono">TBD</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">13</div>
+          <div class="nm">bright magenta</div>
+          <div class="src mono">TBD</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">14</div>
+          <div class="nm">bright cyan</div>
+          <div class="src mono">olive lifted</div>
+        </div>
+        <div class="slot tbd">
+          <div class="fill"></div>
+          <div class="num">15</div>
+          <div class="nm">bright white</div>
+          <div class="src mono">fg lifted</div>
+        </div>
+    </div>
+    <ol class="rules">
+        <li>Terminal backgrounds stay near-black; never pure <code>#000</code>.</li>
+        <li>Brights (9-15) keep the hue of their base slot, +12-18% lightness, saturation capped at the base slot's. Bright does not mean vivid.</li>
+        <li>Bold text is fg at normal weight, or the lifted slot only where the platform forces bold to bright. Never pure white.</li>
+        <li>Terminal cursor is moss, selection uses the selection background, hyperlinks are moss plus underline.</li>
+    </ol>
+    <p class="prov-note">Derivation rules and the full slot table: SPEC &sect;9.</p>
+  </section>
+
+  <!-- ============ 06 · CONTRAST ============ -->
+  <section id="contrast">
+    <h2><span class="n">06</span><a class="anchor" href="#contrast">Contrast &amp; Accessibility</a></h2>
+    <p class="section-intro">
+      WCAG 2.1 relative-luminance ratios, computed from the palette itself. The goal is
+      comfortable readability, not strict AA on every token: comments and errors sit just
+      below the 4.5:1 body-text threshold on purpose, which is what keeps them quiet.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Token</th><th class="ratio">on bg</th><th class="ratio">on surface</th><th>Used for</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td>
+            <td class="ratio" data-ratio="fg|bg">13.5<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="fg|surface">12.7</td>
+            <td class="dim">normal text</td>
+            <td class="dim">AAA; comfortably readable.</td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre-bright)"></span><span class="mono" data-tok="ochre-bright">ochre-bright</span></span></td>
+            <td class="ratio" data-ratio="ochre-bright|bg">8.2<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="ochre-bright|surface">7.7</td>
+            <td class="dim">strong warnings</td>
+            <td class="dim"></td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td>
+            <td class="ratio" data-ratio="ochre|bg">7.1<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="ochre|surface">6.7</td>
+            <td class="dim">numbers, warnings</td>
+            <td class="dim"></td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-olive)"></span><span class="mono" data-tok="olive">olive</span></span></td>
+            <td class="ratio" data-ratio="olive|bg">6.5<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="olive|surface">6.1</td>
+            <td class="dim">strings</td>
+            <td class="dim"></td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td>
+            <td class="ratio" data-ratio="moss|bg">5.7<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="moss|surface">5.4</td>
+            <td class="dim">keywords, accents, cursor</td>
+            <td class="dim"></td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td>
+            <td class="ratio" data-ratio="red-bright|bg">5.1<span class="aa pass">AA</span></td>
+            <td class="ratio" data-ratio="red-bright|surface">4.8</td>
+            <td class="dim">critical errors</td>
+            <td class="dim"></td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td>
+            <td class="ratio" data-ratio="muted|bg">4.1<span class="aa under">below</span></td>
+            <td class="ratio" data-ratio="muted|surface">3.9</td>
+            <td class="dim">comments, secondary text</td>
+            <td class="dim">Intentionally below 4.5 — quiet by design.</td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td>
+            <td class="ratio" data-ratio="red|bg">4.0<span class="aa under">below</span></td>
+            <td class="ratio" data-ratio="red|surface">3.7</td>
+            <td class="dim">errors</td>
+            <td class="dim">Acceptable for short emphasis; red-bright for critical.</td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td>
+            <td class="ratio" data-ratio="forest|bg">3.3<span class="aa under">below</span></td>
+            <td class="ratio" data-ratio="forest|surface">3.1</td>
+            <td class="dim">operators, tags, decoration</td>
+            <td class="dim">Intentionally low; never essential text.</td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td>
+            <td class="ratio" data-ratio="faint|bg">2.4<span class="aa under">below</span></td>
+            <td class="ratio" data-ratio="faint|surface">2.2</td>
+            <td class="dim">disabled, line numbers</td>
+            <td class="dim">Exempt categories; never for active content.</td>
+          </tr>
+          <tr>
+            <td><span class="token-cell"><span class="chip" style="background: var(--moss-border)"></span><span class="mono">border / active / selection</span></span></td>
+            <td class="ratio">1.1&ndash;1.5</td>
+            <td class="ratio faint">&mdash;</td>
+            <td class="dim">backgrounds, borders</td>
+            <td class="dim">Not text; the low ratio is the point.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prov-note">
+      Selected text stays fully readable: <span class="mono" data-tok="fg">fg</span> on
+      <span class="mono">selection</span> is 9.0:1. The surface family sits
+      1.07&ndash;1.08:1 apart &mdash; cohesive, not banded. Ports may lift lightness
+      slightly with documentation; the hue must never change (SPEC &sect;10&ndash;11).
+    </p>
+  </section>
+
+  <!-- ============ 07 · DESIGN PRINCIPLES ============ -->
+  <section id="principles">
+    <h2><span class="n">07</span><a class="anchor" href="#principles">Design Principles</a></h2>
+    <p class="section-intro">The rules behind every mapping in this document.</p>
+    <div class="tbl-wrap">
+      <ol class="principles" style="padding: 6px 20px 12px">
+        <li><b>Very dark, never pure black.</b> Near-black with a faint green-grey cast; no blue-tinted or literal black backgrounds.</li>
+        <li><b>Muted and low-noise.</b> Low saturation everywhere. No neon, no glow, nothing that shouts.</li>
+        <li><b>Green is the identity — not a wash.</b> The green family carries structure and accent; the rest stays in the neutral background family.</li>
+        <li><b>Hierarchy over brightness.</b> Normal text is the brightest token; accents descend a fixed luminance ladder and never compete with content.</li>
+        <li><b>Warm tones carry values.</b> Olive for strings, ochre for numbers and gentle warnings — contrast where green would grow monotonous.</li>
+        <li><b>Red is reserved.</b> Errors, destructive states, exceptional syntax. Never decoration.</li>
+        <li><b>Surfaces stay close.</b> bg, surface, and overlay differ by about 1.1:1 steps — cohesive, not banded.</li>
+        <li><b>Subtle selection and cursor line.</b> Tints, not bright blocks; text keeps the normal foreground.</li>
+        <li><b>Comfortable readability.</b> Normal text ≥ 12:1; secondary text ≈ 4:1. Strict AA on every token is not the goal — hue and hierarchy are.</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span style="color: var(--moss-moss)">MOSS</span> — colorscheme specification v0.1 &middot; specification phase &middot; no editor or terminal ports yet
+  &middot; canonical source: <a href="SPEC.md">SPEC.md</a> &middot; this page: visual reference
+</footer>
+
+<script>
+/* Progressive enhancement only — the page is complete and correct without it.
+   Three jobs:
+     1. keep the printed hexes and contrast ratios honest against tokens/moss.css,
+     2. make every value copyable (hex, whole palette as CSS or JSON),
+     3. mark the section in view in the sticky nav.
+   Nothing here introduces a color or a value of its own. */
+(() => {
+  "use strict";
+  const css = getComputedStyle(document.documentElement);
+  const hex = (tok) => css.getPropertyValue("--moss-" + tok).trim().toUpperCase();
+
+  /* token order comes from the palette table, which follows SPEC §3 */
+  const rows = [...document.querySelectorAll("#palette tbody tr")]
+    .map((tr) => {
+      const chip = tr.querySelector(".chip[style*='--moss-']");
+      if (!chip) return null;
+      const tok = chip.getAttribute("style").match(/--moss-([\w-]+)/)[1];
+      return { tr, tok, cells: tr.querySelectorAll("td") };
+    })
+    .filter(Boolean);
+
+  /* ---- 1. printed hex must equal the token it claims to show ---- */
+  for (const { tok, cells } of rows) {
+    const cell = cells[2];
+    const actual = hex(tok);
+    if (!actual) continue;
+    if (cell.textContent.trim().toUpperCase() !== actual) {
+      cell.textContent = actual;
+      cell.title = "corrected from tokens/moss.css";
+    }
+    cell.dataset.copy = actual;
+  }
+
+  /* ---- contrast ratios, recomputed from the palette ---- */
+  const lin = (c) => (c /= 255) <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  const lum = (h) => {
+    const n = parseInt(h.slice(1), 16);
+    return 0.2126 * lin((n >> 16) & 255) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
+  };
+  const ratio = (a, b) => {
+    const [x, y] = [lum(a), lum(b)];
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  };
+  for (const cell of document.querySelectorAll("[data-ratio]")) {
+    const [tok, base] = cell.dataset.ratio.split("|");
+    const badge = cell.querySelector(".aa");
+    const r = ratio(hex(tok), hex(base));
+    cell.firstChild.nodeValue = r.toFixed(1);
+    if (badge) badge.title = r.toFixed(2) + ":1";
+  }
+
+  /* ---- 2. copying ---- */
+  const write = async (text) => {
+    /* the async clipboard rejects outside a permissioned secure context —
+       opened from file://, or with clipboard-write denied — so always fall
+       back rather than leaving the click with no effect and no feedback */
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {}
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.append(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch {}
+    ta.remove();
+    return ok;
+  };
+  const flash = (el, label) => {
+    const original = el.textContent;
+    el.textContent = label;
+    el.classList.add("copied");
+    setTimeout(() => {
+      el.textContent = original;
+      el.classList.remove("copied");
+    }, 900);
+  };
+
+  /* hex cells become buttons only now, so they are never inert */
+  for (const cell of document.querySelectorAll("#palette td[data-copy]")) {
+    const value = cell.dataset.copy;
+    const btn = document.createElement("button");
+    btn.className = "copyable";
+    btn.type = "button";
+    btn.textContent = value;
+    btn.title = "Copy " + value;
+    btn.addEventListener("click", () => write(value).then((ok) => flash(btn, ok ? "copied" : "press \u2318C")));
+    cell.replaceChildren(btn);
+  }
+
+  const tokens = rows.map(({ tok }) => [tok, hex(tok)]).filter(([, v]) => v);
+  const asCss = () =>
+    ":root {\n" + tokens.map(([k, v]) => `  --moss-${k}: ${v};`).join("\n") + "\n}\n";
+  const asJson = () =>
+    JSON.stringify(Object.fromEntries(tokens), null, 2) + "\n";
+
+  const tools = document.createElement("div");
+  tools.className = "tbl-tools";
+  for (const [label, make] of [["Copy CSS", asCss], ["Copy JSON", asJson]]) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = label;
+    btn.addEventListener("click", () => write(make()).then((ok) => flash(btn, ok ? "copied" : "copy failed")));
+    tools.append(btn);
+  }
+  const wrap = document.querySelector("#palette .tbl-wrap");
+  wrap.parentNode.insertBefore(tools, wrap);
+
+  /* ---- 3. which section am I in ---- */
+  const links = new Map(
+    [...document.querySelectorAll("nav.toc a")].map((a) => [a.hash.slice(1), a])
+  );
+  const seen = new Set();
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) e.isIntersecting ? seen.add(e.target.id) : seen.delete(e.target.id);
+      for (const [id, a] of links) a.removeAttribute("aria-current");
+      const first = [...links.keys()].find((id) => seen.has(id));
+      if (first) links.get(first).setAttribute("aria-current", "true");
+    },
+    { rootMargin: "-58px 0px -70% 0px" }
+  );
+  for (const id of links.keys()) {
+    const el = document.getElementById(id);
+    if (el) spy.observe(el);
+  }
+})();
+</script>
+
+</body>
+</html>

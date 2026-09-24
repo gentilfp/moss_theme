@@ -1,0 +1,131 @@
+{
+  "name": "MOSS",
+  "version": "0.1",
+  "status": "specification",
+  "canonicalSource": "SPEC.md",
+  "description": "A very dark, muted colorscheme. Machine-readable palette for ports. SPEC.md remains the prose source of truth; this file is its data projection and must be updated in the same commit as a spec revision.",
+  "core": {
+    "bg": {
+      "hex": "#0D0F0C",
+      "role": "Main background",
+      "notes": "Near-black with a green-grey cast. Never pure black."
+    },
+    "surface": {
+      "hex": "#141713",
+      "role": "Secondary surfaces",
+      "notes": "Sidebars, status bar, secondary chrome. Close to bg."
+    },
+    "overlay": {
+      "hex": "#1B1F1A",
+      "role": "Elevated surfaces",
+      "notes": "Menus, popups, panels, floating windows."
+    },
+    "fg": {
+      "hex": "#D7D9D2",
+      "role": "Normal foreground",
+      "notes": "The brightest token in the theme. Never pure white."
+    },
+    "muted": {
+      "hex": "#70766B",
+      "role": "Muted text, comments, secondary info",
+      "notes": "Greener grey; readable but clearly subdued."
+    },
+    "moss": {
+      "hex": "#7E9273",
+      "role": "Primary identity green",
+      "notes": "Keywords, cursor, focus, git-added, search accents."
+    },
+    "forest": {
+      "hex": "#536B4F",
+      "role": "Deep green for receding roles",
+      "notes": "Operators, markup tags, decoration. Low contrast by design."
+    },
+    "olive": {
+      "hex": "#9A9968",
+      "role": "Warm green for string-like values",
+      "notes": "Strings, char literals."
+    },
+    "ochre": {
+      "hex": "#B69A64",
+      "role": "Warm gold for values and gentle warnings",
+      "notes": "Numbers, booleans, constants, decorators, warnings."
+    },
+    "red": {
+      "hex": "#A75D57",
+      "role": "Errors and destructive states",
+      "notes": "Muted brick red. Not alarming, but unmistakable."
+    }
+  },
+  "derived": {
+    "border": {
+      "hex": "#272C24",
+      "anchor": "overlay",
+      "relationship": "overlay lifted toward the bg hue family (L ~ 0.024)",
+      "role": "Subtle borders, dividers, outlines"
+    },
+    "active": {
+      "hex": "#191D18",
+      "anchor": "surface",
+      "relationship": "between surface and overlay (L ~ 0.012)",
+      "role": "Cursor line, hover backgrounds, pressed rows"
+    },
+    "selection": {
+      "hex": "#2A3527",
+      "anchor": "moss",
+      "relationship": "moss scaled to ~30% brightness (L ~ 0.032)",
+      "role": "Selection background"
+    },
+    "faint": {
+      "hex": "#4B5147",
+      "anchor": "muted",
+      "relationship": "muted darkened ~40% (L ~ 0.078)",
+      "role": "Disabled text, non-current line numbers"
+    },
+    "ochre-bright": {
+      "hex": "#C7A46B",
+      "anchor": "ochre",
+      "relationship": "ochre lifted (L ~ 0.40)",
+      "role": "Strong warnings, escape sequences"
+    },
+    "red-bright": {
+      "hex": "#C06B63",
+      "anchor": "red",
+      "relationship": "red lifted (L ~ 0.23)",
+      "role": "Strong errors, conflict markers"
+    }
+  },
+  "tints": {
+    "comment": "Diff-tint backgrounds per SPEC section 8: the token at ~10-12% alpha over bg. Rendering parameters, not palette entries.",
+    "moss": "rgba(126, 146, 115, 0.10)",
+    "ochre": "rgba(182, 154, 100, 0.10)",
+    "red": "rgba(167, 93, 87, 0.10)",
+    "red-strong": "rgba(192, 107, 99, 0.12)"
+  },
+  "ansi": {
+    "comment": "SPEC section 9. The ANSI palette is a projection of the semantic palette onto a 16-slot model. Slots marked tbd are fixed when the first terminal port is made; a port that needs one must document its choice as a deviation.",
+    "slots": [
+      { "slot": 0, "name": "black", "source": "bg", "status": "fixed" },
+      { "slot": 1, "name": "red", "source": "red", "status": "fixed" },
+      { "slot": 2, "name": "green", "source": "moss", "status": "fixed" },
+      { "slot": 3, "name": "yellow", "source": "ochre", "status": "fixed" },
+      { "slot": 4, "name": "blue", "source": null, "status": "tbd", "rule": "MOSS has no blue. If required, a desaturated blue-green, L 0.08-0.18, saturation at or below olive's." },
+      { "slot": 5, "name": "magenta", "source": null, "status": "tbd", "rule": "Muted mauve-grey, low saturation, same luminance band." },
+      { "slot": 6, "name": "cyan", "source": "olive", "status": "fixed", "rule": "The cyan slot is habitually used for strings, and olive is MOSS's string color." },
+      { "slot": 7, "name": "white", "source": "fg", "status": "fixed" },
+      { "slot": 8, "name": "bright black", "source": "surface", "status": "fixed" },
+      { "slot": 9, "name": "bright red", "source": "red-bright", "status": "fixed" },
+      { "slot": 10, "name": "bright green", "source": "moss", "status": "tbd", "rule": "moss lifted +12-18% lightness, same hue." },
+      { "slot": 11, "name": "bright yellow", "source": "ochre-bright", "status": "fixed" },
+      { "slot": 12, "name": "bright blue", "source": null, "status": "tbd", "rule": "Same family as slot 4." },
+      { "slot": 13, "name": "bright magenta", "source": null, "status": "tbd", "rule": "Same family as slot 5." },
+      { "slot": 14, "name": "bright cyan", "source": "olive", "status": "tbd", "rule": "olive lifted." },
+      { "slot": 15, "name": "bright white", "source": "fg", "status": "tbd", "rule": "fg lifted toward, but never reaching, pure white." }
+    ],
+    "rules": [
+      "Terminal backgrounds stay near-black; never pure #000.",
+      "Brights (9-15) keep the hue of their base slot, +12-18% lightness, saturation capped at the base slot's. Bright does not mean vivid.",
+      "Bold text is fg at normal weight, or the lifted slot only where the platform forces bold to bright. Never pure white.",
+      "Terminal cursor is moss, selection uses the selection background, hyperlinks are moss plus underline."
+    ]
+  }
+}

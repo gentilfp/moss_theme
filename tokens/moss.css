@@ -1,0 +1,34 @@
+/* ============================================================
+   MOSS 0.1 — palette tokens.
+   GENERATED FROM tokens/moss.json by tokens/build.mjs — do not edit by hand.
+   Prose source of truth: SPEC.md (§3 palette, §8 diff tints).
+   Token names map 1:1 to the spec in kebab-case; token "moss" binds
+   to --moss-moss.
+   ============================================================ */
+:root {
+  /* core — fixed identity (SPEC §3.1) */
+  --moss-bg:               #0D0F0C;            /* main background */
+  --moss-surface:          #141713;            /* secondary surfaces */
+  --moss-overlay:          #1B1F1A;            /* elevated surfaces */
+  --moss-fg:               #D7D9D2;            /* normal foreground */
+  --moss-muted:            #70766B;            /* muted text, comments, secondary info */
+  --moss-moss:             #7E9273;            /* primary identity green */
+  --moss-forest:           #536B4F;            /* deep green for receding roles */
+  --moss-olive:            #9A9968;            /* warm green for string-like values */
+  --moss-ochre:            #B69A64;            /* warm gold for values and gentle warnings */
+  --moss-red:              #A75D57;            /* errors and destructive states */
+
+  /* derived — anchored to core, revisionable (SPEC §3.2) */
+  --moss-border:           #272C24;            /* subtle borders, dividers, outlines */
+  --moss-active:           #191D18;            /* cursor line, hover backgrounds, pressed rows */
+  --moss-selection:        #2A3527;            /* selection background */
+  --moss-faint:            #4B5147;            /* disabled text, non-current line numbers */
+  --moss-ochre-bright:     #C7A46B;            /* strong warnings, escape sequences */
+  --moss-red-bright:       #C06B63;            /* strong errors, conflict markers */
+
+  /* diff tints — rendering parameters, not palette entries (SPEC §8) */
+  --moss-tint-moss:        rgba(126, 146, 115, 0.10);
+  --moss-tint-ochre:       rgba(182, 154, 100, 0.10);
+  --moss-tint-red:         rgba(167, 93, 87, 0.10);
+  --moss-tint-red-strong:  rgba(192, 107, 99, 0.12);
+}
