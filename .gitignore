@@ -1,0 +1,5 @@
+# browser tooling scratch output
+.playwright-mcp/
+
+# macOS
+.DS_Store
