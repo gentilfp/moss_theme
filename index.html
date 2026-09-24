@@ -488,15 +488,6 @@
     border: 1px solid color-mix(in srgb, var(--moss-fg) 22%, transparent);
     margin-bottom: 9px;
   }
-  /* TBD slots carry no color: a hatch stands in for the undecided value */
-  .slot.tbd .fill {
-    border-style: dashed;
-    background: repeating-linear-gradient(
-      -45deg,
-      var(--moss-active) 0 6px,
-      var(--moss-bg) 6px 12px
-    );
-  }
   .slot .num {
     font-family: var(--mono);
     font-size: 10.5px;
@@ -513,7 +504,6 @@
     margin-top: 3px;
     color: var(--moss-muted);
   }
-  .slot.tbd .src { color: var(--moss-ochre-bright); }
 
   .rules {
     margin: 18px 0 0;
@@ -569,7 +559,7 @@
 <body>
 
 <header>
-  <p class="kicker">v0.1 &middot; work in progress</p>
+  <p class="kicker">v0.2 &middot; work in progress</p>
   <h1>MOSS</h1>
   <p class="subtitle">A dark color scheme</p>
   <p class="tagline">Dark and calm. Mostly green, a bit of warm gold, red only for errors. Made for calmness.</p>
@@ -919,7 +909,7 @@
   <!-- ============ 05 · TERMINAL / ANSI ============ -->
   <section id="ansi">
     <h2><span class="n">05</span><a class="anchor" href="#ansi">Terminal &amp; ANSI Slots</a></h2>
-    <p class="section-intro">The 16 terminal colors. Striped ones are not decided yet.</p>
+    <p class="section-intro">The 16 terminal colors.</p>
     <div class="ansi">
         <div class="slot">
           <div class="fill" style="background: var(--moss-bg)"></div>
@@ -945,17 +935,17 @@
           <div class="nm">yellow</div>
           <div class="src mono">ochre</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-4)"></div>
           <div class="num">04</div>
           <div class="nm">blue</div>
-          <div class="src mono">TBD</div>
+          <div class="src mono">blue-green</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-5)"></div>
           <div class="num">05</div>
           <div class="nm">magenta</div>
-          <div class="src mono">TBD</div>
+          <div class="src mono">mauve-grey</div>
         </div>
         <div class="slot">
           <div class="fill" style="background: var(--moss-olive)"></div>
@@ -970,10 +960,10 @@
           <div class="src mono">fg</div>
         </div>
         <div class="slot">
-          <div class="fill" style="background: var(--moss-surface)"></div>
+          <div class="fill" style="background: var(--moss-muted)"></div>
           <div class="num">08</div>
           <div class="nm">bright black</div>
-          <div class="src mono">surface</div>
+          <div class="src mono">muted</div>
         </div>
         <div class="slot">
           <div class="fill" style="background: var(--moss-red-bright)"></div>
@@ -981,8 +971,8 @@
           <div class="nm">bright red</div>
           <div class="src mono">red-bright</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-10)"></div>
           <div class="num">10</div>
           <div class="nm">bright green</div>
           <div class="src mono">moss lifted</div>
@@ -993,26 +983,26 @@
           <div class="nm">bright yellow</div>
           <div class="src mono">ochre-bright</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-12)"></div>
           <div class="num">12</div>
           <div class="nm">bright blue</div>
-          <div class="src mono">TBD</div>
+          <div class="src mono">blue-green lifted</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-13)"></div>
           <div class="num">13</div>
           <div class="nm">bright magenta</div>
-          <div class="src mono">TBD</div>
+          <div class="src mono">mauve-grey lifted</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-14)"></div>
           <div class="num">14</div>
           <div class="nm">bright cyan</div>
           <div class="src mono">olive lifted</div>
         </div>
-        <div class="slot tbd">
-          <div class="fill"></div>
+        <div class="slot">
+          <div class="fill" style="background: var(--moss-ansi-15)"></div>
           <div class="num">15</div>
           <div class="nm">bright white</div>
           <div class="src mono">fg lifted</div>
@@ -1110,7 +1100,7 @@
 </main>
 
 <footer>
-  <span style="color: var(--moss-moss)">MOSS</span> v0.1 &middot; full spec: <a href="SPEC.md">SPEC.md</a>
+  <span style="color: var(--moss-moss)">MOSS</span> v0.2 &middot; full spec: <a href="SPEC.md">SPEC.md</a>
 </footer>
 
 <script>

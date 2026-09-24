@@ -1,7 +1,8 @@
 /* ============================================================
-   MOSS 0.1 — palette tokens.
+   MOSS 0.2 — palette tokens.
    GENERATED FROM tokens/moss.json by tokens/build.mjs — do not edit by hand.
-   Prose source of truth: SPEC.md (§3 palette, §8 diff tints).
+   Prose source of truth: SPEC.md (§3 palette, §8 diff tints,
+   §9 ANSI slots).
    Token names map 1:1 to the spec in kebab-case; token "moss" binds
    to --moss-moss.
    ============================================================ */
@@ -31,4 +32,22 @@
   --moss-tint-ochre:       rgba(182, 154, 100, 0.10);
   --moss-tint-red:         rgba(167, 93, 87, 0.10);
   --moss-tint-red-strong:  rgba(192, 107, 99, 0.12);
+
+  /* ANSI slots — terminal projection of the palette (SPEC §9) */
+  --moss-ansi-0:           #0D0F0C;            /* black */
+  --moss-ansi-1:           #A75D57;            /* red */
+  --moss-ansi-2:           #7E9273;            /* green */
+  --moss-ansi-3:           #B69A64;            /* yellow */
+  --moss-ansi-4:           #5D7B81;            /* blue */
+  --moss-ansi-5:           #8F6C80;            /* magenta */
+  --moss-ansi-6:           #9A9968;            /* cyan */
+  --moss-ansi-7:           #D7D9D2;            /* white */
+  --moss-ansi-8:           #70766B;            /* bright black */
+  --moss-ansi-9:           #C06B63;            /* bright red */
+  --moss-ansi-10:          #92A389;            /* bright green */
+  --moss-ansi-11:          #C7A46B;            /* bright yellow */
+  --moss-ansi-12:          #6C8D94;            /* bright blue */
+  --moss-ansi-13:          #A08193;            /* bright magenta */
+  --moss-ansi-14:          #AAA97F;            /* bright cyan */
+  --moss-ansi-15:          #F0F0EE;            /* bright white */
 }

@@ -1,0 +1,33 @@
+# MOSS — Ghostty theme
+# Spec: SPEC.md v0.2 · Port date: 2026-09-24
+# Palette: tokens/moss.json (ANSI slots per SPEC.md §9.2)
+#
+# Deviation log (SPEC.md §11.10):
+#   cursor-text  #0D0F0C  bg under the moss block cursor (5.7:1); SPEC.md
+#                §14 #8 anticipates a text-contrast variant for block cursors.
+
+background = #0D0F0C
+foreground = #D7D9D2
+
+cursor-color = #7E9273
+cursor-text = #0D0F0C
+
+selection-background = #2A3527
+selection-foreground = #D7D9D2
+
+palette = 0=#0D0F0C
+palette = 1=#A75D57
+palette = 2=#7E9273
+palette = 3=#B69A64
+palette = 4=#5D7B81
+palette = 5=#8F6C80
+palette = 6=#9A9968
+palette = 7=#D7D9D2
+palette = 8=#70766B
+palette = 9=#C06B63
+palette = 10=#92A389
+palette = 11=#C7A46B
+palette = 12=#6C8D94
+palette = 13=#A08193
+palette = 14=#AAA97F
+palette = 15=#F0F0EE

@@ -1,6 +1,6 @@
 # MOSS — Theme Specification
 
-**Status:** v0.1 · Specification phase — **no editor or terminal ports exist yet**.
+**Status:** v0.2 · Specification phase — first port: Ghostty (`ghostty/`).
 
 **Sources of truth:** `SPEC.md` (this file) is the canonical specification.
 `index.html` is the standalone visual reference. The two must stay in sync; when
@@ -20,9 +20,9 @@ The theme is built for long coding sessions: nothing should shout, and normal
 text should always be the brightest thing on screen. Green is the main accent
 family and is used deliberately — it is never a wash over the whole UI.
 
-This repository contains only the specification and its visual reference.
-Ports (Neovim, Zed, Ghostty, VS Code, Orca, terminal emulators, …) will be
-developed later, in separate repositories, starting from this spec.
+This repository contains the specification, its visual reference, and the
+ports. Each port (Neovim, Zed, Ghostty, VS Code, Orca, terminal emulators, …)
+lives in its own top-level folder and is built from this spec.
 
 ## 2. Design Principles
 
@@ -208,28 +208,33 @@ for interactive highlights.
 
 ## 9. Terminal / ANSI Guidance
 
-**The final ANSI palette is deliberately TBD.** ANSI colors are a *projection*
-of the semantic palette onto a 16-slot model, and the projection depends on the
-terminal's color model (truecolor vs 256 vs 16). This section defines only the
-derivation rules; exact hex values are marked TBD and will be fixed when the
-first terminal port is made.
+ANSI colors are a *projection* of the semantic palette onto a 16-slot model.
+Slots with a source token take its hex. The remaining slots (4, 5, 10, 12–15)
+were fixed in v0.2 at the first terminal port (Ghostty) by the rules below.
+Lifts are measured in HSL lightness; hue and saturation stay those of the base
+slot.
 
 ### 9.1 Derivation rules
 
-1. **0 / 8** — the black slots take `bg` (0) and `surface` (8). Terminal
-   backgrounds must remain near-black; never pure `#000`.
+1. **0 / 8** — slot 0 takes `bg`; slot 8 takes `muted`. Terminals use slot 8
+   for dim but readable text (autosuggestions, timestamps, line numbers), and
+   `muted` is MOSS's secondary-text role; `surface` there (1.07:1) left that
+   text invisible. Terminal backgrounds must remain near-black; never pure
+   `#000`.
 2. **1 / 9** — `red` / `red-bright`.
-3. **2 / 10** — `moss`; 10 = `moss` lifted (+12–18% lightness, same hue, TBD).
+3. **2 / 10** — `moss`; 10 = `moss` lifted +15%.
 4. **3 / 11** — `ochre` / `ochre-bright`.
-5. **4 / 12 (blue)** — **TBD.** MOSS has no blue. If the platform requires a
-   blue slot, choose a desaturated blue-green whose luminance sits in the
-   palette band (L ≈ 0.08–0.18) and whose saturation is at or below `olive`'s.
-   Document the hex as a deviation in the port.
-6. **5 / 13 (magenta)** — **TBD.** A muted mauve-grey, low saturation, same
-   luminance band. Document as a deviation.
-7. **6 / 14 (cyan)** — `olive` preferred (the cyan slot is habitually used for
-   strings, and `olive` is MOSS's string color). Exact lifted variant TBD.
-8. **7 / 15** — `fg`; 15 = `fg` lifted toward (but **never**) pure white. TBD.
+5. **4 / 12 (blue)** — MOSS has no blue. Slot 4 is a desaturated blue-green
+   (H 190, S 0.16) whose luminance sits in the palette band (L ≈ 0.08–0.18)
+   and whose saturation is at or below `olive`'s. It sits at the top of the
+   band (L 0.18, 4.2:1 on `bg`); a brighter value would leave it. 12 = slot 4
+   lifted +15%.
+6. **5 / 13 (magenta)** — a muted mauve-grey (H 325, S 0.14), same luminance
+   as slot 4. 13 = slot 5 lifted +15%.
+7. **6 / 14 (cyan)** — `olive` (the cyan slot is habitually used for strings,
+   and `olive` is MOSS's string color). 14 = `olive` lifted +15%.
+8. **7 / 15** — `fg`; 15 = `fg` lifted +12%, the smallest allowed lift, toward
+   (but **never**) pure white.
 9. **Brights** (9–15) are the same hue as their base slot, +12–18% lightness,
    with saturation capped at the base slot's — bright does **not** mean vivid.
 10. **Bold text** = `fg` in normal weight or the lifted slot only where the
@@ -239,24 +244,24 @@ first terminal port is made.
 
 ### 9.2 Slot table
 
-| Slot | ANSI class | Source         | Hex status          |
-| ---- | ---------- | -------------- | ------------------- |
-| 0    | black      | `bg`           | fixed (identity)    |
-| 1    | red        | `red`          | fixed (identity)    |
-| 2    | green      | `moss`         | fixed (identity)    |
-| 3    | yellow     | `ochre`        | fixed (identity)    |
-| 4    | blue       | —              | **TBD**             |
-| 5    | magenta    | —              | **TBD**             |
-| 6    | cyan       | `olive`        | fixed (identity)    |
-| 7    | white      | `fg`           | fixed (identity)    |
-| 8    | bright black | `surface`    | fixed (identity)    |
-| 9    | bright red | `red-bright`   | fixed (derived)     |
-| 10   | bright green | `moss` lifted | **TBD**             |
-| 11   | bright yellow | `ochre-bright` | fixed (derived)   |
-| 12   | bright blue | —              | **TBD** (same family as 4) |
-| 13   | bright magenta | —          | **TBD** (same family as 5) |
-| 14   | bright cyan | `olive` lifted | **TBD**             |
-| 15   | bright white | `fg` lifted   | **TBD**              |
+| Slot | ANSI class     | Source           | Hex       |
+| ---- | -------------- | ---------------- | --------- |
+| 0    | black          | `bg`             | `#0D0F0C` |
+| 1    | red            | `red`            | `#A75D57` |
+| 2    | green          | `moss`           | `#7E9273` |
+| 3    | yellow         | `ochre`          | `#B69A64` |
+| 4    | blue           | blue-green       | `#5D7B81` |
+| 5    | magenta        | mauve-grey       | `#8F6C80` |
+| 6    | cyan           | `olive`          | `#9A9968` |
+| 7    | white          | `fg`             | `#D7D9D2` |
+| 8    | bright black   | `muted`          | `#70766B` |
+| 9    | bright red     | `red-bright`     | `#C06B63` |
+| 10   | bright green   | `moss` lifted    | `#92A389` |
+| 11   | bright yellow  | `ochre-bright`   | `#C7A46B` |
+| 12   | bright blue    | slot 4 lifted    | `#6C8D94` |
+| 13   | bright magenta | slot 5 lifted    | `#A08193` |
+| 14   | bright cyan    | `olive` lifted   | `#AAA97F` |
+| 15   | bright white   | `fg` lifted      | `#F0F0EE` |
 
 ## 10. Contrast and Accessibility
 
@@ -362,7 +367,7 @@ A port is any editor, terminal, or app integration of MOSS.
     destructive states, and exceptional syntax.
 11. **No red/ochre for focus** — focus is `moss`; warm colors mean
     warning/value, focus means identity.
-12. **No ANSI shortcuts** — 16-color ports follow §9, including the TBD slots;
+12. **No ANSI shortcuts** — 16-color ports follow §9, including the derived slots;
     "vivid" approximations of `red`/`ochre` (i.e. pure ANSI 1/3 defaults) are
     not MOSS.
 13. **No shipping without a deviation log.**
@@ -371,7 +376,7 @@ A port is any editor, terminal, or app integration of MOSS.
 
 These decisions are recorded as provisional so they can be revised **before**
 ports are created. Each lists the revision trigger. Anything fixed in §3.1 or
-marked "fixed" in §9.2 is not open for revision without a version bump.
+listed in §9.2 is not open for revision without a version bump.
 
 | # | Decision | Current value | Revision trigger |
 | - | -------- | ------------- | ---------------- |
@@ -384,11 +389,11 @@ marked "fixed" in §9.2 is not open for revision without a version bump.
 | 7 | search match presentation | `selection` bg + `moss` text; current match `fg` + `moss` outline | Visual review of `index.html` states section. |
 | 8 | cursor | solid `moss` | Platform cursor conventions (e.g. block vs beam) may need a text-contrast variant. |
 | 9 | derived-color hexes (§3.2) | as listed | Formulas are fixed; exact hexes may be tuned until v1.0. |
-| 10 | ANSI slots 4, 5, 12, 13, 14 | TBD (§9) | Fixed at first terminal port, following §9.1 rules. |
-| 11 | bold/italic assignments | as noted in §5.1 | Typography details settle during first editor port. |
+| 10 | bold/italic assignments | as noted in §5.1 | Typography details settle during first editor port. |
 
 ## Appendix — Revision History
 
 | Version | Date       | Change                                  |
 | ------- | ---------- | --------------------------------------- |
 | v0.1    | (initial)  | Initial specification; specification phase. |
+| v0.2    | 2026-09-24 | ANSI slots 4, 5, 10, 12–15 fixed (§9) at the first terminal port (Ghostty); slot 8 moved from `surface` to `muted` so dim terminal text stays readable. Ports now live in this repository. |

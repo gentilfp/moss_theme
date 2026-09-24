@@ -23,12 +23,14 @@ const derived = Object.entries(t.derived).map(([k, v]) => [k, v.hex, v.role.toLo
 const tints = Object.entries(t.tints)
   .filter(([k]) => k !== "comment")
   .map(([k, v]) => [`tint-${k}`, v]);
-const width = pad([...core, ...derived, ...tints]);
+const ansi = t.ansi.slots.map((s) => [`ansi-${s.slot}`, s.hex, s.name]);
+const width = pad([...core, ...derived, ...tints, ...ansi]);
 
 const css = `/* ============================================================
    MOSS ${t.version} — palette tokens.
    GENERATED FROM tokens/moss.json by tokens/build.mjs — do not edit by hand.
-   Prose source of truth: ${t.canonicalSource} (§3 palette, §8 diff tints).
+   Prose source of truth: ${t.canonicalSource} (§3 palette, §8 diff tints,
+   §9 ANSI slots).
    Token names map 1:1 to the spec in kebab-case; token "moss" binds
    to --moss-moss.
    ============================================================ */
@@ -41,8 +43,11 @@ ${block(derived, width)}
 
   /* diff tints — rendering parameters, not palette entries (SPEC §8) */
 ${block(tints, width)}
+
+  /* ANSI slots — terminal projection of the palette (SPEC §9) */
+${block(ansi, width)}
 }
 `;
 
 writeFileSync(join(here, "moss.css"), css);
-console.log(`moss.css written — ${core.length} core + ${derived.length} derived + ${tints.length} tints`);
+console.log(`moss.css written — ${core.length} core + ${derived.length} derived + ${tints.length} tints + ${ansi.length} ansi`);
