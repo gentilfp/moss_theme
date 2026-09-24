@@ -15,6 +15,7 @@ designed for long coding sessions.
 - `tokens/moss.css` — `:root` custom properties, **generated** from `moss.json`
 - `index.html` — visual reference / palette preview (open directly in a browser)
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
+- `zed/moss.json` — Zed theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -36,8 +37,9 @@ Each port records its spec version and deviation log in its own files.
 | Port    | Folder     | Install |
 | ------- | ---------- | ------- |
 | Ghostty | `ghostty/` | Copy `ghostty/MOSS` to `~/.config/ghostty/themes/MOSS`, then set `theme = MOSS` in your Ghostty config. |
+| Zed     | `zed/`     | Copy `zed/moss.json` to `~/.config/zed/themes/moss.json`, then select **MOSS** in the theme selector. Deviation log: `zed/README.md`. |
 
-Neovim, Zed, VS Code, Orca, and other integrations will follow.
+Neovim, VS Code, Orca, and other integrations will follow.
 
 ## Design philosophy
 
