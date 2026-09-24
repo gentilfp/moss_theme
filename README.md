@@ -16,6 +16,8 @@ designed for long coding sessions.
 - `index.html` — visual reference / palette preview (open directly in a browser)
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
 - `zed/moss.json` — Zed theme (see [Ports](#ports))
+- `claude-code/moss.json` — Claude Code theme (see [Ports](#ports))
+- `pi/moss.json` — Pi theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -38,6 +40,8 @@ Each port records its spec version and deviation log in its own files.
 | ------- | ---------- | ------------------ |
 | Ghostty | `ghostty/` | in `ghostty/MOSS`  |
 | Zed     | `zed/`     | `zed/README.md`    |
+| Claude Code | `claude-code/` | `claude-code/README.md` |
+| Pi      | `pi/`      | `pi/README.md`     |
 
 ## Usage
 
@@ -80,13 +84,45 @@ Open the theme selector (`cmd-k cmd-t`) and pick **MOSS**, or set it in
 Zed reloads theme files on save. If MOSS is missing from the selector, run
 **zed: open log** and look for a theme error.
 
+### Claude Code
+
+```sh
+mkdir -p ~/.claude/themes
+ln -sf ~/Developer/moss_theme/claude-code/moss.json ~/.claude/themes/moss.json
+```
+
+Pick **MOSS** in `/theme`, or set it in `~/.claude/settings.json`:
+
+```json
+"theme": "custom:moss"
+```
+
+Claude Code watches the themes folder, so edits apply without a restart. This only
+works if the folder existed when Claude Code started.
+
+### Pi
+
+```sh
+mkdir -p ~/.pi/agent/themes
+ln -sf ~/Developer/moss_theme/pi/moss.json ~/.pi/agent/themes/moss.json
+```
+
+Pick **MOSS** in `/settings` → Theme, or set it in `~/.pi/agent/settings.json`:
+
+```json
+"theme": "MOSS"
+```
+
+Pi hot-reloads the active user theme; run `/reload` after a `git pull` if the
+theme file changed.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed on its own.
+Ghostty picks up the change on reload; Zed and Claude Code on their own.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
