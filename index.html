@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="MOSS — a very dark, muted colorscheme. Visual reference for the palette, semantic roles, syntax mapping, UI states, ANSI slots and contrast ratios defined in SPEC.md.">
-<title>MOSS — Colorscheme Specification Reference</title>
+<meta name="description" content="MOSS — a dark, calm, green color scheme.">
+<title>MOSS Color Scheme</title>
 <link rel="stylesheet" href="tokens/moss.css">
 <style>
   /* Palette tokens live in tokens/moss.css, generated from tokens/moss.json
@@ -95,7 +95,6 @@
   #states     { --acc: var(--moss-forest); }
   #ansi       { --acc: var(--moss-olive); }
   #contrast   { --acc: var(--moss-ochre-bright); }
-  #principles { --acc: var(--moss-moss); }
 
   h2 {
     margin: 0 0 16px;
@@ -352,31 +351,6 @@
   .diff-del { background: var(--moss-tint-red); color: var(--moss-red); text-decoration: line-through; }
   .diff-con { background: var(--moss-tint-red-strong); color: var(--moss-red-bright); }
 
-  /* ---------- principles ---------- */
-  ol.principles {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    counter-reset: p;
-  }
-  ol.principles li {
-    counter-increment: p;
-    position: relative;
-    padding: 12px 0 12px 46px;
-    border-bottom: 1px solid var(--moss-border);
-    font-size: 14px;
-  }
-  ol.principles li:last-child { border-bottom: none; }
-  ol.principles li::before {
-    content: counter(p, decimal-leading-zero);
-    position: absolute;
-    left: 0; top: 12px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--acc, var(--moss-forest));
-  }
-  ol.principles li b { color: var(--moss-moss); font-weight: 600; }
-
   /* ---------- footer ---------- */
   footer {
     position: relative;
@@ -595,13 +569,10 @@
 <body>
 
 <header>
-  <p class="kicker">Colorscheme specification &middot; v0.1 &middot; specification phase</p>
+  <p class="kicker">v0.1 &middot; work in progress</p>
   <h1>MOSS</h1>
-  <p class="subtitle">A dark colorscheme</p>
-  <p class="tagline">
-    Very dark, muted, and low-noise. A green family — moss, forest, olive — used
-    with restraint, warm ochre for contrast, red reserved. Built for long sessions.
-  </p>
+  <p class="subtitle">A dark color scheme</p>
+  <p class="tagline">Dark and calm. Mostly green, a bit of warm gold, red only for errors. Made for calmness.</p>
 </header>
 
 <a class="skip" href="#palette">Skip to content</a>
@@ -614,7 +585,6 @@
     <li><a href="#states"><span class="n">04</span>States</a></li>
     <li><a href="#ansi"><span class="n">05</span>Terminal</a></li>
     <li><a href="#contrast"><span class="n">06</span>Contrast</a></li>
-    <li><a href="#principles"><span class="n">07</span>Principles</a></li>
   </ol>
 </nav>
 
@@ -623,131 +593,110 @@
   <!-- ============ 01 · PALETTE ============ -->
   <section id="palette">
     <h2><span class="n">01</span><a class="anchor" href="#palette">Palette</a></h2>
-    <p class="section-intro">
-      Sixteen tokens: ten core identity colors and six derived colors anchored to
-      them. Every swatch below renders the actual palette value; token names are
-      set in their own color where that color is readable on the surface.
-      Near-black swatches carry a hairline frame so they stay visible on the page.
-    </p>
+    <p class="section-intro">10 main colors, plus 6 made from them.</p>
     <div class="tbl-wrap">
       <table>
         <thead>
-          <tr><th>Swatch</th><th>Token</th><th>Hex</th><th>Role</th><th>Notes</th></tr>
+          <tr><th>Swatch</th><th>Token</th><th>Hex</th><th>Role</th></tr>
         </thead>
         <tbody>
-          <tr class="group group-core"><td colspan="5">Core &mdash; fixed identity</td></tr>
+          <tr class="group group-core"><td colspan="4">Main</td></tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-bg)"></span></td>
             <td class="mono">bg</td>
             <td class="mono dim">#0D0F0C</td>
             <td>Main background</td>
-            <td class="dim">Near-black with a green-grey cast. Never pure black.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-surface)"></span></td>
             <td class="mono">surface</td>
             <td class="mono dim">#141713</td>
             <td>Secondary surfaces</td>
-            <td class="dim">Sidebars, status bar. Close to bg for cohesion.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-overlay)"></span></td>
             <td class="mono">overlay</td>
             <td class="mono dim">#1B1F1A</td>
             <td>Elevated surfaces</td>
-            <td class="dim">Panels, popups, menus, floating windows.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-fg)"></span></td>
             <td class="mono" data-tok="fg">fg</td>
             <td class="mono dim">#D7D9D2</td>
             <td>Normal foreground</td>
-            <td class="dim">The brightest token in the theme. Never pure white.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-muted)"></span></td>
             <td class="mono" data-tok="muted">muted</td>
             <td class="mono dim">#70766B</td>
             <td>Muted text / comments</td>
-            <td class="dim">Readable but clearly subdued.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-moss)"></span></td>
             <td class="mono" data-tok="moss">moss</td>
             <td class="mono dim">#7E9273</td>
             <td>Primary identity green</td>
-            <td class="dim">Keywords, cursor, focus, git-added, search.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-forest)"></span></td>
             <td class="mono" data-tok="forest">forest</td>
             <td class="mono dim">#536B4F</td>
             <td>Deep green, receding roles</td>
-            <td class="dim">Operators, markup tags. Low contrast by design.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-olive)"></span></td>
             <td class="mono" data-tok="olive">olive</td>
             <td class="mono dim">#9A9968</td>
             <td>Warm green for strings</td>
-            <td class="dim">Strings, char literals.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-ochre)"></span></td>
             <td class="mono" data-tok="ochre">ochre</td>
             <td class="mono dim">#B69A64</td>
             <td>Warm gold for values</td>
-            <td class="dim">Numbers, booleans, constants, decorators, warnings.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-red)"></span></td>
             <td class="mono" data-tok="red">red</td>
             <td class="mono dim">#A75D57</td>
             <td>Errors, destructive states</td>
-            <td class="dim">Muted brick red — unmistakable, not alarming.</td>
           </tr>
-          <tr class="group group-derived"><td colspan="5">Derived &mdash; anchored to core (SPEC &sect;3.2)</td></tr>
+          <tr class="group group-derived"><td colspan="4">Derived</td></tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-border)"></span></td>
             <td class="mono">border</td>
             <td class="mono dim">#272C24</td>
             <td>Borders, dividers</td>
-            <td class="dim">Overlay lifted toward the bg hue family.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-active)"></span></td>
             <td class="mono">active</td>
             <td class="mono dim">#191D18</td>
             <td>Cursor line / hover</td>
-            <td class="dim">Between surface and overlay; subtle by design.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-selection)"></span></td>
             <td class="mono">selection</td>
             <td class="mono dim">#2A3527</td>
             <td>Selection background</td>
-            <td class="dim">Moss scaled to ~30% brightness — a tint, not a block.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-faint)"></span></td>
             <td class="mono" data-tok="faint">faint</td>
             <td class="mono dim">#4B5147</td>
             <td>Disabled text, line numbers</td>
-            <td class="dim">Muted darkened ~40%. Never used for active content.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-ochre-bright)"></span></td>
             <td class="mono" data-tok="ochre-bright">ochre-bright</td>
             <td class="mono dim">#C7A46B</td>
             <td>Strong warnings, escapes</td>
-            <td class="dim">Lifted ochre for attention states.</td>
           </tr>
           <tr>
             <td><span class="chip" style="background: var(--moss-red-bright)"></span></td>
             <td class="mono" data-tok="red-bright">red-bright</td>
             <td class="mono dim">#C06B63</td>
             <td>Strong errors, conflict</td>
-            <td class="dim">Lifted red for critical states.</td>
           </tr>
         </tbody>
       </table>
@@ -757,52 +706,48 @@
   <!-- ============ 02 · SEMANTIC ROLES ============ -->
   <section id="roles">
     <h2><span class="n">02</span><a class="anchor" href="#roles">Semantic Roles</a></h2>
-    <p class="section-intro">
-      Roles are the contract between MOSS and a platform: each role maps to one
-      token (or a documented combination). Ports must cover every role, using
-      documented fallbacks where a platform lacks a scope.
-    </p>
+    <p class="section-intro">Which color goes where.</p>
     <div class="tbl-wrap">
       <table>
         <thead>
-          <tr><th>Role</th><th>Token</th><th>Notes</th></tr>
+          <tr><th>Role</th><th>Token</th></tr>
         </thead>
         <tbody>
-          <tr class="group group-text"><td colspan="3">Text</td></tr>
-          <tr><td class="role">Normal text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Default foreground everywhere.</td></tr>
-          <tr><td class="role">Secondary text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Captions, secondary labels.</td></tr>
-          <tr><td class="role">Comments</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">May add italics, never brightness.</td></tr>
-          <tr><td class="role">Disabled text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Disabled items, empty states, non-essential data.</td></tr>
+          <tr class="group group-text"><td colspan="2">Text</td></tr>
+          <tr><td class="role">Normal text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">Secondary text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
+          <tr><td class="role">Comments</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
+          <tr><td class="role">Disabled text</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td></tr>
 
-          <tr class="group group-ui"><td colspan="3">UI</td></tr>
-          <tr><td class="role">Editor / main background</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td><td class="dim">Also workspace and empty space.</td></tr>
-          <tr><td class="role">Sidebar, titlebar, toolbar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td><td class="dim">Quietly distinct from bg.</td></tr>
-          <tr><td class="role">Panel, popup, menu, tooltip</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td><td class="dim">Adds a border outline when floating.</td></tr>
-          <tr><td class="role">Active tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td><td class="dim">Text fg; moss underline / indicator.</td></tr>
-          <tr><td class="role">Inactive tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td><td class="dim">Transparent over chrome; text muted.</td></tr>
-          <tr><td class="role">Borders, dividers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-border)"></span><span class="mono">border</span></span></td><td class="dim">Subtle; never a pure grey.</td></tr>
-          <tr><td class="role">Cursor</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Single color, beam or block.<span class="prov">provisional</span></td></tr>
-          <tr><td class="role">Selection</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection</span></span></td><td class="dim">Text keeps fg; no extra border.</td></tr>
-          <tr><td class="role">Cursor line</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td><td class="dim">No border, no left marker, no text change.</td></tr>
-          <tr><td class="role">Search match</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection + moss</span></span></td><td class="dim">Current match: fg text + moss outline.</td></tr>
-          <tr><td class="role">Focus (ring / outline)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Never red or ochre for focus.</td></tr>
-          <tr><td class="role">Hover (rows, buttons)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td><td class="dim">Subtle lift; no color change.</td></tr>
-          <tr><td class="role">Status bar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td><td class="dim">Mode indicator moss; warnings ochre; errors red.</td></tr>
-          <tr><td class="role">Line numbers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Non-current lines.</td></tr>
-          <tr><td class="role">Active line number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">The only "you are here" concession.</td></tr>
+          <tr class="group group-ui"><td colspan="2">UI</td></tr>
+          <tr><td class="role">Editor / main background</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td></tr>
+          <tr><td class="role">Sidebar, titlebar, toolbar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td></tr>
+          <tr><td class="role">Panel, popup, menu, tooltip</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td></tr>
+          <tr><td class="role">Active tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-overlay)"></span><span class="mono">overlay</span></span></td></tr>
+          <tr><td class="role">Inactive tab</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-bg)"></span><span class="mono">bg</span></span></td></tr>
+          <tr><td class="role">Borders, dividers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-border)"></span><span class="mono">border</span></span></td></tr>
+          <tr><td class="role">Cursor</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">Selection</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection</span></span></td></tr>
+          <tr><td class="role">Cursor line</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td></tr>
+          <tr><td class="role">Search match</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-selection)"></span><span class="mono">selection + moss</span></span></td></tr>
+          <tr><td class="role">Focus (ring / outline)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">Hover (rows, buttons)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-active)"></span><span class="mono">active</span></span></td></tr>
+          <tr><td class="role">Status bar</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-surface)"></span><span class="mono">surface</span></span></td></tr>
+          <tr><td class="role">Line numbers</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td></tr>
+          <tr><td class="role">Active line number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
 
-          <tr class="group group-diag"><td colspan="3">Diagnostics (SPEC &sect;7)</td></tr>
-          <tr><td class="role">Error</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">Squiggle red-bright; critical errors use red-bright text.</td></tr>
-          <tr><td class="role">Warning</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Strong warnings use ochre-bright.</td></tr>
-          <tr><td class="role">Info</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Calm by default.</td></tr>
-          <tr><td class="role">Hint</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Deliberately quiet.<span class="prov">provisional</span></td></tr>
+          <tr class="group group-diag"><td colspan="2">Diagnostics</td></tr>
+          <tr><td class="role">Error</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td></tr>
+          <tr><td class="role">Warning</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">Info</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">Hint</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
 
-          <tr class="group group-git"><td colspan="3">Git / Diff (SPEC &sect;8)</td></tr>
-          <tr><td class="role">Added / untracked</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Line tint: moss at ~10% alpha over bg.</td></tr>
-          <tr><td class="role">Modified</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Line tint: ochre at ~10% alpha over bg.</td></tr>
-          <tr><td class="role">Deleted</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">Line tint: red at ~10% alpha over bg.</td></tr>
-          <tr><td class="role">Conflict</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td><td class="dim">Markers and both-sides churn.</td></tr>
-          <tr><td class="role">Ignored</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td><td class="dim">Certainly quiet.</td></tr>
+          <tr class="group group-git"><td colspan="2">Git</td></tr>
+          <tr><td class="role">Added / untracked</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">Modified</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">Deleted</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td></tr>
+          <tr><td class="role">Conflict</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td></tr>
+          <tr><td class="role">Ignored</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td></tr>
         </tbody>
       </table>
     </div>
@@ -811,11 +756,7 @@
   <!-- ============ 03 · SYNTAX ============ -->
   <section id="syntax">
     <h2><span class="n">03</span><a class="anchor" href="#syntax">Syntax Highlighting</a></h2>
-    <p class="section-intro">
-      Calm and hierarchical: structure in green, values in warm tones, everything
-      else neutral. Normal text is always the brightest token. Roles marked
-      <span class="prov">provisional</span> are open for revision before ports.
-    </p>
+    <p class="section-intro">Green for structure, warm colors for values, plain text for the rest. <span class="prov">not final</span> means it may change.</p>
 
     <div class="ladder">
       <div class="step"><span class="sq" style="background: var(--moss-fg)"></span><span class="lbl">normal text<span class="r">fg &middot; 13.5:1</span></span></div>
@@ -829,33 +770,33 @@
     <div class="tbl-wrap" style="margin-top: 16px">
       <table>
         <thead>
-          <tr><th>Syntax group</th><th>Token</th><th>Rationale</th></tr>
+          <tr><th>Syntax</th><th>Token</th></tr>
         </thead>
         <tbody>
-          <tr><td class="role">keyword</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">Structural words are the identity green.</td></tr>
-          <tr><td class="role">function<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Calls read as plain code; calm.</td></tr>
-          <tr><td class="role">method<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Same treatment as functions.</td></tr>
-          <tr><td class="role">variable</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Most common token; stays neutral.</td></tr>
-          <tr><td class="role">parameter<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ italic</span></span></td><td class="dim">Italics separate parameters without color.</td></tr>
-          <tr><td class="role">property / field<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Keeps <span class="mono">.chain.here</span> quiet.</td></tr>
-          <tr><td class="role">constant</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Values the eye may need to spot.</td></tr>
-          <tr><td class="role">string / char</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-olive)"></span><span class="mono" data-tok="olive">olive</span></span></td><td class="dim">Warm green, distinct from fg and moss.</td></tr>
-          <tr><td class="role">number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Gold catches the eye for bug-hunting.</td></tr>
-          <tr><td class="role">boolean</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Value family, same as numbers.</td></tr>
-          <tr><td class="role">type<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Context (generics, annotations) does the work.</td></tr>
-          <tr><td class="role">class<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ bold ok</span></span></td><td class="dim">Bold for declarations; color stays neutral.</td></tr>
-          <tr><td class="role">module / namespace</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td><td class="dim">Path segments neutral; separators muted.</td></tr>
-          <tr><td class="role">operator</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td><td class="dim">Grammar recedes below keywords.</td></tr>
-          <tr><td class="role">punctuation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Separators stay quiet.</td></tr>
-          <tr><td class="role">tag (HTML/XML)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td><td class="dim">Markup structure recedes.</td></tr>
-          <tr><td class="role">attribute</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td><td class="dim">The brightest green stage in markup.</td></tr>
-          <tr><td class="role">decorator / annotation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Gently warm, visually distinct.</td></tr>
-          <tr><td class="role">comment</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td><td class="dim">Readable but clearly subdued.</td></tr>
-          <tr><td class="role">doc comment<span class="prov">provisional</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span> <span class="dim">+ italic</span></span></td><td class="dim">Same color; typography separates.</td></tr>
-          <tr><td class="role">escape sequence</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre-bright)"></span><span class="mono" data-tok="ochre-bright">ochre-bright</span></span></td><td class="dim">Slightly stronger warm pop inside strings.</td></tr>
-          <tr><td class="role">regex</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">Value-like literal, warm family.</td></tr>
-          <tr><td class="role">special / builtin values</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td><td class="dim">self, None, nil, this — special, not alarming.</td></tr>
-          <tr><td class="role">error-raising constructs</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td><td class="dim">panic!, raise, throw — the reserved hue. red-bright when extra visibility is needed.</td></tr>
+          <tr><td class="role">keyword</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">function<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">method<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">variable</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">parameter<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ italic</span></span></td></tr>
+          <tr><td class="role">property / field<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">constant</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">string / char</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-olive)"></span><span class="mono" data-tok="olive">olive</span></span></td></tr>
+          <tr><td class="role">number</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">boolean</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">type<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">class<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span> <span class="dim">+ bold ok</span></span></td></tr>
+          <tr><td class="role">module / namespace</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-fg)"></span><span class="mono" data-tok="fg">fg</span></span></td></tr>
+          <tr><td class="role">operator</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td></tr>
+          <tr><td class="role">punctuation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
+          <tr><td class="role">tag (HTML/XML)</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td></tr>
+          <tr><td class="role">attribute</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td></tr>
+          <tr><td class="role">decorator / annotation</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">comment</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td></tr>
+          <tr><td class="role">doc comment<span class="prov">not final</span></td><td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span> <span class="dim">+ italic</span></span></td></tr>
+          <tr><td class="role">escape sequence</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre-bright)"></span><span class="mono" data-tok="ochre-bright">ochre-bright</span></span></td></tr>
+          <tr><td class="role">regex</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">special / builtin values</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td></tr>
+          <tr><td class="role">error-raising constructs</td><td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td></tr>
         </tbody>
       </table>
     </div>
@@ -863,10 +804,9 @@
     <div class="sample-head">
       <span class="dot"></span>
       <span class="fname">tokenizer.rs</span>
-      <span class="legend">Rust &middot; synthetic sample &middot; keywords moss &middot; strings olive &middot; values ochre &middot; grammar forest &middot; exceptional syntax red-bright</span>
+      <span class="legend">Rust sample</span>
     </div>
-    <pre class="code"><code><span class="dcom">//! tokenizer.rs — synthetic sample for the MOSS reference page.</span>
-<span class="dcom">//! Comments stay muted: readable, but always behind the code.</span>
+    <pre class="code"><code><span class="dcom">//! Sample code to show the colors.</span>
 
 <span class="kw">use</span> <span class="mod">std</span><span class="punc">::</span><span class="mod">collections</span><span class="punc">::</span><span class="typ">HashMap</span><span class="punc">;</span>
 
@@ -897,22 +837,12 @@
     <span class="punc">}</span>
     <span class="typ">Ok</span><span class="punc">(</span><span class="var">tokens</span><span class="punc">)</span>
 <span class="punc">}</span></code></pre>
-    <p class="prov-note">
-      Functions, parameters, properties, and types deliberately share the
-      foreground — the hierarchy comes from green structure and warm values, not
-      from coloring every role. Revision candidates are tagged provisional
-      (SPEC.md &sect;14).
-    </p>
   </section>
 
   <!-- ============ 04 · UI & EDITOR STATES ============ -->
   <section id="states">
     <h2><span class="n">04</span><a class="anchor" href="#states">UI &amp; Editor States</a></h2>
-    <p class="section-intro">
-      Small samples of how the palette behaves in states — each card is topped
-      with the accent of its semantic role. Selection and cursor line are subtle
-      tints; text on top always keeps the normal foreground.
-    </p>
+    <p class="section-intro">How it looks in the editor.</p>
     <div class="states">
 
       <div class="state ac-fg">
@@ -988,12 +918,7 @@
   <!-- ============ 05 · TERMINAL / ANSI ============ -->
   <section id="ansi">
     <h2><span class="n">05</span><a class="anchor" href="#ansi">Terminal &amp; ANSI Slots</a></h2>
-    <p class="section-intro">
-      ANSI is a <em>projection</em> of the semantic palette onto a 16-slot model, so it
-      depends on the terminal's color model. Nine slots are fixed by identity; seven are
-      deliberately undecided and shown hatched — they are settled when the first
-      terminal port lands, and a port that needs one documents its choice as a deviation.
-    </p>
+    <p class="section-intro">The 16 terminal colors. Striped ones are not decided yet.</p>
     <div class="ansi">
         <div class="slot">
           <div class="fill" style="background: var(--moss-bg)"></div>
@@ -1093,26 +1018,19 @@
         </div>
     </div>
     <ol class="rules">
-        <li>Terminal backgrounds stay near-black; never pure <code>#000</code>.</li>
-        <li>Brights (9-15) keep the hue of their base slot, +12-18% lightness, saturation capped at the base slot's. Bright does not mean vivid.</li>
-        <li>Bold text is fg at normal weight, or the lifted slot only where the platform forces bold to bright. Never pure white.</li>
-        <li>Terminal cursor is moss, selection uses the selection background, hyperlinks are moss plus underline.</li>
+        <li>Bright colors are a bit lighter, not more saturated.</li>
+        <li>No pure black, no pure white.</li>
     </ol>
-    <p class="prov-note">Derivation rules and the full slot table: SPEC &sect;9.</p>
   </section>
 
   <!-- ============ 06 · CONTRAST ============ -->
   <section id="contrast">
-    <h2><span class="n">06</span><a class="anchor" href="#contrast">Contrast &amp; Accessibility</a></h2>
-    <p class="section-intro">
-      WCAG 2.1 relative-luminance ratios, computed from the palette itself. The goal is
-      comfortable readability, not strict AA on every token: comments and errors sit just
-      below the 4.5:1 body-text threshold on purpose, which is what keeps them quiet.
-    </p>
+    <h2><span class="n">06</span><a class="anchor" href="#contrast">Contrast</a></h2>
+    <p class="section-intro">Contrast ratios against the background. Some colors are low on purpose, so they stay quiet.</p>
     <div class="tbl-wrap">
       <table>
         <thead>
-          <tr><th>Token</th><th class="ratio">on bg</th><th class="ratio">on surface</th><th>Used for</th><th>Note</th></tr>
+          <tr><th>Token</th><th class="ratio">on bg</th><th class="ratio">on surface</th><th>Used for</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -1120,113 +1038,78 @@
             <td class="ratio" data-ratio="fg|bg">13.5<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="fg|surface">12.7</td>
             <td class="dim">normal text</td>
-            <td class="dim">AAA; comfortably readable.</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre-bright)"></span><span class="mono" data-tok="ochre-bright">ochre-bright</span></span></td>
             <td class="ratio" data-ratio="ochre-bright|bg">8.2<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="ochre-bright|surface">7.7</td>
             <td class="dim">strong warnings</td>
-            <td class="dim"></td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-ochre)"></span><span class="mono" data-tok="ochre">ochre</span></span></td>
             <td class="ratio" data-ratio="ochre|bg">7.1<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="ochre|surface">6.7</td>
             <td class="dim">numbers, warnings</td>
-            <td class="dim"></td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-olive)"></span><span class="mono" data-tok="olive">olive</span></span></td>
             <td class="ratio" data-ratio="olive|bg">6.5<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="olive|surface">6.1</td>
             <td class="dim">strings</td>
-            <td class="dim"></td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-moss)"></span><span class="mono" data-tok="moss">moss</span></span></td>
             <td class="ratio" data-ratio="moss|bg">5.7<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="moss|surface">5.4</td>
             <td class="dim">keywords, accents, cursor</td>
-            <td class="dim"></td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-red-bright)"></span><span class="mono" data-tok="red-bright">red-bright</span></span></td>
             <td class="ratio" data-ratio="red-bright|bg">5.1<span class="aa pass">AA</span></td>
             <td class="ratio" data-ratio="red-bright|surface">4.8</td>
             <td class="dim">critical errors</td>
-            <td class="dim"></td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-muted)"></span><span class="mono" data-tok="muted">muted</span></span></td>
             <td class="ratio" data-ratio="muted|bg">4.1<span class="aa under">below</span></td>
             <td class="ratio" data-ratio="muted|surface">3.9</td>
             <td class="dim">comments, secondary text</td>
-            <td class="dim">Intentionally below 4.5 — quiet by design.</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-red)"></span><span class="mono" data-tok="red">red</span></span></td>
             <td class="ratio" data-ratio="red|bg">4.0<span class="aa under">below</span></td>
             <td class="ratio" data-ratio="red|surface">3.7</td>
             <td class="dim">errors</td>
-            <td class="dim">Acceptable for short emphasis; red-bright for critical.</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-forest)"></span><span class="mono" data-tok="forest">forest</span></span></td>
             <td class="ratio" data-ratio="forest|bg">3.3<span class="aa under">below</span></td>
             <td class="ratio" data-ratio="forest|surface">3.1</td>
             <td class="dim">operators, tags, decoration</td>
-            <td class="dim">Intentionally low; never essential text.</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-faint)"></span><span class="mono" data-tok="faint">faint</span></span></td>
             <td class="ratio" data-ratio="faint|bg">2.4<span class="aa under">below</span></td>
             <td class="ratio" data-ratio="faint|surface">2.2</td>
             <td class="dim">disabled, line numbers</td>
-            <td class="dim">Exempt categories; never for active content.</td>
           </tr>
           <tr>
             <td><span class="token-cell"><span class="chip" style="background: var(--moss-border)"></span><span class="mono">border / active / selection</span></span></td>
             <td class="ratio">1.1&ndash;1.5</td>
             <td class="ratio faint">&mdash;</td>
             <td class="dim">backgrounds, borders</td>
-            <td class="dim">Not text; the low ratio is the point.</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="prov-note">
-      Selected text stays fully readable: <span class="mono" data-tok="fg">fg</span> on
-      <span class="mono">selection</span> is 9.0:1. The surface family sits
-      1.07&ndash;1.08:1 apart &mdash; cohesive, not banded. Ports may lift lightness
-      slightly with documentation; the hue must never change (SPEC &sect;10&ndash;11).
-    </p>
+    <p class="prov-note">Selected text: <span class="mono" data-tok="fg">fg</span> on <span class="mono">selection</span> is 9.0:1.</p>
   </section>
 
-  <!-- ============ 07 · DESIGN PRINCIPLES ============ -->
-  <section id="principles">
-    <h2><span class="n">07</span><a class="anchor" href="#principles">Design Principles</a></h2>
-    <p class="section-intro">The rules behind every mapping in this document.</p>
-    <div class="tbl-wrap">
-      <ol class="principles" style="padding: 6px 20px 12px">
-        <li><b>Very dark, never pure black.</b> Near-black with a faint green-grey cast; no blue-tinted or literal black backgrounds.</li>
-        <li><b>Muted and low-noise.</b> Low saturation everywhere. No neon, no glow, nothing that shouts.</li>
-        <li><b>Green is the identity — not a wash.</b> The green family carries structure and accent; the rest stays in the neutral background family.</li>
-        <li><b>Hierarchy over brightness.</b> Normal text is the brightest token; accents descend a fixed luminance ladder and never compete with content.</li>
-        <li><b>Warm tones carry values.</b> Olive for strings, ochre for numbers and gentle warnings — contrast where green would grow monotonous.</li>
-        <li><b>Red is reserved.</b> Errors, destructive states, exceptional syntax. Never decoration.</li>
-        <li><b>Surfaces stay close.</b> bg, surface, and overlay differ by about 1.1:1 steps — cohesive, not banded.</li>
-        <li><b>Subtle selection and cursor line.</b> Tints, not bright blocks; text keeps the normal foreground.</li>
-        <li><b>Comfortable readability.</b> Normal text ≥ 12:1; secondary text ≈ 4:1. Strict AA on every token is not the goal — hue and hierarchy are.</li>
-      </ol>
-    </div>
-  </section>
 
 </main>
 
 <footer>
-  <span style="color: var(--moss-moss)">MOSS</span> — colorscheme specification v0.1 &middot; specification phase &middot; no editor or terminal ports yet
-  &middot; canonical source: <a href="SPEC.md">SPEC.md</a> &middot; this page: visual reference
+  <span style="color: var(--moss-moss)">MOSS</span> v0.1 &middot; full spec: <a href="SPEC.md">SPEC.md</a>
 </footer>
 
 <script>
