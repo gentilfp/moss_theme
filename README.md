@@ -6,6 +6,9 @@ MOSS is a near-black theme built around a muted green family — moss, forest, o
 with ochre for warmth and red reserved for errors. Low saturation, low noise,
 designed for long coding sessions.
 
+**Preview:** https://gentilfp.github.io/moss_theme/ — palette, syntax sample, UI states,
+terminal colors, contrast ratios, and install steps for every port.
+
 ## Status
 
 **Specification phase.** This repository contains the theme specification and its ports:
@@ -13,7 +16,7 @@ designed for long coding sessions.
 - `SPEC.md` — the source of truth: palette, semantic roles, porting rules
 - `tokens/moss.json` — the palette as data: core and derived tokens, diff tints, ANSI slots
 - `tokens/moss.css` — `:root` custom properties, **generated** from `moss.json`
-- `index.html` — visual reference / palette preview (open directly in a browser)
+- `index.html` — visual reference / palette preview ([live](https://gentilfp.github.io/moss_theme/), or open it locally in a browser)
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
 - `zed/moss.json` — Zed theme (see [Ports](#ports))
 - `claude-code/moss.json` — Claude Code theme (see [Ports](#ports))
@@ -49,7 +52,7 @@ Clone the repository once, then symlink the port files into each app's config.
 Symlinks mean a `git pull` updates the theme everywhere; no re-copying.
 
 ```sh
-git clone git@github.com:gentilfp/moss_theme.git ~/Developer/moss_theme
+git clone https://github.com/gentilfp/moss_theme.git ~/Developer/moss_theme
 ```
 
 ### Ghostty
