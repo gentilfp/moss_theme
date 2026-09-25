@@ -1121,6 +1121,16 @@
             <td class="dim">deviation log in <a href="zed/README.md">zed/README.md</a></td>
           </tr>
           <tr>
+            <td>Claude Code</td>
+            <td class="mono"><a href="claude-code/moss.json" download>claude-code/moss.json</a></td>
+            <td class="dim">UI colors only; deviation log in <a href="claude-code/README.md">claude-code/README.md</a></td>
+          </tr>
+          <tr>
+            <td>Pi</td>
+            <td class="mono"><a href="pi/moss.json" download>pi/moss.json</a></td>
+            <td class="dim">role mapping in <a href="pi/README.md">pi/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1144,6 +1154,16 @@ theme = MOSS</code></pre>
     <pre class="code"><code>mkdir -p ~/.config/zed/themes
 ln -sf ~/Developer/moss_theme/zed/moss.json ~/.config/zed/themes/moss.json</code></pre>
     <p class="prov-note">Pick <strong>MOSS</strong> in the theme selector (<span class="mono">cmd-k cmd-t</span>), or set <span class="mono">"theme": { "mode": "dark", "dark": "MOSS", "light": "MOSS" }</span> in <span class="mono">~/.config/zed/settings.json</span>.</p>
+    <div class="sample-head"><span class="dot"></span><span class="fname">Claude Code</span></div>
+    <pre class="code"><code>mkdir -p ~/.claude/themes
+ln -sf ~/Developer/moss_theme/claude-code/moss.json ~/.claude/themes/moss.json</code></pre>
+    <p class="prov-note">Pick <strong>MOSS</strong> in <span class="mono">/theme</span>, or set <span class="mono">"theme": "custom:moss"</span> in <span class="mono">~/.claude/settings.json</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">Pi</span></div>
+    <pre class="code"><code>mkdir -p ~/.pi/agent/themes
+ln -sf ~/Developer/moss_theme/pi/moss.json ~/.pi/agent/themes/moss.json</code></pre>
+    <p class="prov-note">Pick <strong>MOSS</strong> in <span class="mono">/settings</span> &rarr; Theme, or set <span class="mono">"theme": "MOSS"</span> in <span class="mono">~/.pi/agent/settings.json</span>.</p>
+
     <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
   </section>
 

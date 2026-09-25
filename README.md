@@ -125,7 +125,7 @@ theme file changed.
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed and Claude Code on their own.
+Ghostty picks up the change on reload; Zed, Claude Code and Pi on their own.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
