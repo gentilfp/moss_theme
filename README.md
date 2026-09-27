@@ -20,7 +20,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
 - `zed/moss.json` — Zed theme (see [Ports](#ports))
 - `claude-code/moss.json` — Claude Code theme (see [Ports](#ports))
-- `codex/moss.tmTheme` — Codex CLI theme (see [Ports](#ports))
+- `codex/moss.tmTheme` — Codex CLI theme, plus `codex/moss.codex-theme-v1` — ChatGPT desktop / Codex app import (see [Ports](#ports))
 - `pi/moss.json` — Pi theme (see [Ports](#ports))
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
 
@@ -46,7 +46,7 @@ Each port records its spec version and deviation log in its own files.
 | Ghostty | `ghostty/` | in `ghostty/MOSS`  |
 | Zed     | `zed/`     | `zed/README.md`    |
 | Claude Code | `claude-code/` | `claude-code/README.md` |
-| Codex CLI | `codex/` | `codex/README.md` |
+| Codex CLI + App | `codex/` | `codex/README.md` |
 | Pi      | `pi/`      | `pi/README.md`     |
 | OpenCode | `opencode/` | `opencode/README.md` |
 
@@ -120,6 +120,13 @@ Run `/theme` in Codex and pick **moss**, or set it in `~/.codex/config.toml`:
 [tui]
 theme = "moss"
 ```
+
+### Codex app (ChatGPT desktop)
+
+Copy the single line from `codex/moss.codex-theme-v1` (including the
+`codex-theme-v1:` prefix), then **Settings → Appearance → Dark Theme →
+Import** → paste → review → **Import theme**. Details and role mapping in
+`codex/README.md`. Do not paste this string into the CLI.
 
 ### Pi
 

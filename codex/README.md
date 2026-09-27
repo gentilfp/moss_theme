@@ -1,14 +1,61 @@
-# MOSS — Codex CLI theme
+# MOSS — Codex themes (CLI + App)
 
 - **Spec:** SPEC.md v0.2 · **Port date:** 2026-09-27
 - **Palette:** `tokens/moss.json` (ANSI slots per SPEC.md §9.2)
-- **Format:** TextMate `.tmTheme` (`~/.codex/themes/moss.tmTheme`), covers
+- **CLI format:** TextMate `.tmTheme` (`~/.codex/themes/moss.tmTheme`), covers
   SPEC §5 (syntax) and §8 (diffs). Codex only themes fenced code blocks and
   file diffs; the rest of the TUI keeps the terminal palette.
+- **App format:** `codex-theme-v1:` import string
+  (`codex/moss.codex-theme-v1`), for the ChatGPT desktop / Codex app via
+  **Settings → Appearance → Dark Theme → Import**. One string = one `dark`
+  variant; MOSS ships dark only.
 - **Tested with:** `tmTheme` parsed with `plistlib`; selected via `/theme`
-  against Codex CLI docs (`tui.theme` in `$CODEX_HOME/config.toml`)
+  against Codex CLI docs (`tui.theme` in `$CODEX_HOME/config.toml`);
+  `moss.codex-theme-v1` payload parsed as JSON after the `codex-theme-v1:`
+  prefix (`codeThemeId` must be a built-in id per openai/codex#14766).
 
-## Install
+## App import (ChatGPT desktop / Codex app)
+
+Copy the whole single line from `codex/moss.codex-theme-v1` (prefix included),
+then **Settings → Appearance → Dark Theme → Import** → paste → review →
+**Import theme**. Verify on prose, code, and a diff.
+
+```
+codex-theme-v1:{"codeThemeId":"everforest","theme":{"accent":"#7E9273","accentSource":"custom","contrast":60,"fonts":{"code":null,"ui":null},"ink":"#D7D9D2","opaqueWindows":true,"semanticColors":{"diffAdded":"#7E9273","diffRemoved":"#C06B63","skill":"#B69A64"},"surface":"#0D0F0C"},"variant":"dark"}
+```
+
+### App role mapping
+
+| App field | MOSS | Reason |
+| --------- | ---- | ------ |
+| `surface` | `bg` `#0D0F0C` | Main background, near-black green-grey (§4.2). |
+| `ink` | `fg` `#D7D9D2` | Normal text, brightest token (§4.1, §5). |
+| `accent` | `moss` `#7E9273` | Focus / cursor / identity green (§4.2). |
+| `semanticColors.diffAdded` | `moss` `#7E9273` | Added = `moss` (§8); same call as Pi `toolDiffAdded` and tmTheme `markup.inserted`. |
+| `semanticColors.diffRemoved` | `red-bright` `#C06B63` | `red` is comment-dark so error text uses `red-bright` (§7); same call as Pi `toolDiffRemoved` and tmTheme `markup.deleted`. |
+| `semanticColors.skill` | `ochre` `#B69A64` | Warm value/badge colour (§5.1 decorators, Pi `bashMode`); visible without using reserved red. |
+| `contrast` | `60` | Matches the reference import scale (0–100); MOSS `fg`/`bg` is 13.5:1 so mid-high contrast fits. |
+| `opaqueWindows` | `true` | Solid near-black chrome preserves `bg` identity; translucency would wash the green-grey cast (§11.5). |
+| `fonts` | `null` / `null` | System defaults; no font bundled. |
+| `codeThemeId` | `everforest` | Must be a built-in id or import stays disabled (openai/codex#14766); `everforest` is the closest green-muted dark family to MOSS. App code highlighting still follows this base family. |
+| `variant` | `dark` | MOSS is dark only; no light variant. |
+
+### App deviation log (SPEC.md §11.10)
+
+No new colors: every hex is a §3 token. Judgment calls:
+
+- `codeThemeId` is `everforest`, not `moss`: the importer rejects unknown
+  ids, so the closest built-in green family is reused while all colors are
+  overridden with MOSS values.
+- `skill` is `ochre`: the app schema requires a third semantic color with no
+  direct SPEC §8 counterpart; `ochre` (values/decorators) is the warm,
+  non-red badge colour.
+- `opaqueWindows: true` (DexThemes default when omitted): keeps `bg`
+  near-black solid per §11.5.
+- Do not paste this string into the CLI and do not put the `.tmTheme` file
+  through Appearance → Import: the two surfaces are separate systems.
+
+## CLI install
 
 ```sh
 mkdir -p ~/.codex/themes
