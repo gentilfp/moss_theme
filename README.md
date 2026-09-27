@@ -20,7 +20,9 @@ terminal colors, contrast ratios, and install steps for every port.
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
 - `zed/moss.json` — Zed theme (see [Ports](#ports))
 - `claude-code/moss.json` — Claude Code theme (see [Ports](#ports))
+- `codex/moss.tmTheme` — Codex CLI theme (see [Ports](#ports))
 - `pi/moss.json` — Pi theme (see [Ports](#ports))
+- `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -44,7 +46,9 @@ Each port records its spec version and deviation log in its own files.
 | Ghostty | `ghostty/` | in `ghostty/MOSS`  |
 | Zed     | `zed/`     | `zed/README.md`    |
 | Claude Code | `claude-code/` | `claude-code/README.md` |
+| Codex CLI | `codex/` | `codex/README.md` |
 | Pi      | `pi/`      | `pi/README.md`     |
+| OpenCode | `opencode/` | `opencode/README.md` |
 
 ## Usage
 
@@ -103,6 +107,20 @@ Pick **MOSS** in `/theme`, or set it in `~/.claude/settings.json`:
 Claude Code watches the themes folder, so edits apply without a restart. This only
 works if the folder existed when Claude Code started.
 
+### Codex CLI
+
+```sh
+mkdir -p ~/.codex/themes
+ln -sf ~/Developer/moss_theme/codex/moss.tmTheme ~/.codex/themes/moss.tmTheme
+```
+
+Run `/theme` in Codex and pick **moss**, or set it in `~/.codex/config.toml`:
+
+```toml
+[tui]
+theme = "moss"
+```
+
 ### Pi
 
 ```sh
@@ -119,13 +137,26 @@ Pick **MOSS** in `/settings` → Theme, or set it in `~/.pi/agent/settings.json`
 Pi hot-reloads the active user theme; run `/reload` after a `git pull` if the
 theme file changed.
 
+### OpenCode
+
+```sh
+mkdir -p ~/.config/opencode/themes
+ln -sf ~/Developer/moss_theme/opencode/moss.json ~/.config/opencode/themes/moss.json
+```
+
+Pick **moss** with `/theme`, or set it in `tui.json`:
+
+```json
+{ "$schema": "https://opencode.ai/tui.json", "theme": "moss" }
+```
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code and Pi on their own.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 

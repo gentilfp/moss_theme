@@ -1131,6 +1131,11 @@
             <td class="dim">role mapping in <a href="pi/README.md">pi/README.md</a></td>
           </tr>
           <tr>
+            <td>OpenCode</td>
+            <td class="mono"><a href="opencode/moss.json" download>opencode/moss.json</a></td>
+            <td class="dim">role mapping in <a href="opencode/README.md">opencode/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1163,6 +1168,11 @@ ln -sf ~/Developer/moss_theme/claude-code/moss.json ~/.claude/themes/moss.json</
     <pre class="code"><code>mkdir -p ~/.pi/agent/themes
 ln -sf ~/Developer/moss_theme/pi/moss.json ~/.pi/agent/themes/moss.json</code></pre>
     <p class="prov-note">Pick <strong>MOSS</strong> in <span class="mono">/settings</span> &rarr; Theme, or set <span class="mono">"theme": "MOSS"</span> in <span class="mono">~/.pi/agent/settings.json</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">OpenCode</span></div>
+    <pre class="code"><code>mkdir -p ~/.config/opencode/themes
+ln -sf ~/Developer/moss_theme/opencode/moss.json ~/.config/opencode/themes/moss.json</code></pre>
+    <p class="prov-note">Pick <strong>moss</strong> with <span class="mono">/theme</span>, or set <span class="mono">"theme": "moss"</span> in <span class="mono">tui.json</span>.</p>
 
     <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
   </section>
