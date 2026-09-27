@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  MOSS — Codex (CLI) theme
+  Spec: SPEC.md v0.2 · Palette: tokens/moss.json
+  Covers SPEC §5 (syntax) and §8 (diffs). Codex only reads foreground
+  colors for code spans plus markup.inserted/deleted backgrounds; the rest
+  of the TUI keeps the terminal palette (§9.2). See README.md.
+-->
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>MOSS</string>
+  <key>author</key>
+  <string>gentilfp</string>
+  <key>colorSpaceName</key>
+  <string>sRGB</string>
+  <key>settings</key>
+  <array>
+    <!-- Global UI (§4.2): bg surface, fg text, moss caret/focus, selection tint -->
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>
+        <string>#0D0F0C</string>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+        <key>caret</key>
+        <string>#7E9273</string>
+        <key>selection</key>
+        <string>#2A3527</string>
+        <key>lineHighlight</key>
+        <string>#191D18</string>
+        <key>misspelling</key>
+        <string>#A75D57</string>
+        <key>accent</key>
+        <string>#7E9273</string>
+        <key>gutterForeground</key>
+        <string>#4B5147</string>
+        <key>invisibles</key>
+        <string>#4B5147</string>
+        <key>guide</key>
+        <string>#272C24</string>
+        <key>activeGuide</key>
+        <string>#4B5147</string>
+        <key>findHighlight</key>
+        <string>#2A3527</string>
+      </dict>
+    </dict>
+    <!-- Base text / variables: fg, brightest token (§5) -->
+    <dict>
+      <key>name</key>
+      <string>Base text and variables</string>
+      <key>scope</key>
+      <string>text, source, variable.other.readwrite, variable.other.property, variable.object.property</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+      </dict>
+    </dict>
+    <!-- Functions / methods / calls: fg plain (§5.1 provisional) -->
+    <dict>
+      <key>name</key>
+      <string>Functions and methods</string>
+      <key>scope</key>
+      <string>entity.name.function, entity.name.method, meta.function-call, support.function, support.function.builtin, variable.function, variable.annotation</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+      </dict>
+    </dict>
+    <!-- Parameters: fg italic (§5.1 provisional) -->
+    <dict>
+      <key>name</key>
+      <string>Parameters</string>
+      <key>scope</key>
+      <string>variable.parameter, meta.function.parameters</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+        <key>fontStyle</key>
+        <string>italic</string>
+      </dict>
+    </dict>
+    <!-- Types / classes / namespaces: fg; class declarations bold ok (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Types and namespaces</string>
+      <key>scope</key>
+      <string>entity.name.type, support.type, support.class, meta.type, meta.type-alias, entity.name.namespace, support.module, support.type.property-name</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Class declarations</string>
+      <key>scope</key>
+      <string>entity.name.class, entity.other.inherited-class, entity.name.struct, entity.name.enum</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#D7D9D2</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <!-- Keywords / storage: moss, the structure green (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Keywords and storage</string>
+      <key>scope</key>
+      <string>keyword, keyword.operator.word, storage.type, storage.modifier, keyword.control, punctuation.definition.keyword, variable.language.super</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7E9273</string>
+      </dict>
+    </dict>
+    <!-- Operators: forest, receding grammar (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Operators</string>
+      <key>scope</key>
+      <string>keyword.operator, punctuation.accessor, punctuation.separator.operator, storage.modifier.reference</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#536B4F</string>
+      </dict>
+    </dict>
+    <!-- Punctuation: muted, quiet separators (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Punctuation</string>
+      <key>scope</key>
+      <string>punctuation, punctuation.definition, punctuation.separator, punctuation.terminator, punctuation.definition.tag, punctuation.separator.key-value</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#70766B</string>
+      </dict>
+    </dict>
+    <!-- Markup tags: forest, structure recedes (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Markup tags</string>
+      <key>scope</key>
+      <string>entity.name.tag, meta.tag, meta.tag.sgml.doctype, keyword.other.doctype</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#536B4F</string>
+      </dict>
+    </dict>
+    <!-- Attributes: moss, brightest green stage (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Attributes</string>
+      <key>scope</key>
+      <string>entity.other.attribute-name, meta.attribute, support.type.property-name.css, entity.other.attribute-name.class.css</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7E9273</string>
+      </dict>
+    </dict>
+    <!-- Strings: olive (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Strings</string>
+      <key>scope</key>
+      <string>string, string.unquoted, punctuation.definition.string, meta.attribute-selector, string.template</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#9A9968</string>
+      </dict>
+    </dict>
+    <!-- Escape sequences: ochre-bright (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Escape sequences</string>
+      <key>scope</key>
+      <string>constant.character.escape, constant.character.format.placeholder</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#C7A46B</string>
+      </dict>
+    </dict>
+    <!-- Values: numbers, booleans, constants, regex, builtins — ochre (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Values and constants</string>
+      <key>scope</key>
+      <string>constant.numeric, constant.language.boolean, constant.language.null, constant.language.undefined, constant.language, variable.other.constant, entity.name.constant, support.constant, keyword.other.unit, string.regexp, variable.language.this, variable.language.self, variable.language.special</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#B69A64</string>
+      </dict>
+    </dict>
+    <!-- Decorators / annotations: ochre (§5.1) -->
+    <dict>
+      <key>name</key>
+      <string>Decorators and annotations</string>
+      <key>scope</key>
+      <string>meta.annotation, meta.decorator, punctuation.decorator, punctuation.definition.annotation, storage.type.annotation, entity.name.function.decorator</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#B69A64</string>
+      </dict>
+    </dict>
+    <!-- Comments: muted (§5.1); doc comments add italic -->
+    <dict>
+      <key>name</key>
+      <string>Comments</string>
+      <key>scope</key>
+      <string>comment, punctuation.definition.comment</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#70766B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Doc comments</string>
+      <key>scope</key>
+      <string>comment.block.documentation, comment.line.documentation</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#70766B</string>
+        <key>fontStyle</key>
+        <string>italic</string>
+      </dict>
+    </dict>
+    <!-- Errors / exceptional syntax: red family (§5.1, §7 text = red-bright) -->
+    <dict>
+      <key>name</key>
+      <string>Errors and exceptional syntax</string>
+      <key>scope</key>
+      <string>invalid, invalid.illegal, invalid.deprecated, markup.error</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#C06B63</string>
+      </dict>
+    </dict>
+    <!-- Markdown chrome inside the TUI -->
+    <dict>
+      <key>name</key>
+      <string>Markdown headings</string>
+      <key>scope</key>
+      <string>markup.heading, entity.name.section</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7E9273</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Markdown links</string>
+      <key>scope</key>
+      <string>markup.underline.link, string.other.link, constant.other.reference.link</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7E9273</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Markdown quotes and lists</string>
+      <key>scope</key>
+      <string>markup.quote, markup.list, punctuation.definition.list.begin, meta.separator</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#70766B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Markdown code spans</string>
+      <key>scope</key>
+      <string>markup.inline.raw, markup.raw, punctuation.definition.raw</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#9A9968</string>
+      </dict>
+    </dict>
+    <!-- Diffs (§8): tinted backgrounds Codex reads for inserted/deleted rows -->
+    <dict>
+      <key>name</key>
+      <string>Diff inserted</string>
+      <key>scope</key>
+      <string>markup.inserted, meta.diff.header.to-file, punctuation.definition.to-file</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7E9273</string>
+        <key>background</key>
+        <string>#1B1F18</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Diff deleted</string>
+      <key>scope</key>
+      <string>markup.deleted, meta.diff.header.from-file, punctuation.definition.from-file</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#C06B63</string>
+        <key>background</key>
+        <string>#1F1815</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Diff changed</string>
+      <key>scope</key>
+      <string>markup.changed, meta.diff.header</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#B69A64</string>
+        <key>background</key>
+        <string>#1E1D15</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
