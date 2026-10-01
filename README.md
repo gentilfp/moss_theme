@@ -23,6 +23,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `codex/moss.tmTheme` — Codex CLI theme, plus `codex/moss.codex-theme-v1` — ChatGPT desktop / Codex app import (see [Ports](#ports))
 - `pi/moss.json` — Pi theme (see [Ports](#ports))
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
+- `zennotes/` — ZenNotes theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -49,6 +50,7 @@ Each port records its spec version and deviation log in its own files.
 | Codex CLI + App | `codex/` | `codex/README.md` |
 | Pi      | `pi/`      | `pi/README.md`     |
 | OpenCode | `opencode/` | `opencode/README.md` |
+| ZenNotes | `zennotes/` | `zennotes/README.md` |
 
 ## Usage
 
@@ -157,13 +159,25 @@ Pick **moss** with `/theme`, or set it in `tui.json`:
 { "$schema": "https://opencode.ai/tui.json", "theme": "moss" }
 ```
 
+### ZenNotes
+
+```sh
+mkdir -p ~/.config/zennotes/themes/moss
+cp ~/Developer/moss_theme/zennotes/manifest.json ~/.config/zennotes/themes/moss/
+cp ~/Developer/moss_theme/zennotes/theme.css ~/.config/zennotes/themes/moss/
+```
+
+Copy, do not symlink: ZenNotes skips a symlinked theme folder. The folder name
+`moss` must stay. Pick **MOSS** under Settings, Appearance, Custom. Run the
+`cp` commands again after a `git pull`.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 

@@ -1,0 +1,49 @@
+/* MOSS — a ZenNotes theme. Port of SPEC.md v0.2 (see zennotes/README.md).
+ *
+ * MOSS has no light mode, so one palette is declared and reused for both
+ * selectors. Tokens are space-separated RGB triplets, derived from
+ * tokens/moss.json.
+ */
+
+:root,
+:root[data-theme-mode="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces: bg, surface, overlay, border, selection, faint */
+  --z-bg: 13 15 12;
+  --z-bg-softer: 20 23 19;
+  --z-bg-1: 27 31 26;
+  --z-bg-2: 39 44 36;
+  --z-bg-3: 42 53 39;
+  --z-bg-4: 75 81 71;
+
+  /* Text: fg lifted, fg, muted */
+  --z-fg: 215 217 210;
+  --z-fg-1: 240 240 238;
+  --z-fg-2: 112 118 107;
+
+  /* Greys: muted and faint only; no new colors */
+  --z-grey-2: 112 118 107;
+  --z-grey-1: 112 118 107;
+  --z-grey-0: 75 81 71;
+  --z-grey-dim: 75 81 71;
+
+  /* Accent: moss, moss bright, forest */
+  --z-accent: 126 146 115;
+  --z-accent-soft: 146 163 137;
+  --z-accent-muted: 83 107 79;
+
+  /* Status and syntax colors */
+  --z-red: 192 107 99;
+  --z-green: 126 146 115;
+  --z-yellow: 182 154 100;
+  --z-blue: 108 141 148;
+  --z-purple: 160 129 147;
+  --z-aqua: 93 123 129;
+
+  --z-shadow: 0 0 0;
+  --z-glass-a1: 0.58;
+  --z-glass-a2: 0.46;
+  --z-glass-a3: 0.32;
+  --z-glass-a4: 0.22;
+}
