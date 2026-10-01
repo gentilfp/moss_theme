@@ -1141,6 +1141,11 @@
             <td class="dim">token mapping in <a href="zennotes/README.md">zennotes/README.md</a></td>
           </tr>
           <tr>
+            <td>Slack</td>
+            <td class="mono"><a href="slack/theme.txt" download>slack/theme.txt</a></td>
+            <td class="dim">slot mapping in <a href="slack/README.md">slack/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1184,6 +1189,10 @@ ln -sf ~/Developer/moss_theme/opencode/moss.json ~/.config/opencode/themes/moss.
 cp ~/Developer/moss_theme/zennotes/manifest.json ~/.config/zennotes/themes/moss/
 cp ~/Developer/moss_theme/zennotes/theme.css ~/.config/zennotes/themes/moss/</code></pre>
     <p class="prov-note">Copy, do not symlink: ZenNotes skips a symlinked theme folder. Pick <strong>MOSS</strong> under Settings &rarr; Appearance &rarr; Custom. Run the <span class="mono">cp</span> commands again after a <span class="mono">git pull</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">Slack</span></div>
+    <pre class="code"><code>#141713, #2A3527, #7E9273, #B69A64</code></pre>
+    <p class="prov-note">Open Preferences &rarr; Themes &rarr; Custom theme &rarr; Import, paste the string and click Apply. Slack adapts the colors to keep contrast, so they may shift slightly.</p>
 
     <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
   </section>
