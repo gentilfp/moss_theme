@@ -1,0 +1,99 @@
+/* ============================================================
+   MOSS — bb app theme.
+   Spec: SPEC.md v0.2. Palette: tokens/moss.json.
+   Dark only: the same palette is applied in light and dark mode.
+   Mapping and deviation log: bb/README.md.
+   ============================================================ */
+:root,
+.light,
+.dark {
+  color-scheme: dark;
+
+  /* anchors */
+  --canvas: #0D0F0C;                /* bg */
+  --ink: #D7D9D2;                   /* fg */
+
+  /* surfaces and chrome */
+  --background: #0D0F0C;            /* bg */
+  --card: #141713;                  /* surface */
+  --popover: #1B1F1A;               /* overlay */
+  --popover-foreground: #D7D9D2;    /* fg */
+  --secondary: #191D18;             /* active */
+  --accent: #191D18;                /* active */
+  --muted: #1B1F1A;                 /* overlay */
+  --border: #272C24;                /* border */
+  --border-hairline: #272C24;       /* border */
+  --border-seam: #272C24;           /* border */
+  --input: #4B5147;                 /* faint */
+  --surface-recessed: #141713;      /* surface */
+  --surface-raised: #1B1F1A;        /* overlay */
+  --state-hover: #191D18;           /* active */
+  --state-active: #1B1F1A;          /* overlay */
+  --sidebar: #141713;               /* surface */
+  --sidebar-foreground: #D7D9D2;    /* fg */
+  --sidebar-accent: #191D18;        /* active */
+  --sidebar-border: #272C24;        /* border */
+
+  /* accent */
+  --primary: #7E9273;               /* moss */
+  --primary-foreground: #0D0F0C;    /* bg */
+  --ring: #7E9273;                  /* moss */
+  --sidebar-ring: #7E9273;          /* moss */
+  --surface-selected: #2A3527;      /* selection */
+  --surface-selected-border: #536B4F; /* forest */
+  --file-accent: #9A9968;           /* olive */
+
+  /* text tiers */
+  --foreground: #D7D9D2;            /* fg */
+  --muted-foreground: #70766B;      /* muted */
+  --readback-foreground: #70766B;   /* muted */
+  --subtle-foreground: #4B5147;     /* faint */
+
+  /* semantic */
+  --destructive: #A75D57;           /* red */
+  --destructive-foreground: #D7D9D2; /* fg */
+  --destructive-text: #C06B63;      /* red-bright */
+  --warning: #B69A64;               /* ochre */
+  --warning-text: #B69A64;          /* ochre */
+  --attention: #B69A64;             /* ochre */
+  --success: #7E9273;               /* moss */
+  --diff-added: #7E9273;            /* moss */
+  --diff-removed: #A75D57;          /* red */
+  --pr-merged: #8F6C80;             /* ANSI slot 5, mauve-grey */
+
+  /* terminal: SPEC.md §9.2 */
+  --ansi-0: #0D0F0C;
+  --ansi-1: #A75D57;
+  --ansi-2: #7E9273;
+  --ansi-3: #B69A64;
+  --ansi-4: #5D7B81;
+  --ansi-5: #8F6C80;
+  --ansi-6: #9A9968;
+  --ansi-7: #D7D9D2;
+  --ansi-8: #70766B;
+  --ansi-9: #C06B63;
+  --ansi-10: #92A389;
+  --ansi-11: #C7A46B;
+  --ansi-12: #6C8D94;
+  --ansi-13: #A08193;
+  --ansi-14: #AAA97F;
+  --ansi-15: #F0F0EE;
+
+  /* text drawn on each ANSI color used as a background */
+  --ansi-bg-fg-0: #D7D9D2;
+  --ansi-bg-fg-1: #0D0F0C;
+  --ansi-bg-fg-2: #0D0F0C;
+  --ansi-bg-fg-3: #0D0F0C;
+  --ansi-bg-fg-4: #0D0F0C;
+  --ansi-bg-fg-5: #0D0F0C;
+  --ansi-bg-fg-6: #0D0F0C;
+  --ansi-bg-fg-7: #0D0F0C;
+  --ansi-bg-fg-8: #0D0F0C;
+  --ansi-bg-fg-9: #0D0F0C;
+  --ansi-bg-fg-10: #0D0F0C;
+  --ansi-bg-fg-11: #0D0F0C;
+  --ansi-bg-fg-12: #0D0F0C;
+  --ansi-bg-fg-13: #0D0F0C;
+  --ansi-bg-fg-14: #0D0F0C;
+  --ansi-bg-fg-15: #0D0F0C;
+}
