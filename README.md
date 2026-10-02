@@ -25,6 +25,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
 - `zennotes/` — ZenNotes theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
+- `intent/moss.json` — Intent theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -53,6 +54,7 @@ Each port records its spec version and deviation log in its own files.
 | OpenCode | `opencode/` | `opencode/README.md` |
 | ZenNotes | `zennotes/` | `zennotes/README.md` |
 | Slack | `slack/` | `slack/README.md` |
+| Intent | `intent/` | `intent/README.md` |
 
 ## Usage
 
@@ -183,13 +185,17 @@ Open Preferences, Themes, Custom theme, Import. Paste this and click Apply:
 
 Slack adapts the colors to keep contrast, so they may shift slightly.
 
+### Intent
+
+Import `intent/moss.json` by hand in Intent's theme settings, then pick **MOSS**.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Intent needs the file imported again.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
