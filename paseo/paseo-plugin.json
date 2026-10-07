@@ -1,0 +1,7 @@
+{
+  "id": "moss",
+  "description": "MOSS, a very dark, muted green colorscheme",
+  "requirements": {
+    "paseo": ">=0.10.0"
+  }
+}

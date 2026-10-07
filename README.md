@@ -27,6 +27,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
 - `intent/moss.json` — Intent theme (see [Ports](#ports))
 - `bb/` — bb theme: `theme.css`, `theme.json` and `moss-code.json` (see [Ports](#ports))
+- `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -57,6 +58,7 @@ Each port records its spec version and deviation log in its own files.
 | Slack | `slack/` | `slack/README.md` |
 | Intent | `intent/` | `intent/README.md` |
 | bb | `bb/` | `bb/README.md` |
+| Paseo | `paseo/` | `paseo/README.md` |
 
 ## Usage
 
