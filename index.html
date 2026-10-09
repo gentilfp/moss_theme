@@ -1156,6 +1156,11 @@
             <td class="dim">token mapping in <a href="bb/README.md">bb/README.md</a></td>
           </tr>
           <tr>
+            <td>ZapFast</td>
+            <td class="mono"><a href="zapfast/moss.json" download>zapfast/moss.json</a></td>
+            <td class="dim">token mapping in <a href="zapfast/README.md">zapfast/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1214,6 +1219,13 @@ for f in theme.css theme.json moss-code.json; do
 done
 bb theme set moss</code></pre>
     <p class="prov-note">Symlink the files, not the folder: bb skips a symlinked theme folder. Or pick <strong>moss</strong> under Settings &rarr; Appearance. Run <span class="mono">bb theme set moss</span> again after a <span class="mono">git pull</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">ZapFast</span></div>
+    <pre class="code"><code>THEMES="$HOME/Library/Application Support/me.paolino.zapfast/themes"
+mkdir -p "$THEMES"
+ln -sf ~/Developer/moss_theme/zapfast/moss.json "$THEMES/moss.json"
+zapfast reload-themes</code></pre>
+    <p class="prov-note">Pick <strong>Moss</strong> under Settings &rarr; Appearance, or use <strong>Open themes folder</strong> there. On Linux the themes folder is <span class="mono">~/.config/zapfast/themes/</span>, and ZapFast notices changes there by itself.</p>
 
     <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
   </section>

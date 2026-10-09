@@ -28,6 +28,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `intent/moss.json` — Intent theme (see [Ports](#ports))
 - `bb/` — bb theme: `theme.css`, `theme.json` and `moss-code.json` (see [Ports](#ports))
 - `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
+- `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -59,6 +60,7 @@ Each port records its spec version and deviation log in its own files.
 | Intent | `intent/` | `intent/README.md` |
 | bb | `bb/` | `bb/README.md` |
 | Paseo | `paseo/` | `paseo/README.md` |
+| ZapFast | `zapfast/` | `zapfast/README.md` |
 
 ## Usage
 
@@ -206,13 +208,26 @@ bb theme set moss
 Symlink the files, not the folder: bb skips a symlinked theme folder. Or pick
 **moss** under Settings, Appearance.
 
+### ZapFast
+
+```sh
+THEMES="$HOME/Library/Application Support/me.paolino.zapfast/themes"
+mkdir -p "$THEMES"
+ln -sf ~/Developer/moss_theme/zapfast/moss.json "$THEMES/moss.json"
+zapfast reload-themes
+```
+
+Pick **Moss** under Settings, Appearance, or use **Open themes folder** there.
+On Linux the themes folder is `~/.config/zapfast/themes/`, and ZapFast picks up
+changes there by itself.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Intent needs the file imported again. bb needs `bb theme set moss` again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Intent needs the file imported again. bb needs `bb theme set moss` again. ZapFast needs `zapfast reload-themes` again on macOS.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
