@@ -95,11 +95,11 @@ from §9.2. Judgment calls:
 - **`read` is `moss`.** ZapFast defaults the read ticks to a blue MOSS does not
   have. The theme's colour list says `link` and `read` follow the accent, and
   §9.2 pairs hyperlinks with `moss`.
-- **`dim` is `faint`** for hints and placeholders, the same call as the Pi and bb
-  ports. If hints read as too dim, the allowed fix is a documented `muted` lift
+- **`dim` is `faint`** for hints and placeholders, the same call as the Pi
+  port. If hints read as too dim, the allowed fix is a documented `muted` lift
   of at most 6% (§10).
-- **`on_accent` is `bg`,** the same call as the bb port; it keeps the near-black
-  background under button labels.
+- **`on_accent` is `bg`,** which keeps the near-black background under button
+  labels.
 - **`bubble_out` is `selection`.** ZapFast's default mixes the accent into a
   surface; `selection` is `moss` at about 30% brightness, which is that idea
   already fixed in the palette, and `fg` on it stays at 9.0:1.

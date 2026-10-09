@@ -25,8 +25,6 @@ terminal colors, contrast ratios, and install steps for every port.
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
 - `zennotes/` — ZenNotes theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
-- `intent/moss.json` — Intent theme (see [Ports](#ports))
-- `bb/` — bb theme: `theme.css`, `theme.json` and `moss-code.json` (see [Ports](#ports))
 - `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
 - `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
 
@@ -57,8 +55,6 @@ Each port records its spec version and deviation log in its own files.
 | OpenCode | `opencode/` | `opencode/README.md` |
 | ZenNotes | `zennotes/` | `zennotes/README.md` |
 | Slack | `slack/` | `slack/README.md` |
-| Intent | `intent/` | `intent/README.md` |
-| bb | `bb/` | `bb/README.md` |
 | Paseo | `paseo/` | `paseo/README.md` |
 | ZapFast | `zapfast/` | `zapfast/README.md` |
 
@@ -191,23 +187,6 @@ Open Preferences, Themes, Custom theme, Import. Paste this and click Apply:
 
 Slack adapts the colors to keep contrast, so they may shift slightly.
 
-### Intent
-
-Import `intent/moss.json` by hand in Intent's theme settings, then pick **MOSS**.
-
-### bb
-
-```sh
-mkdir -p ~/.bb/theme/moss
-for f in theme.css theme.json moss-code.json; do
-  ln -sf ~/Developer/moss_theme/bb/$f ~/.bb/theme/moss/$f
-done
-bb theme set moss
-```
-
-Symlink the files, not the folder: bb skips a symlinked theme folder. Or pick
-**moss** under Settings, Appearance.
-
 ### ZapFast
 
 ```sh
@@ -227,7 +206,7 @@ changes there by itself.
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Intent needs the file imported again. bb needs `bb theme set moss` again. ZapFast needs `zapfast reload-themes` again on macOS.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. ZapFast needs `zapfast reload-themes` again on macOS.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 
