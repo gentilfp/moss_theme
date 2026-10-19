@@ -27,6 +27,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
 - `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
 - `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
+- `t3code/moss.json` — T3 Code theme (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -57,6 +58,7 @@ Each port records its spec version and deviation log in its own files.
 | Slack | `slack/` | `slack/README.md` |
 | Paseo | `paseo/` | `paseo/README.md` |
 | ZapFast | `zapfast/` | `zapfast/README.md` |
+| T3 Code | `t3code/` | `t3code/README.md` |
 
 ## Usage
 
@@ -200,13 +202,22 @@ Pick **Moss** under Settings, Appearance, or use **Open themes folder** there.
 On Linux the themes folder is `~/.config/zapfast/themes/`, and ZapFast picks up
 changes there by itself.
 
+### T3 Code
+
+Import `t3code/moss.json` by hand: **Settings → Appearance → Add a theme**,
+then **Choose files** (or paste the file's contents into the Theme JSON box)
+and pick **MOSS**. T3 Code copies imported themes into its own theme library
+(`t3code:themes:v1` in browser storage), so there is nothing to symlink —
+import the file again after a `git pull`. MOSS is dark only; in System or Light
+appearance T3 Code falls back to the theme's dark base.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. ZapFast needs `zapfast reload-themes` again on macOS.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 

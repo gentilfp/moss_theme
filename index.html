@@ -1151,6 +1151,11 @@
             <td class="dim">token mapping in <a href="zapfast/README.md">zapfast/README.md</a></td>
           </tr>
           <tr>
+            <td>T3 Code</td>
+            <td class="mono"><a href="t3code/moss.json" download>t3code/moss.json</a></td>
+            <td class="dim">UI colors only; deviation log in <a href="t3code/README.md">t3code/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1205,6 +1210,9 @@ mkdir -p "$THEMES"
 ln -sf ~/Developer/moss_theme/zapfast/moss.json "$THEMES/moss.json"
 zapfast reload-themes</code></pre>
     <p class="prov-note">Pick <strong>Moss</strong> under Settings &rarr; Appearance, or use <strong>Open themes folder</strong> there. On Linux the themes folder is <span class="mono">~/.config/zapfast/themes/</span>, and ZapFast notices changes there by itself.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">T3 Code</span></div>
+    <p class="prov-note">In <strong>Settings &rarr; Appearance</strong> choose <strong>Add a theme</strong>, then <strong>Choose files</strong> and pick <span class="mono">t3code/moss.json</span> &mdash; or paste the file's contents into the Theme JSON box. Pick <strong>MOSS</strong>. T3 Code keeps imported themes in its own library, so import the file again after a <span class="mono">git pull</span>.</p>
 
     <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
   </section>
