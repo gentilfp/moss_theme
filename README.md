@@ -25,6 +25,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
 - `zennotes/` — ZenNotes theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
+- `tern/moss.json` — Tern theme, in omp's theme format (see [Ports](#ports))
 - `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
 - `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
 - `t3code/moss.json` — T3 Code theme (see [Ports](#ports))
@@ -56,6 +57,7 @@ Each port records its spec version and deviation log in its own files.
 | OpenCode | `opencode/` | `opencode/README.md` |
 | ZenNotes | `zennotes/` | `zennotes/README.md` |
 | Slack | `slack/` | `slack/README.md` |
+| Tern | `tern/` | `tern/README.md` |
 | Paseo | `paseo/` | `paseo/README.md` |
 | ZapFast | `zapfast/` | `zapfast/README.md` |
 | T3 Code | `t3code/` | `t3code/README.md` |
@@ -189,6 +191,26 @@ Open Preferences, Themes, Custom theme, Import. Paste this and click Apply:
 
 Slack adapts the colors to keep contrast, so they may shift slightly.
 
+### Tern
+
+```sh
+mkdir -p ~/.omp/agent/themes
+ln -sf ~/Developer/moss_theme/tern/moss.json ~/.omp/agent/themes/moss.json
+```
+
+Pick **moss** in **Settings → Appearance → Dark Theme** (or run `themes` in the
+command palette and type `moss`), or pin it in Tern's `settings.json`:
+
+```json
+{ "theme_dark": "moss" }
+```
+
+Tern reads its chrome, panes, terminal grid and omp chat from omp theme files;
+there are fifty ported dark themes built in and this one joins them. MOSS is
+dark only, so `theme_light` is left alone: in Light appearance Tern keeps its
+light theme. If you use a named omp profile, the file goes in
+`~/.omp/profiles/<profile>/agent/themes/` instead.
+
 ### ZapFast
 
 ```sh
@@ -217,7 +239,7 @@ appearance T3 Code falls back to the theme's dark base.
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
 
 Neovim, VS Code, Orca, and other integrations will follow.
 

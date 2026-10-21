@@ -1146,6 +1146,11 @@
             <td class="dim">slot mapping in <a href="slack/README.md">slack/README.md</a></td>
           </tr>
           <tr>
+            <td>Tern</td>
+            <td class="mono"><a href="tern/moss.json" download>tern/moss.json</a></td>
+            <td class="dim">token mapping in <a href="tern/README.md">tern/README.md</a></td>
+          </tr>
+          <tr>
             <td>ZapFast</td>
             <td class="mono"><a href="zapfast/moss.json" download>zapfast/moss.json</a></td>
             <td class="dim">token mapping in <a href="zapfast/README.md">zapfast/README.md</a></td>
@@ -1203,6 +1208,11 @@ cp ~/Developer/moss_theme/zennotes/theme.css ~/.config/zennotes/themes/moss/</co
     <div class="sample-head"><span class="dot"></span><span class="fname">Slack</span></div>
     <pre class="code"><code>#141713, #2A3527, #7E9273, #B69A64</code></pre>
     <p class="prov-note">Open Preferences &rarr; Themes &rarr; Custom theme &rarr; Import, paste the string and click Apply. Slack adapts the colors to keep contrast, so they may shift slightly.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">Tern</span></div>
+    <pre class="code"><code>mkdir -p ~/.omp/agent/themes
+ln -sf ~/Developer/moss_theme/tern/moss.json ~/.omp/agent/themes/moss.json</code></pre>
+    <p class="prov-note">Pick <strong>moss</strong> in <strong>Settings &rarr; Appearance &rarr; Dark Theme</strong>, or run <span class="mono">themes</span> in the command palette and type <span class="mono">moss</span>. To pin it, set <span class="mono">"theme_dark": "moss"</span> in Tern's <span class="mono">settings.json</span>. MOSS is dark only, so Light appearance keeps Tern's light theme. With a named omp profile the file goes in <span class="mono">~/.omp/profiles/&lt;profile&gt;/agent/themes/</span>.</p>
 
     <div class="sample-head"><span class="dot"></span><span class="fname">ZapFast</span></div>
     <pre class="code"><code>THEMES="$HOME/Library/Application Support/me.paolino.zapfast/themes"
