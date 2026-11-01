@@ -1121,6 +1121,11 @@
             <td class="dim">deviation log in <a href="zed/README.md">zed/README.md</a></td>
           </tr>
           <tr>
+            <td>VS Code</td>
+            <td class="mono"><a href="vscode/themes/moss-color-theme.json" download>vscode/themes/moss-color-theme.json</a></td>
+            <td class="dim">extension manifest in <a href="vscode/package.json">vscode/</a>; deviation log in <a href="vscode/README.md">vscode/README.md</a></td>
+          </tr>
+          <tr>
             <td>Claude Code</td>
             <td class="mono"><a href="claude-code/moss.json" download>claude-code/moss.json</a></td>
             <td class="dim">UI colors only; deviation log in <a href="claude-code/README.md">claude-code/README.md</a></td>
@@ -1184,6 +1189,10 @@ theme = MOSS</code></pre>
     <pre class="code"><code>mkdir -p ~/.config/zed/themes
 ln -sf ~/Developer/moss_theme/zed/moss.json ~/.config/zed/themes/moss.json</code></pre>
     <p class="prov-note">Pick <strong>MOSS</strong> in the theme selector (<span class="mono">cmd-k cmd-t</span>), or set <span class="mono">"theme": { "mode": "dark", "dark": "MOSS", "light": "MOSS" }</span> in <span class="mono">~/.config/zed/settings.json</span>.</p>
+    <div class="sample-head"><span class="dot"></span><span class="fname">VS Code</span></div>
+    <pre class="code"><code>mkdir -p ~/.vscode/extensions
+ln -sfn ~/Developer/moss_theme/vscode ~/.vscode/extensions/moss-theme</code></pre>
+    <p class="prov-note">Quit and reopen VS Code, then pick <strong>MOSS</strong> in the theme picker (<span class="mono">cmd-k cmd-t</span>), or set <span class="mono">"workbench.colorTheme": "MOSS"</span> in <span class="mono">settings.json</span>. For Insiders use <span class="mono">~/.vscode-insiders/extensions</span>. VS Code scans extension folders at startup, so a window reload alone is not enough after the first install.</p>
     <div class="sample-head"><span class="dot"></span><span class="fname">Claude Code</span></div>
     <pre class="code"><code>mkdir -p ~/.claude/themes
 ln -sf ~/Developer/moss_theme/claude-code/moss.json ~/.claude/themes/moss.json</code></pre>
@@ -1224,7 +1233,7 @@ zapfast reload-themes</code></pre>
     <div class="sample-head"><span class="dot"></span><span class="fname">T3 Code</span></div>
     <p class="prov-note">In <strong>Settings &rarr; Appearance</strong> choose <strong>Add a theme</strong>, then <strong>Choose files</strong> and pick <span class="mono">t3code/moss.json</span> &mdash; or paste the file's contents into the Theme JSON box. Pick <strong>MOSS</strong>. T3 Code keeps imported themes in its own library, so import the file again after a <span class="mono">git pull</span>.</p>
 
-    <p class="prov-note">Neovim, VS Code and other apps are coming later.</p>
+    <p class="prov-note">Neovim and other apps are coming later.</p>
   </section>
 
 

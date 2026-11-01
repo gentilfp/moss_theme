@@ -19,6 +19,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `index.html` — visual reference / palette preview ([live](https://gentilfp.github.io/moss_theme/), or open it locally in a browser)
 - `ghostty/MOSS` — Ghostty theme (see [Ports](#ports))
 - `zed/moss.json` — Zed theme (see [Ports](#ports))
+- `vscode/` — VS Code theme extension: `package.json`, `themes/moss-color-theme.json` (see [Ports](#ports))
 - `claude-code/moss.json` — Claude Code theme (see [Ports](#ports))
 - `codex/moss.tmTheme` — Codex CLI theme, plus `codex/moss.codex-theme-v1` — ChatGPT desktop / Codex app import (see [Ports](#ports))
 - `pi/moss.json` — Pi theme (see [Ports](#ports))
@@ -51,6 +52,7 @@ Each port records its spec version and deviation log in its own files.
 | ------- | ---------- | ------------------ |
 | Ghostty | `ghostty/` | in `ghostty/MOSS`  |
 | Zed     | `zed/`     | `zed/README.md`    |
+| VS Code | `vscode/`  | `vscode/README.md` |
 | Claude Code | `claude-code/` | `claude-code/README.md` |
 | Codex CLI + App | `codex/` | `codex/README.md` |
 | Pi      | `pi/`      | `pi/README.md`     |
@@ -102,6 +104,26 @@ Open the theme selector (`cmd-k cmd-t`) and pick **MOSS**, or set it in
 
 Zed reloads theme files on save. If MOSS is missing from the selector, run
 **zed: open log** and look for a theme error.
+
+### VS Code
+
+```sh
+mkdir -p ~/.vscode/extensions
+ln -sfn ~/Developer/moss_theme/vscode ~/.vscode/extensions/moss-theme
+```
+
+Quit and reopen VS Code, then pick **MOSS** in the theme picker
+(**Preferences: Color Theme**, `cmd-k cmd-t` on macOS), or set it in
+`settings.json`:
+
+```json
+"workbench.colorTheme": "MOSS"
+```
+
+VS Code scans extension folders at startup, so **Developer: Reload Window** alone
+does not discover a newly added folder. For VS Code Insiders use
+`~/.vscode-insiders/extensions`. If you prefer not to symlink, copy the folder
+instead; `vscode/README.md` also covers packaging a `.vsix` with `vsce`.
 
 ### Claude Code
 
@@ -239,9 +261,9 @@ appearance T3 Code falls back to the theme's dark base.
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own; VS Code after a restart. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
 
-Neovim, VS Code, Orca, and other integrations will follow.
+Neovim, Orca, and other integrations will follow.
 
 ## Design philosophy
 

@@ -1,0 +1,38 @@
+{
+  "name": "moss-theme",
+  "displayName": "MOSS",
+  "description": "A very dark, muted colorscheme — moss, forest, olive, with ochre warmth.",
+  "version": "0.1.0",
+  "publisher": "gentilfp",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "dark",
+    "moss",
+    "green",
+    "muted",
+    "colorscheme"
+  ],
+  "galleryBanner": {
+    "color": "#0D0F0C",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gentilfp/moss_theme"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "MOSS",
+        "uiTheme": "vs-dark",
+        "path": "./themes/moss-color-theme.json"
+      }
+    ]
+  }
+}

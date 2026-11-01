@@ -3,3 +3,6 @@
 
 # macOS
 .DS_Store
+
+# VS Code extension package output
+vscode/*.vsix
