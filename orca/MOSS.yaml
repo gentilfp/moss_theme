@@ -1,0 +1,32 @@
+# MOSS — Orca terminal theme (Warp YAML)
+# Spec: SPEC.md v0.2 · Port date: 2026-11-01
+# Palette: tokens/moss.json (ANSI slots per SPEC.md §9.2)
+#
+# Import: Settings → Terminal → Import from YAML → pick this file.
+# Orca reads name, accent (cursor), background, foreground and the 16 ANSI slots.
+# It cannot read cursorAccent, selectionBackground or selectionForeground from
+# this format; orca/terminal/moss.json carries them for the plugin route.
+name: MOSS
+accent: '#7E9273'
+background: '#0D0F0C'
+foreground: '#D7D9D2'
+details: darker
+terminal_colors:
+  normal:
+    black: '#0D0F0C'
+    red: '#A75D57'
+    green: '#7E9273'
+    yellow: '#B69A64'
+    blue: '#5D7B81'
+    magenta: '#8F6C80'
+    cyan: '#9A9968'
+    white: '#D7D9D2'
+  bright:
+    black: '#70766B'
+    red: '#C06B63'
+    green: '#92A389'
+    yellow: '#C7A46B'
+    blue: '#6C8D94'
+    magenta: '#A08193'
+    cyan: '#AAA97F'
+    white: '#F0F0EE'

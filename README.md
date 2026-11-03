@@ -30,6 +30,8 @@ terminal colors, contrast ratios, and install steps for every port.
 - `paseo/` — Paseo plugin: `index.client.tsx` and `paseo-plugin.json` (see [Ports](#ports))
 - `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
 - `t3code/moss.json` — T3 Code theme (see [Ports](#ports))
+- `orca/` — Orca plugin: `orca-plugin.json`, `themes/moss.json`, `terminal/moss.json`,
+  plus `MOSS.yaml` for Orca's Warp-format importer (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -63,6 +65,7 @@ Each port records its spec version and deviation log in its own files.
 | Paseo | `paseo/` | `paseo/README.md` |
 | ZapFast | `zapfast/` | `zapfast/README.md` |
 | T3 Code | `t3code/` | `t3code/README.md` |
+| Orca | `orca/` | `orca/README.md` |
 
 ## Usage
 
@@ -255,15 +258,40 @@ and pick **MOSS**. T3 Code copies imported themes into its own theme library
 import the file again after a `git pull`. MOSS is dark only; in System or Light
 appearance T3 Code falls back to the theme's dark base.
 
+### Orca
+
+Orca takes the port as a content-only plugin, which themes the app chrome, the
+editor and the terminal at once:
+
+```sh
+orca plugin system on                              # once, if plugins are off
+orca plugin dev load ~/Developer/moss_theme/orca   # adds the folder as a dev plugin
+```
+
+`dev load` registers it in **Settings → Plugins → Development folders**; if it
+lands disabled, enable it there — content-only plugins need no approval. Then
+pick **MOSS** in the app theme picker and again in the terminal theme picker.
+Orca reloads the folder when its files change, so a `git pull` is enough. Remove
+it with `orca plugin dev unload ~/Developer/moss_theme/orca`.
+
+Without plugins, Orca can still import the terminal colors: **Settings →
+Terminal →** theme picker **→ Import from YAML →** pick `orca/MOSS.yaml`. It
+appears next to Orca's built-in themes as **MOSS**. That format carries the
+background, foreground, cursor and 16 ANSI slots only — the cursor accent and
+selection colors need the plugin route. Orca keeps imported themes in its own
+settings, so re-import after a `git pull`.
+
+Orca 1.4.246 or later is required.
+
 ### Updating
 
 ```sh
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own; VS Code after a restart. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own; VS Code after a restart. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again. Orca reloads the plugin folder by itself; a theme imported from `orca/MOSS.yaml` needs importing again.
 
-Neovim, Orca, and other integrations will follow.
+Neovim and other integrations will follow.
 
 ## Design philosophy
 

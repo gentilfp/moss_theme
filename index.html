@@ -1166,6 +1166,11 @@
             <td class="dim">UI colors only; deviation log in <a href="t3code/README.md">t3code/README.md</a></td>
           </tr>
           <tr>
+            <td>Orca</td>
+            <td class="mono"><a href="orca/orca-plugin.json" download>orca/</a> &middot; <a href="orca/MOSS.yaml" download>orca/MOSS.yaml</a></td>
+            <td class="dim">plugin themes the chrome, editor and terminal; token mapping in <a href="orca/README.md">orca/README.md</a></td>
+          </tr>
+          <tr>
             <td>Any other app</td>
             <td class="mono"><a href="tokens/moss.json" download>tokens/moss.json</a> &middot; <a href="tokens/moss.css" download>tokens/moss.css</a></td>
             <td class="dim">the palette as data, for writing a new port</td>
@@ -1232,6 +1237,11 @@ zapfast reload-themes</code></pre>
 
     <div class="sample-head"><span class="dot"></span><span class="fname">T3 Code</span></div>
     <p class="prov-note">In <strong>Settings &rarr; Appearance</strong> choose <strong>Add a theme</strong>, then <strong>Choose files</strong> and pick <span class="mono">t3code/moss.json</span> &mdash; or paste the file's contents into the Theme JSON box. Pick <strong>MOSS</strong>. T3 Code keeps imported themes in its own library, so import the file again after a <span class="mono">git pull</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">Orca</span></div>
+    <pre class="code"><code>orca plugin system on
+orca plugin dev load ~/Developer/moss_theme/orca</code></pre>
+    <p class="prov-note">Orca lists the folder under <strong>Settings &rarr; Plugins &rarr; Development folders</strong> as <span class="mono">local.moss</span>; enable it there if it lands disabled. Pick <strong>MOSS</strong> in the app theme picker and again in the terminal theme picker. No plugins? Use <strong>Settings &rarr; Terminal &rarr; Import from YAML</strong> and pick <span class="mono">orca/MOSS.yaml</span> for the terminal colors alone &mdash; that format carries no cursor accent or selection colors. Orca 1.4.246 or later.</p>
 
     <p class="prov-note">Neovim and other apps are coming later.</p>
   </section>
