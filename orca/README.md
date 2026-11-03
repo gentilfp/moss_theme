@@ -145,6 +145,39 @@ in `tokenColors` on the same tints as the editor.
 Measured on `bg`: the four dimmest slots are `red` 4.0:1, `blue` 4.2:1,
 `magenta` 4.2:1 and `brightBlack` 4.1:1; everything else is above 5:1.
 
+## Chat
+
+Orca's chat has no theme of its own and no contribution point: a plugin cannot
+ship chat colors. It paints from two sources, and both are covered here.
+
+- **App theme tokens.** The chat canvas is `--foreground` mixed 5% into
+  `--background`; body text is 78% of `--foreground` over that canvas; cards,
+  borders, hover fills, links and diffs read the same 66 tokens above. Code
+  blocks in chat are highlighted from the app theme's `tokenColors`, so they are
+  MOSS whenever MOSS is the selected app theme.
+- **Terminal palette.** **Settings → Appearance → Chat → Match terminal
+  interface** switches the source to the terminal theme instead — canvas =
+  terminal background, text = terminal foreground, font and text size locked to
+  the terminal's — and re-derives chat's own accents from the foreground
+  (`--accent`, `--primary`, `--border`, `--card`, `--popover`, `--ring` become
+  foreground mixes over the canvas, and the user bubble falls back to a
+  foreground mix, so `--chat-user-message` stops applying).
+
+So chat turns MOSS in either of these two setups:
+
+| App theme | Chat → Match terminal interface | Result |
+| --------- | ------------------------------- | ------ |
+| **MOSS** | **off** | Full MOSS: moss links, `selection` for selected rows, the moss user bubble, MOSS code colors, and chat font/size/width stay adjustable. **Recommended.** |
+| **Match terminal** | **on** | Chat follows the terminal palette end to end, with chat accents as foreground mixes. Code blocks use Orca's base syntax colors rather than MOSS's `tokenColors`, because the editor theme is then the terminal palette rather than a plugin theme. |
+
+`--chat-user-message` is the only chat token in Orca's public theme list, and it
+is set above. Three chat colors are internal (`--chat-warning` from
+`--status-warning` `#EAB308`, `--chat-unread` from `--callout-note` `#4493F8`,
+and the `#4493F8` / `#AB7DF8` callout notes). They are not themeable by a plugin,
+so warning and note accents inside chat stay Orca's hues rather than `ochre` and
+`olive`; the public token list is additive-only, so changing that needs an
+upstream Orca change.
+
 ## Deviation log (SPEC.md §11.10)
 
 No new hues were invented. Every value is a §3 token, a §9.2 ANSI slot, or a §8
@@ -191,6 +224,10 @@ tint. Judgment calls:
   `background`, `foreground`, `details` and `terminal_colors` are all Orca reads
   from that format; the cursor accent and both selection colors live only in the
   plugin route.
+- **`--chat-user-message` is `moss` at 12%.** It is the whole of Orca's public
+  chat surface; the rest of chat derives from the tokens around it, so no further
+  chat tokens exist to set. With **Match terminal interface** on, Orca overrides
+  the chat accents with foreground mixes and this token stops applying.
 - **Dark only.** Orca app themes declare a `base`, and MOSS is dark only, so
   `base: "dark"` and the terminal palette declares `mode: "dark"`.
 - **Two identities, one name.** The plugin id is `moss` (installed as

@@ -274,6 +274,12 @@ pick **MOSS** in the app theme picker and again in the terminal theme picker.
 Orca reloads the folder when its files change, so a `git pull` is enough. Remove
 it with `orca plugin dev unload ~/Developer/moss_theme/orca`.
 
+Orca's chat has no theme of its own: it paints from the app theme tokens, and
+from the terminal palette when **Settings → Appearance → Chat → Match terminal
+interface** is on. With **MOSS** selected as the app theme and that switch off,
+chat is MOSS too — canvas, text, code colors and the user bubble. `orca/README.md`
+covers the two setups.
+
 Without plugins, Orca can still import the terminal colors: **Settings →
 Terminal →** theme picker **→ Import from YAML →** pick `orca/MOSS.yaml`. It
 appears next to Orca's built-in themes as **MOSS**. That format carries the
