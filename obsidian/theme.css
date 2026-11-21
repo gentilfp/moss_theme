@@ -1,0 +1,404 @@
+/* ============================================================
+   MOSS — an Obsidian theme.
+   Port of SPEC.md v0.2 · palette: tokens/moss.json · dark only.
+
+   Mapping and deviation log: obsidian/README.md.
+   Install: put this folder in <vault>/.obsidian/themes/MOSS/
+   (the folder name must match the manifest name).
+
+   Built per Obsidian's theme guidelines: CSS variables first,
+   low-specificity selectors, no `!important`, no remote assets.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Palette (SPEC §3, tokens/moss.json)
+   Declared once and mapped to Obsidian's variables below, so
+   every value here traces back to a spec token.
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  color-scheme: dark;
+
+  /* core */
+  --moss-bg: #0D0F0C;
+  --moss-surface: #141713;
+  --moss-overlay: #1B1F1A;
+  --moss-fg: #D7D9D2;
+  --moss-muted: #70766B;
+  --moss-moss: #7E9273;
+  --moss-forest: #536B4F;
+  --moss-olive: #9A9968;
+  --moss-ochre: #B69A64;
+  --moss-red: #A75D57;
+
+  /* derived */
+  --moss-border: #272C24;
+  --moss-active: #191D18;
+  --moss-selection: #2A3527;
+  --moss-faint: #4B5147;
+  --moss-ochre-bright: #C7A46B;
+  --moss-red-bright: #C06B63;
+
+  /* ANSI projections (SPEC §9.2) — the only non-core hues MOSS allows */
+  --moss-blue: #5D7B81;
+  --moss-blue-bright: #6C8D94;
+  --moss-magenta: #8F6C80;
+  --moss-magenta-bright: #A08193;
+  --moss-moss-bright: #92A389;
+  --moss-olive-bright: #AAA97F;
+
+  /* tint (SPEC §8) — a rendering parameter, not a palette entry;
+     used for the highlighted bracket pair (§6) */
+  --moss-tint-ochre: rgba(182, 154, 100, 0.10);
+}
+
+/* ------------------------------------------------------------
+   Foundation (SPEC §4.2)
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  /* accent = moss, so Obsidian's own accent math lands on the palette */
+  --accent-h: 99;
+  --accent-s: 12%;
+  --accent-l: 51%;
+  --color-accent-hsl: 99, 12%, 51%;
+  --color-accent: var(--moss-moss);
+  --color-accent-1: var(--moss-moss-bright);
+  --color-accent-2: var(--moss-moss-bright);
+
+  /* keep mono-0/mono-100 dark-scheme even if the vault is in light mode */
+  --mono-0: black;
+  --mono-100: white;
+  --mono-rgb-0: 0, 0, 0;
+  --mono-rgb-100: 255, 255, 255;
+  --highlight-mix-blend-mode: lighten;
+
+  /* neutral ramp: surfaces low, text high */
+  --color-base-00: var(--moss-bg);
+  --color-base-05: var(--moss-surface);
+  --color-base-10: var(--moss-surface);
+  --color-base-20: var(--moss-surface);
+  --color-base-25: var(--moss-active);
+  --color-base-30: var(--moss-border);
+  --color-base-35: var(--moss-selection);
+  --color-base-40: var(--moss-faint);
+  --color-base-50: var(--moss-faint);
+  --color-base-60: var(--moss-muted);
+  --color-base-70: var(--moss-muted);
+  --color-base-100: var(--moss-fg);
+
+  /* semantic hues: MOSS has no blue/purple/pink, so they take §9.2 slots */
+  --color-red: var(--moss-red-bright);
+  --color-red-rgb: 192, 107, 99;
+  --color-orange: var(--moss-ochre);
+  --color-orange-rgb: 182, 154, 100;
+  --color-yellow: var(--moss-ochre);
+  --color-yellow-rgb: 182, 154, 100;
+  --color-green: var(--moss-moss);
+  --color-green-rgb: 126, 146, 115;
+  --color-cyan: var(--moss-blue);
+  --color-cyan-rgb: 93, 123, 129;
+  --color-blue: var(--moss-blue-bright);
+  --color-blue-rgb: 108, 141, 148;
+  --color-purple: var(--moss-magenta-bright);
+  --color-purple-rgb: 160, 129, 147;
+  --color-pink: var(--moss-magenta);
+  --color-pink-rgb: 143, 108, 128;
+}
+
+/* ------------------------------------------------------------
+   Surfaces, text, interactive states
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --background-primary: var(--moss-bg);
+  --background-primary-alt: var(--moss-overlay);
+  --background-secondary: var(--moss-surface);
+  --background-secondary-alt: var(--moss-surface);
+
+  --background-modifier-hover: var(--moss-active);
+  --background-modifier-active-hover: var(--moss-selection);
+  --background-modifier-border: var(--moss-border);
+  --background-modifier-border-hover: var(--moss-faint);
+  --background-modifier-border-focus: var(--moss-moss);
+  --background-modifier-form-field: var(--moss-overlay);
+  --background-modifier-form-field-hover: var(--moss-border);
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.35);
+  --background-modifier-cover: rgba(13, 15, 12, 0.70);
+  --background-modifier-message: var(--moss-overlay);
+
+  --text-normal: var(--moss-fg);
+  --text-muted: var(--moss-muted);
+  --text-faint: var(--moss-faint);
+  --text-on-accent: var(--moss-bg);
+  --text-on-accent-inverted: var(--moss-fg);
+  --text-error: var(--moss-red-bright);
+  --text-warning: var(--moss-ochre);
+  --text-success: var(--moss-moss);
+  --text-accent: var(--moss-moss);
+  --text-accent-hover: var(--moss-moss-bright);
+  --text-selection: var(--moss-selection);
+  --text-highlight-bg: rgba(182, 154, 100, 0.22);
+  --highlight-background: rgba(182, 154, 100, 0.22);
+
+  --interactive-normal: var(--moss-overlay);
+  --interactive-hover: var(--moss-border);
+  --interactive-accent: var(--moss-moss);
+  --interactive-accent-hover: var(--moss-moss-bright);
+  --interactive-accent-hsl: 99, 12%, 51%;
+
+  --icon-color: var(--moss-muted);
+  --icon-color-hover: var(--moss-fg);
+  --icon-color-active: var(--moss-moss);
+  --icon-color-focused: var(--moss-fg);
+
+  /* links: moss, external links moss, unresolved quiet */
+  --link-color: var(--moss-moss);
+  --link-color-hover: var(--moss-moss-bright);
+  --link-external-color: var(--moss-moss);
+  --link-external-color-hover: var(--moss-moss-bright);
+  --link-unresolved-color: var(--moss-faint);
+  --link-unresolved-opacity: 0.65;
+  --link-unresolved-decoration-color: var(--moss-faint);
+}
+
+/* ------------------------------------------------------------
+   Chrome: titlebar, ribbon, tabs, status bar, scrollbars
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --titlebar-background: var(--moss-surface);
+  --titlebar-background-focused: var(--moss-surface);
+  --titlebar-border-color: var(--moss-border);
+  --titlebar-text-color: var(--moss-muted);
+  --titlebar-text-color-focused: var(--moss-fg);
+
+  --ribbon-background: var(--moss-surface);
+  --ribbon-background-collapsed: var(--moss-surface);
+
+  --tab-container-background: var(--moss-surface);
+  --tab-background: transparent;
+  --tab-background-hover: var(--moss-active);
+  --tab-background-active: var(--moss-overlay);
+  --tab-inner-background-hover: var(--moss-active);
+  --tab-text-color: var(--moss-muted);
+  --tab-text-color-active: var(--moss-fg);
+  --tab-text-color-focused: var(--moss-muted);
+  --tab-text-color-focused-active: var(--moss-fg);
+  --tab-text-color-focused-active-current: var(--moss-fg);
+  --tab-text-color-focused-highlighted: var(--moss-moss);
+  --tab-divider-color: var(--moss-border);
+  --tab-outline-color: var(--moss-border);
+
+  --status-bar-background: var(--moss-surface);
+  --status-bar-border-color: var(--moss-border);
+  --status-bar-text-color: var(--moss-muted);
+
+  --divider-color: var(--moss-border);
+  --divider-color-hover: var(--moss-moss);
+
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgba(112, 118, 107, 0.35);
+  --scrollbar-active-thumb-bg: rgba(112, 118, 107, 0.60);
+}
+
+/* ------------------------------------------------------------
+   Sidebar tree
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --nav-item-color: var(--moss-muted);
+  --nav-item-color-hover: var(--moss-fg);
+  --nav-item-color-active: var(--moss-fg);
+  --nav-item-color-selected: var(--moss-fg);
+  --nav-item-color-highlighted: var(--moss-moss);
+  --nav-item-background-hover: var(--moss-active);
+  --nav-item-background-active: var(--moss-overlay);
+  --nav-item-background-selected: var(--moss-selection);
+
+  --nav-heading-color: var(--moss-muted);
+  --nav-heading-color-hover: var(--moss-fg);
+  --nav-heading-color-collapsed: var(--moss-faint);
+  --nav-heading-color-collapsed-hover: var(--moss-fg);
+
+  --nav-collapse-icon-color: var(--moss-faint);
+  --nav-collapse-icon-color-collapsed: var(--moss-muted);
+
+  --nav-tag-color: var(--moss-muted);
+  --nav-tag-color-hover: var(--moss-fg);
+  --nav-tag-color-active: var(--moss-fg);
+
+  --nav-indentation-guide-color: var(--moss-border);
+}
+
+/* ------------------------------------------------------------
+   Floating surfaces: menus, command palette, modals, tooltips
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --menu-background: var(--moss-overlay);
+  --menu-border-color: var(--moss-border);
+
+  --prompt-background: var(--moss-overlay);
+  --prompt-border-color: var(--moss-border);
+
+  --modal-background: var(--moss-overlay);
+  --modal-border-color: var(--moss-border);
+  --modal-sidebar-background: var(--moss-surface);
+
+  --suggestion-background: var(--moss-overlay);
+  --search-result-background: var(--moss-overlay);
+
+  --tooltip-background: var(--moss-overlay);
+  --tooltip-color: var(--moss-fg);
+
+  --notice-background: var(--moss-overlay);
+  --notice-color: var(--moss-fg);
+
+  --drag-ghost-background: var(--moss-overlay);
+  --drag-ghost-text-color: var(--moss-fg);
+}
+
+/* ------------------------------------------------------------
+   Editor: caret, search, blockquote, lists, checkboxes
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --caret-color: var(--moss-moss);
+  --inline-title-color: var(--moss-fg);
+  --heading-formatting: var(--moss-faint);
+
+  --blockquote-border-color: var(--moss-moss);
+  --hr-color: var(--moss-border);
+
+  /* indentation guides: faint in the editor, where border is invisible */
+  --indentation-guide-color: var(--moss-faint);
+
+  --list-marker-color: var(--moss-muted);
+  --list-marker-color-hover: var(--moss-fg);
+  --list-marker-color-collapsed: var(--moss-moss);
+
+  --checkbox-color: var(--moss-moss);
+  --checkbox-color-hover: var(--moss-moss-bright);
+  --checkbox-marker-color: var(--moss-bg);
+  --checkbox-border-color: var(--moss-faint);
+  --checkbox-border-color-hover: var(--moss-muted);
+}
+
+/* ------------------------------------------------------------
+   Markdown: tags, tables, properties
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --tag-color: var(--moss-moss);
+  --tag-color-hover: var(--moss-moss);
+  --tag-background: rgba(126, 146, 115, 0.12);
+  --tag-background-hover: rgba(126, 146, 115, 0.20);
+  --tag-border-color: transparent;
+  --tag-border-color-hover: transparent;
+
+  --table-border-color: var(--moss-border);
+  --table-header-background: var(--moss-overlay);
+  --table-row-alt-background: var(--moss-surface);
+  --table-row-background-hover: var(--moss-active);
+  --table-selection-border-color: var(--moss-moss);
+  --table-drag-handle-color: var(--moss-muted);
+  --table-drag-handle-color-active: var(--moss-moss);
+
+  --metadata-label-text-color: var(--moss-muted);
+  --metadata-label-text-color-hover: var(--moss-fg);
+  --metadata-input-text-color: var(--moss-fg);
+  --metadata-divider-color: var(--moss-border);
+  --metadata-property-background-hover: var(--moss-active);
+}
+
+/* ------------------------------------------------------------
+   Syntax (SPEC §5.1)
+   Obsidian maps its CodeMirror and Prism tokens onto these.
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --code-background: var(--moss-overlay);
+  --code-border-color: var(--moss-border);
+  --code-normal: var(--moss-fg);
+  --code-comment: var(--moss-muted);
+  --code-function: var(--moss-fg);
+  --code-important: var(--moss-ochre-bright);
+  --code-keyword: var(--moss-moss);
+  --code-operator: var(--moss-forest);
+  --code-property: var(--moss-fg);
+  --code-punctuation: var(--moss-muted);
+  --code-string: var(--moss-olive);
+  --code-tag: var(--moss-forest);
+  --code-value: var(--moss-ochre);
+  --code-bracket-background: var(--moss-tint-ochre);
+}
+
+/* ------------------------------------------------------------
+   Callouts, graph, canvas
+   Colors also paint callout titles and icons, so they stay in
+   the readable band: no forest, no faint.
+   ------------------------------------------------------------ */
+.theme-dark,
+.theme-light {
+  --callout-default: var(--moss-moss);
+  --callout-info: var(--moss-moss);
+  --callout-todo: var(--moss-moss);
+  --callout-success: var(--moss-moss);
+  --callout-tip: var(--moss-moss);
+  --callout-summary: var(--moss-olive);
+  --callout-important: var(--moss-ochre);
+  --callout-question: var(--moss-ochre);
+  --callout-warning: var(--moss-ochre);
+  --callout-error: var(--moss-red-bright);
+  --callout-fail: var(--moss-red-bright);
+  --callout-bug: var(--moss-red-bright);
+  --callout-example: var(--moss-magenta);
+  --callout-quote: var(--moss-muted);
+
+  --graph-node: var(--moss-moss);
+  --graph-node-focused: var(--moss-fg);
+  --graph-node-unresolved: var(--moss-faint);
+  --graph-node-tag: var(--moss-olive-bright);
+  --graph-node-attachment: var(--moss-ochre);
+  --graph-line: var(--moss-border);
+  --graph-text: var(--moss-muted);
+
+  --canvas-background: var(--moss-bg);
+  --canvas-dot-pattern: var(--moss-border);
+  --canvas-card-label-color: var(--moss-muted);
+  --canvas-color-1: var(--moss-red);
+  --canvas-color-2: var(--moss-ochre);
+  --canvas-color-3: var(--moss-olive);
+  --canvas-color-4: var(--moss-moss);
+  --canvas-color-5: var(--moss-blue);
+  --canvas-color-6: var(--moss-magenta);
+}
+
+/* ------------------------------------------------------------
+   The three rules that need a selector (SPEC §4.2, §5.1)
+   ------------------------------------------------------------ */
+
+/* Cursor line: a subtle tint, never a marker. */
+.markdown-source-view.mod-cm6 .cm-line.cm-active,
+.markdown-source-view.mod-cm6 .cm-line.cm-activeLine {
+  background-color: var(--moss-active);
+}
+
+/* Functions, methods and properties stay neutral (SPEC §14 #1–#3).
+   Obsidian paints definitions with --text-muted by default. */
+.markdown-source-view.mod-cm6 .cm-def,
+.markdown-source-view.mod-cm6 .cm-variable-2,
+.markdown-source-view.mod-cm6 .cm-property {
+  color: var(--moss-fg);
+}
+
+/* The active tab carries a moss indicator under its title. */
+.workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: inset 0 -2px 0 0 var(--moss-moss);
+}
+
+/* Matching bracket pair: ochre, not a new color (SPEC §6). */
+.markdown-source-view.mod-cm6 .cm-matchingBracket {
+  color: var(--moss-ochre);
+}

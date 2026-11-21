@@ -24,6 +24,7 @@ terminal colors, contrast ratios, and install steps for every port.
 - `codex/moss.tmTheme` — Codex CLI theme, plus `codex/moss.codex-theme-v1` — ChatGPT desktop / Codex app import (see [Ports](#ports))
 - `pi/moss.json` — Pi theme (see [Ports](#ports))
 - `opencode/moss.json` — OpenCode theme (see [Ports](#ports))
+- `obsidian/` — Obsidian theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 - `zennotes/` — ZenNotes theme: `manifest.json` and `theme.css` (see [Ports](#ports))
 - `slack/theme.txt` — Slack theme string (see [Ports](#ports))
 - `tern/moss.json` — Tern theme, in omp's theme format (see [Ports](#ports))
@@ -59,6 +60,7 @@ Each port records its spec version and deviation log in its own files.
 | Codex CLI + App | `codex/` | `codex/README.md` |
 | Pi      | `pi/`      | `pi/README.md`     |
 | OpenCode | `opencode/` | `opencode/README.md` |
+| Obsidian | `obsidian/` | `obsidian/README.md` |
 | ZenNotes | `zennotes/` | `zennotes/README.md` |
 | Slack | `slack/` | `slack/README.md` |
 | Tern | `tern/` | `tern/README.md` |
@@ -194,6 +196,24 @@ Pick **moss** with `/theme`, or set it in `tui.json`:
 { "$schema": "https://opencode.ai/tui.json", "theme": "moss" }
 ```
 
+### Obsidian
+
+Obsidian keeps themes per vault, in `.obsidian/themes`. The folder name must
+match the manifest, so it is `MOSS`:
+
+```sh
+THEMES="/path/to/vault/.obsidian/themes"
+mkdir -p "$THEMES/MOSS"
+ln -sf ~/Developer/moss_theme/obsidian/manifest.json "$THEMES/MOSS/manifest.json"
+ln -sf ~/Developer/moss_theme/obsidian/theme.css "$THEMES/MOSS/theme.css"
+```
+
+Then pick **MOSS** in **Settings → Appearance → Themes** and set **Base color
+scheme** to **Dark**. Repeat for each vault you want themed. `theme.css`
+reloads on save, so a `git pull` is enough; `manifest.json` changes need an
+app restart. If the accent stays Obsidian blue, clear the **Accent color**
+setting — it overrides the theme.
+
 ### ZenNotes
 
 ```sh
@@ -295,7 +315,7 @@ Orca 1.4.246 or later is required.
 git -C ~/Developer/moss_theme pull
 ```
 
-Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi and OpenCode on their own; VS Code after a restart. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again. Orca reloads the plugin folder by itself; a theme imported from `orca/MOSS.yaml` needs importing again.
+Ghostty picks up the change on reload; Zed, Claude Code, Codex CLI, Pi, OpenCode and Obsidian on their own (Obsidian needs a restart only when `manifest.json` changes); VS Code after a restart. ZenNotes needs the `cp` commands again. Slack needs the theme string pasted again. Tern needs the theme picked again in **Settings → Appearance** (or a Tern restart). ZapFast needs `zapfast reload-themes` again on macOS. T3 Code needs the file imported again. Orca reloads the plugin folder by itself; a theme imported from `orca/MOSS.yaml` needs importing again.
 
 Neovim and other integrations will follow.
 

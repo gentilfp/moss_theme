@@ -1141,6 +1141,11 @@
             <td class="dim">role mapping in <a href="opencode/README.md">opencode/README.md</a></td>
           </tr>
           <tr>
+            <td>Obsidian</td>
+            <td class="mono"><a href="obsidian/manifest.json" download>obsidian/manifest.json</a> &middot; <a href="obsidian/theme.css" download>obsidian/theme.css</a></td>
+            <td class="dim">dark only; token mapping in <a href="obsidian/README.md">obsidian/README.md</a></td>
+          </tr>
+          <tr>
             <td>ZenNotes</td>
             <td class="mono"><a href="zennotes/theme.css" download>zennotes/theme.css</a> &middot; <a href="zennotes/manifest.json" download>zennotes/manifest.json</a></td>
             <td class="dim">token mapping in <a href="zennotes/README.md">zennotes/README.md</a></td>
@@ -1212,6 +1217,13 @@ ln -sf ~/Developer/moss_theme/pi/moss.json ~/.pi/agent/themes/moss.json</code></
     <pre class="code"><code>mkdir -p ~/.config/opencode/themes
 ln -sf ~/Developer/moss_theme/opencode/moss.json ~/.config/opencode/themes/moss.json</code></pre>
     <p class="prov-note">Pick <strong>moss</strong> with <span class="mono">/theme</span>, or set <span class="mono">"theme": "moss"</span> in <span class="mono">tui.json</span>.</p>
+
+    <div class="sample-head"><span class="dot"></span><span class="fname">Obsidian</span></div>
+    <pre class="code"><code>THEMES="/path/to/vault/.obsidian/themes"
+mkdir -p "$THEMES/MOSS"
+ln -sf ~/Developer/moss_theme/obsidian/manifest.json "$THEMES/MOSS/manifest.json"
+ln -sf ~/Developer/moss_theme/obsidian/theme.css "$THEMES/MOSS/theme.css"</code></pre>
+    <p class="prov-note">The folder name must match the manifest, so it is <span class="mono">MOSS</span>. Pick <strong>MOSS</strong> in <strong>Settings &rarr; Appearance &rarr; Themes</strong> and set <strong>Base color scheme</strong> to <strong>Dark</strong>. Themes are per vault: repeat for each vault. <span class="mono">theme.css</span> reloads on save; <span class="mono">manifest.json</span> changes need a restart. If the accent stays blue, clear <strong>Accent color</strong> &mdash; it overrides the theme.</p>
 
     <div class="sample-head"><span class="dot"></span><span class="fname">ZenNotes</span></div>
     <pre class="code"><code>mkdir -p ~/.config/zennotes/themes/moss
