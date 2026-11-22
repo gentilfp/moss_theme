@@ -1,13 +1,16 @@
 # MOSS — Orca theme
 
-- **Spec:** SPEC.md v0.2 · **Port date:** 2026-11-01
+- **Spec:** SPEC.md v0.2 · **Port date:** 2026-11-01 · **Last checked:** 2026-11-22 (Orca 1.4.269)
 - **Palette:** `tokens/moss.json` (ANSI slots per SPEC.md §9.2)
 - **Format:** an Orca content-only plugin (`orca-plugin.json`) that contributes an
-  app theme (`themes/moss.json`), a terminal palette (`terminal/moss.json`), plus
-  a Warp-format `MOSS.yaml` for Orca's built-in theme importer
+  app theme (`themes/moss.json`), a terminal palette (`terminal/moss.json`), a
+  wallpaper (`images/moss-glow.webp`), plus a Warp-format `MOSS.yaml` for Orca's
+  built-in theme importer
 - **Modes:** dark only (`base: "dark"`; MOSS has no light palette)
-- **Requires:** Orca 1.4.246 or later (plugin manifest v2, publisher derived from
-  the install source). Validated with `orca plugin validate` on Orca 1.4.246 (macOS)
+- **Requires:** Orca 1.4.246 or later for the wallpaper, chrome, editor and
+  terminal tokens. The chat text tokens need 1.4.254 or later; older releases
+  ignore them and keep deriving chat from the app theme. Last checked against
+  Orca 1.4.269 with `orca plugin validate` (macOS).
 
 Orca's terminal is xterm.js, so its theme keys are the ones VS Code's terminal
 uses: background, foreground, cursor, cursor accent, selection, and the 16 ANSI
@@ -20,7 +23,9 @@ port reuses the VS Code port's syntax rules unchanged.
 | File                    | What it is                                                        |
 | ----------------------- | ----------------------------------------------------------------- |
 | `orca-plugin.json`      | Plugin manifest: `execution: "data"`, contributes both themes      |
-| `themes/moss.json`      | App theme: 66 chrome tokens + the 41 code-color rules              |
+| `themes/moss.json`      | App theme: 74 chrome tokens, 41 code-color rules, one wallpaper   |
+| `images/moss-glow.svg`  | Wallpaper source: palette glows over `bg`                         |
+| `images/moss-glow.webp` | The wallpaper Orca loads (2560×1600, 24 KB)                       |
 | `terminal/moss.json`    | Terminal palette: the 22 xterm keys Orca reads                     |
 | `MOSS.yaml`             | Warp-format theme for Settings → Terminal → Import from YAML       |
 
@@ -42,6 +47,11 @@ app theme picker and again in the terminal theme picker. Orca reloads the folder
 whenever its files change, so a `git pull` is enough. To remove it:
 `orca plugin dev unload ~/Developer/moss_theme/orca`.
 
+The wallpaper only shows when **Settings → Terminal → Background Opacity** is
+below 100% (85% is a good start) and **Appearance → Reduce visual effects** is
+off; the macOS Reduce Transparency setting also hides it. If a theme update
+leaves the old colours on screen, reselect **MOSS** in the app theme picker.
+
 Installing it from the plugin directory instead is what gives it a publisher
 other than `local`.
 
@@ -58,7 +68,7 @@ the file after a `git pull`.
 
 ## App theme tokens
 
-Every one of Orca's 66 public theme tokens is set explicitly, so nothing falls
+Every one of Orca's 74 public theme tokens is set explicitly, so nothing falls
 back to Orca's own derivation. The mapping follows the VS Code port wherever the
 two apps have the same token.
 
@@ -75,7 +85,7 @@ two apps have the same token.
 | `--secondary` | `overlay` | `#1B1F1A` | Quiet raised button fill, as in the VS Code port (`button.secondaryBackground`). |
 | `--secondary-foreground` | `fg` | `#D7D9D2` | Text on the secondary fill. |
 | `--muted` | `active` | `#191D18` | Quiet fills sit one step above `surface`, under `overlay` (§4.2). |
-| `--muted-foreground` | `muted` | `#70766B` | Secondary text: readable but clearly subdued (§4.1). |
+| `--muted-foreground` | `muted` lifted | `#828B7E` | Secondary text, lifted because `muted` (`#70766B`) is 4.12:1 on `bg` and Orca drops text tokens under 4.5:1; this is 5.45:1 on `bg` and 4.83:1 on the `muted` fill, and keeps the green-grey cast (§4.1). |
 | `--accent` | `selection` | `#2A3527` | Hover and selected fills take the selection background (§4.2). |
 | `--accent-foreground` | `fg` | `#D7D9D2` | Text on `accent`; 9.0:1. |
 | `--border` | `border` | `#272C24` | Borders and separators, never a pure grey (§4.2). |
@@ -92,17 +102,25 @@ two apps have the same token.
 | `--worktree-sidebar-active` | `moss` 10% | `rgba(126, 146, 115, 0.10)` | The current workspace row: Orca lets this token be translucent over `--worktree-sidebar`, and §8's 8–14% tint band is the right weight for a row that is always visible. |
 | `--worktree-sidebar-active-border` | `moss` | `#7E9273` | Border of the current workspace row; an accent role, not a warning one. |
 | `--host-badge` | `overlay` | `#1B1F1A` | The execution-host pill is a raised chip. |
-| `--host-badge-foreground` | `muted` | `#70766B` | Badge text stays quiet (3.6:1); Orca's contrast check may lift it. |
+| `--host-badge-foreground` | `muted` lifted | `#828B7E` | Badge text lifted to 4.73:1 on `--host-badge`, so the token survives Orca's 4.5:1 gate instead of reverting to a built-in grey. |
 | `--tab-bar` | `bg` | `#0D0F0C` | The tab strip is the canvas, as in the VS Code port (`editorGroupHeader.tabsBackground`). |
 | `--tab-active` | `overlay` | `#1B1F1A` | The active tab lifts one step above the strip. |
 | `--tab-active-foreground` | `fg` | `#D7D9D2` | Active tab text is normal text. |
 | `--tab-active-indicator` | `moss` | `#7E9273` | The underline under the active tab is the accent. |
 | `--tab-inactive` | `bg` | `#0D0F0C` | Inactive tabs sit on the strip. |
-| `--tab-inactive-foreground` | `muted` | `#70766B` | Inactive tab text is secondary. |
+| `--tab-inactive-foreground` | `muted` lifted | `#828B7E` | Inactive tab text uses the same lifted muted, 5.45:1 on the tab strip. |
 | `--split-divider` | `border` | `#272C24` | Split dividers are hairlines. |
 | `--split-divider-hover` | `moss` | `#7E9273` | A dragged divider shows the accent. |
 | `--chat-user-message` | `moss` 12% | `rgba(126, 146, 115, 0.12)` | Your own chat messages take the moss tint; translucency over the chat canvas is Orca's own model for this token. |
+| `--chat-bold-foreground` | `fg` lifted | `#E6E9DF` | Bold text in an answer, one step above body text. 14.4:1 on the canvas, 12.3:1 on the user bubble. |
+| `--chat-muted-foreground` | `muted` lifted | `#828B7E` | Tool rows, timestamps and hunk headers; 5.0:1 on the canvas and 4.65:1 on code blocks, so Orca keeps it. |
+| `--chat-inline-code` | `moss` 14% | `rgba(126, 146, 115, 0.14)` | Inline code takes a stronger moss wash than the user bubble so it reads as a separate surface. |
+| `--chat-inline-code-foreground` | `ochre` | `#C7A46B` | Inline code text is the bright ochre, 6.2:1 on the moss wash (§4.1 value family). |
+| `--chat-code-block` | `olive` 5.5% | `rgba(154, 153, 104, 0.055)` | Fenced code and tool output take a quiet olive wash, keeping code blocks distinct from prose without another grey. |
+| `--chat-selection` | `moss` 30% | `rgba(126, 146, 115, 0.30)` | Selected chat text gets the moss selection instead of Orca's link-blue derivation. |
+| `--chat-selection-foreground` | `fg` | `#D7D9D2` | Selected text keeps the normal text level, 7.9:1 on the selection. |
 | `--text-link` | `moss` | `#7E9273` | Links are `moss` (§9.2). |
+| `--editor-selection` | `moss` 30% | `rgba(126, 146, 115, 0.30)` | Monaco's selection is the moss tint, translucent so find matches still show through. |
 | `--diff-added` | `moss` | `#7E9273` | Added-line hue and chat diff text (§8). |
 | `--diff-added-background` | `moss` ≈12% over `bg` | `#1B1F18` | §8 tint, written as the solid hex the VS Code port uses so the ratio is exact over the editor. |
 | `--diff-added-emphasis` | `moss` 20% | `rgba(126, 146, 115, 0.20)` | Changed characters inside an added line. |
@@ -115,11 +133,15 @@ two apps have the same token.
 | `--git-decoration-modified`, `-renamed` | `ochre` | `#B69A64` | Modified files, and §8's "rename/adjust markers". |
 | `--git-decoration-deleted` | `red` | `#A75D57` | Deleted files (§8). |
 | `--git-decoration-copied` | `olive` | `#9A9968` | No status in §8; olive is the warm value family, distinct from renamed and added. |
-| `--git-decoration-ignored` | `faint` | `#4B5147` | Git-ignored files stay certainly quiet (§8). |
+| `--git-decoration-ignored` | `faint` lifted | `#5F6659` | Git-ignored files stay quiet, but 3.04:1 on the sidebar so Orca's 3:1 decoration gate keeps the MOSS tone (§8). |
 
-Measured contrast on `bg`: `fg` 13.5:1, `muted` 4.1:1, `moss` 5.7:1,
-`ochre` 7.2:1, `red` 4.0:1. On `surface`: `fg` 12.7:1, `muted` 3.9:1,
-`moss` 5.4:1, `ochre` 6.7:1, `olive` 6.1:1, `red` 3.7:1, `faint` 2.2:1.
+Measured contrast on `bg`: `fg` 13.5:1, `muted` 5.45:1 (lifted), `moss` 5.7:1,
+`ochre` 7.2:1, `red` 4.0:1. On `surface`: `fg` 12.7:1, `muted` 5.12:1,
+`moss` 5.4:1, `ochre` 6.7:1, `olive` 6.1:1, `red` 3.7:1.
+
+`node orca/check-theme-contrast.mjs` re-checks every pair Orca gates, plus the
+wallpaper slot, and exits non-zero if Orca would drop a token or refuse the
+image. It has no dependencies; run it after changing a value.
 
 ## Code colors
 
@@ -147,46 +169,85 @@ Measured on `bg`: the four dimmest slots are `red` 4.0:1, `blue` 4.2:1,
 
 ## Chat
 
-Orca's chat has no theme of its own and no contribution point: a plugin cannot
-ship chat colors. It paints from two sources, and both are covered here.
+Orca's chat is themed from the app theme, and since Orca 1.4.254 it exposes a
+small chat token family of its own. MOSS sets all of it; nothing about chat falls
+back to Orca's neutral derivations.
 
-- **App theme tokens.** The chat canvas is `--foreground` mixed 5% into
-  `--background`; body text is 78% of `--foreground` over that canvas; cards,
-  borders, hover fills, links and diffs read the same 66 tokens above. Code
-  blocks in chat are highlighted from the app theme's `tokenColors`, so they are
-  MOSS whenever MOSS is the selected app theme.
+- **Canvas.** There is no token for the chat canvas: Orca paints it as
+  `--foreground` mixed 5% into `--background`, which is `#171916` for MOSS. That
+  is why the canvas reads as a near-black rather than a moss surface, and why
+  palette colour has to come from the wallpaper below rather than from a token.
+- **Text.** Body text is 88% of `--foreground` over the canvas; bold text is
+  `#E6E9DF`, muted text `#828B7E`, links `moss`.
+- **Surfaces.** The user bubble is `moss` at 12%, inline code `moss` at 14% with
+  `ochre` text, code blocks and tool output `olive` at 5.5%, selection `moss` at
+  30%. Code blocks are highlighted from `tokenColors`, so they are MOSS whenever
+  MOSS is the selected app theme.
 - **Terminal palette.** **Settings → Appearance → Chat → Match terminal
   interface** switches the source to the terminal theme instead — canvas =
   terminal background, text = terminal foreground, font and text size locked to
-  the terminal's — and re-derives chat's own accents from the foreground
-  (`--accent`, `--primary`, `--border`, `--card`, `--popover`, `--ring` become
-  foreground mixes over the canvas, and the user bubble falls back to a
-  foreground mix, so `--chat-user-message` stops applying).
+  the terminal's — and re-derives chat's own accents from the foreground. In
+  that mode Orca ignores the theme's chat and diff colors, including every
+  `--chat-*` token above, so leave it **off** to see MOSS in chat.
 
-So chat turns MOSS in either of these two setups:
+| App theme | Match terminal interface | Result |
+| --------- | ------------------------ | ------ |
+| **MOSS** | **off** | Full MOSS: moss links, the moss user bubble, ochre inline code, olive code blocks, MOSS code colors, and chat font/size/width stay adjustable. **Recommended.** |
+| **Match terminal** | **on** | Chat follows the terminal palette end to end; `--chat-*` and the diff tokens stop applying. Code blocks use Orca's base syntax colors rather than MOSS's `tokenColors`. |
 
-| App theme | Chat → Match terminal interface | Result |
-| --------- | ------------------------------- | ------ |
-| **MOSS** | **off** | Full MOSS: moss links, `selection` for selected rows, the moss user bubble, MOSS code colors, and chat font/size/width stay adjustable. **Recommended.** |
-| **Match terminal** | **on** | Chat follows the terminal palette end to end, with chat accents as foreground mixes. Code blocks use Orca's base syntax colors rather than MOSS's `tokenColors`, because the editor theme is then the terminal palette rather than a plugin theme. |
+Three chat colors stay internal (`--chat-warning` from `--status-warning`
+`#EAB308`, `--chat-unread` from `--callout-note` `#4493F8`, and the `#4493F8` /
+`#AB7DF8` callout notes). They are not themeable by a plugin, so warning and note
+accents inside chat keep Orca's hues rather than `ochre` and `olive`; the public
+token list is additive-only, so changing that needs an upstream Orca change.
 
-`--chat-user-message` is the only chat token in Orca's public theme list, and it
-is set above. Three chat colors are internal (`--chat-warning` from
-`--status-warning` `#EAB308`, `--chat-unread` from `--callout-note` `#4493F8`,
-and the `#4493F8` / `#AB7DF8` callout notes). They are not themeable by a plugin,
-so warning and note accents inside chat stay Orca's hues rather than `ochre` and
-`olive`; the public token list is additive-only, so changing that needs an
-upstream Orca change.
+## Wallpaper
+
+An app theme can carry one image that Orca paints **under** translucent surfaces
+(Orca 1.4.246+). MOSS ships a quiet palette glow so chat and terminals are not
+flat near-black:
+
+```json
+"background": {
+  "path": "images/moss-glow.webp",
+  "opacity": 0.55,
+  "size": "cover",
+  "position": "center"
+}
+```
+
+- `images/moss-glow.svg` is the source: `bg` with four off-canvas radial glows —
+  `moss` upper left, `blue` lower right, `ochre` upper right, `mauve` lower
+  left — plus a faint `forest` bridge. The glows sit at the edges, so the centred
+  46rem chat column and terminal text stay on the darkest part of the image.
+- `opacity: 0.55` blends the image into `--background`; at full strength it is
+  deliberately stronger than the final result, so it also reads well at lower
+  terminal opacity.
+- **To see it:** **Settings → Terminal → Background Opacity** below 100% (85% is
+  a good start) and **Reduce Visual Effects** off. On macOS, the system **Reduce
+  Transparency** setting also turns it off. Chat paints the wallpaper through
+  its canvas at no less than 80% opacity; user bubbles, code blocks, approval and
+  question cards, the composer and menus stay opaque.
+- Chat split beside terminals in one tab stays opaque. Sidebars, editors and
+  pages are always opaque; the wallpaper is a chat-and-terminal feature.
+- Regenerate after changing the palette:
+
+  ```sh
+  rsvg-convert -w 2560 -h 1600 images/moss-glow.svg -o /tmp/moss-glow.png
+  magick /tmp/moss-glow.png -quality 88 -define webp:method=6 images/moss-glow.webp
+  ```
 
 ## Deviation log (SPEC.md §11.10)
 
 No new hues were invented. Every value is a §3 token, a §9.2 ANSI slot, or a §8
 tint. Judgment calls:
 
-- **All 66 tokens are set explicitly.** Orca derives any omitted token from
+- **All 74 tokens are set explicitly.** Orca derives any omitted token from
   `--background`/`--foreground`, which would turn MOSS's elevations and
   selection states into neutral greys. Listing every token keeps the surface
-  ladder and the green accent exactly where the spec puts them.
+  ladder and the green accent exactly where the spec puts them. That includes the
+  eight tokens Orca added after this port first shipped: the seven chat text
+  tokens and `--editor-selection`.
 - **Charts use four families.** `--chart-1…5` need five distinguishable series
   and MOSS has no chart palette. They take `moss`, `ochre`, ANSI slot 4
   (blue-green), slot 5 (mauve-grey) and `olive` — the two non-green entries are
@@ -214,9 +275,15 @@ tint. Judgment calls:
   `overlay`, indicator = `moss`) carried over so the two apps read the same.
 - **`--editor-surface` is `bg`.** §4.2 gives the editor the main canvas; the VS
   Code port's `editor.background` is `bg` too.
-- **`--host-badge` is a quiet chip.** `overlay` fill with `muted` text is 3.6:1,
-  below AA for body text but this is a badge, and Orca applies its own contrast
-  check before painting.
+- **The contrast-gated tokens are lifted, not dropped.** Orca rejects a text
+  token that fails 4.5:1 on the surface it paints (3:1 for decorations), and
+  falls back to a built-in colour. `muted` (`#70766B`) is only 4.12:1 on `bg`,
+  and `faint` (`#4B5147`) only 2.21:1 on `surface`, so the port uses `#828B7E`
+  for `--muted-foreground`, `--tab-inactive-foreground` and
+  `--host-badge-foreground` (4.73:1 on the badge) and `#5F6659` for
+  `--git-decoration-ignored` (3.04:1). These are the same MOSS greys one step
+  lighter, not new hues, and they keep Orca from painting the theme's most
+  characteristic text tones with its own neutral greys.
 - **`bold` is not set in the terminal palette.** Orca's key list includes a
   `bold` color, but xterm renders SGR 1 as a heavier weight of the current
   color; §9.1 rule 10 asks for exactly that, so setting it would be a no-op.
@@ -224,10 +291,18 @@ tint. Judgment calls:
   `background`, `foreground`, `details` and `terminal_colors` are all Orca reads
   from that format; the cursor accent and both selection colors live only in the
   plugin route.
-- **`--chat-user-message` is `moss` at 12%.** It is the whole of Orca's public
-  chat surface; the rest of chat derives from the tokens around it, so no further
-  chat tokens exist to set. With **Match terminal interface** on, Orca overrides
-  the chat accents with foreground mixes and this token stops applying.
+- **Chat uses the full token family, not just the bubble.** `--chat-user-message`
+  is `moss` at 12%; the newer tokens take `moss` at 14% for inline code (with
+  `ochre` text), `olive` at 5.5% for code blocks, `moss` at 30% for selection,
+  `#E6E9DF` for bold and `#828B7E` for muted. Every pair clears Orca's 4.5:1
+  gate, including muted on the tinted code block (4.65:1). With **Match terminal
+  interface** on, Orca overrides the chat accents with foreground mixes and all
+  of these stop applying.
+- **The chat canvas itself is not themeable.** Orca paints it as 5% of
+  `--foreground` over `--background`; only a wallpaper can put colour there. The
+  wallpaper is `bg` plus four off-canvas palette glows at `opacity: 0.55`, so it
+  is quiet at 100% terminal opacity and reads as a green/warm corner wash as
+  background opacity drops. It never touches sidebars, editors or pages.
 - **Dark only.** Orca app themes declare a `base`, and MOSS is dark only, so
   `base: "dark"` and the terminal palette declares `mode: "dark"`.
 - **Two identities, one name.** The plugin id is `moss` (installed as

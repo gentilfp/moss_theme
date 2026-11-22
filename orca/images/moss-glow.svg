@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1600" viewBox="0 0 2560 1600">
+  <desc>MOSS wallpaper: palette glows over the theme bg, for Orca translucent chats and terminals.</desc>
+  <defs>
+    <!-- moss, upper left, mostly off-canvas so no hot spot lands under text -->
+    <radialGradient id="moss" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(120 90) scale(1750 1320)">
+      <stop offset="0"    stop-color="#7E9273" stop-opacity="0.62"/>
+      <stop offset="0.42" stop-color="#7E9273" stop-opacity="0.30"/>
+      <stop offset="0.75" stop-color="#6E8A66" stop-opacity="0.10"/>
+      <stop offset="1"    stop-color="#7E9273" stop-opacity="0"/>
+    </radialGradient>
+    <!-- blue-green, lower right -->
+    <radialGradient id="blue" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(2520 1560) scale(1680 1300)">
+      <stop offset="0"    stop-color="#5D7B81" stop-opacity="0.58"/>
+      <stop offset="0.45" stop-color="#5D7B81" stop-opacity="0.26"/>
+      <stop offset="0.78" stop-color="#54706F" stop-opacity="0.08"/>
+      <stop offset="1"    stop-color="#5D7B81" stop-opacity="0"/>
+    </radialGradient>
+    <!-- ochre, upper right, small -->
+    <radialGradient id="ochre" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(2450 30) scale(1050 880)">
+      <stop offset="0"    stop-color="#B69A64" stop-opacity="0.34"/>
+      <stop offset="0.5"  stop-color="#B69A64" stop-opacity="0.12"/>
+      <stop offset="1"    stop-color="#B69A64" stop-opacity="0"/>
+    </radialGradient>
+    <!-- mauve-grey, lower left, small -->
+    <radialGradient id="mauve" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(90 1590) scale(1020 840)">
+      <stop offset="0"    stop-color="#8F6C80" stop-opacity="0.30"/>
+      <stop offset="0.5"  stop-color="#8F6C80" stop-opacity="0.10"/>
+      <stop offset="1"    stop-color="#8F6C80" stop-opacity="0"/>
+    </radialGradient>
+    <!-- deep forest bridge across the middle right, keeps the glows related -->
+    <radialGradient id="forest" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(1850 780) scale(1500 1150)">
+      <stop offset="0"    stop-color="#536B4F" stop-opacity="0.14"/>
+      <stop offset="0.6"  stop-color="#536B4F" stop-opacity="0.05"/>
+      <stop offset="1"    stop-color="#536B4F" stop-opacity="0"/>
+    </radialGradient>
+    <!-- corner falloff so the very edges settle back to bg -->
+    <radialGradient id="settle" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1"
+      gradientTransform="translate(1280 800) scale(1850 1400)">
+      <stop offset="0.55" stop-color="#0D0F0C" stop-opacity="0"/>
+      <stop offset="1"    stop-color="#0D0F0C" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="2560" height="1600" fill="#0D0F0C"/>
+  <rect width="2560" height="1600" fill="url(#forest)"/>
+  <rect width="2560" height="1600" fill="url(#moss)"/>
+  <rect width="2560" height="1600" fill="url(#blue)"/>
+  <rect width="2560" height="1600" fill="url(#ochre)"/>
+  <rect width="2560" height="1600" fill="url(#mauve)"/>
+  <rect width="2560" height="1600" fill="url(#settle)"/>
+</svg>

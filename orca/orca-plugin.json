@@ -2,7 +2,7 @@
   "manifestVersion": 2,
   "id": "moss",
   "name": "MOSS",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A very dark, muted colorscheme for Orca: app chrome, editor colors and terminal palette.",
   "license": "MIT",
   "repository": "https://github.com/gentilfp/moss_theme",

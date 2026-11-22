@@ -14,7 +14,7 @@
     "--secondary": "#1B1F1A",
     "--secondary-foreground": "#D7D9D2",
     "--muted": "#191D18",
-    "--muted-foreground": "#70766B",
+    "--muted-foreground": "#828B7E",
     "--accent": "#2A3527",
     "--accent-foreground": "#D7D9D2",
     "--border": "#272C24",
@@ -42,17 +42,25 @@
     "--worktree-sidebar-active": "rgba(126, 146, 115, 0.10)",
     "--worktree-sidebar-active-border": "#7E9273",
     "--host-badge": "#1B1F1A",
-    "--host-badge-foreground": "#70766B",
+    "--host-badge-foreground": "#828B7E",
     "--tab-bar": "#0D0F0C",
     "--tab-active": "#1B1F1A",
     "--tab-active-foreground": "#D7D9D2",
     "--tab-active-indicator": "#7E9273",
     "--tab-inactive": "#0D0F0C",
-    "--tab-inactive-foreground": "#70766B",
+    "--tab-inactive-foreground": "#828B7E",
     "--split-divider": "#272C24",
     "--split-divider-hover": "#7E9273",
     "--chat-user-message": "rgba(126, 146, 115, 0.12)",
+    "--chat-bold-foreground": "#E6E9DF",
+    "--chat-muted-foreground": "#828B7E",
+    "--chat-inline-code": "rgba(126, 146, 115, 0.14)",
+    "--chat-inline-code-foreground": "#C7A46B",
+    "--chat-code-block": "rgba(154, 153, 104, 0.055)",
+    "--chat-selection": "rgba(126, 146, 115, 0.30)",
+    "--chat-selection-foreground": "#D7D9D2",
     "--text-link": "#7E9273",
+    "--editor-selection": "rgba(126, 146, 115, 0.30)",
     "--diff-added": "#7E9273",
     "--diff-added-background": "#1B1F18",
     "--diff-added-emphasis": "rgba(126, 146, 115, 0.20)",
@@ -67,7 +75,7 @@
     "--git-decoration-renamed": "#B69A64",
     "--git-decoration-untracked": "#7E9273",
     "--git-decoration-copied": "#9A9968",
-    "--git-decoration-ignored": "#4B5147"
+    "--git-decoration-ignored": "#5F6659"
   },
   "tokenColors": [
     {
@@ -537,5 +545,11 @@
         "foreground": "#70766B"
       }
     }
-  ]
+  ],
+  "background": {
+    "path": "images/moss-glow.webp",
+    "opacity": 0.55,
+    "size": "cover",
+    "position": "center"
+  }
 }

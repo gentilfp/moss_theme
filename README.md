@@ -32,7 +32,8 @@ terminal colors, contrast ratios, and install steps for every port.
 - `zapfast/moss.json` — ZapFast theme (see [Ports](#ports))
 - `t3code/moss.json` — T3 Code theme (see [Ports](#ports))
 - `orca/` — Orca plugin: `orca-plugin.json`, `themes/moss.json`, `terminal/moss.json`,
-  plus `MOSS.yaml` for Orca's Warp-format importer (see [Ports](#ports))
+  the `images/moss-glow.*` wallpaper, a contrast checker and `MOSS.yaml` for
+  Orca's Warp-format importer (see [Ports](#ports))
 
 `moss.json` is the machine-readable projection of `SPEC.md` §3, §8 and §9 — the file a
 port should read rather than re-typing hexes. `moss.css` is generated from it, so the
@@ -294,11 +295,14 @@ pick **MOSS** in the app theme picker and again in the terminal theme picker.
 Orca reloads the folder when its files change, so a `git pull` is enough. Remove
 it with `orca plugin dev unload ~/Developer/moss_theme/orca`.
 
-Orca's chat has no theme of its own: it paints from the app theme tokens, and
-from the terminal palette when **Settings → Appearance → Chat → Match terminal
-interface** is on. With **MOSS** selected as the app theme and that switch off,
-chat is MOSS too — canvas, text, code colors and the user bubble. `orca/README.md`
-covers the two setups.
+Chat reads the app theme's dedicated chat tokens (Orca 1.4.254+): moss user
+bubble and selection, olive code blocks, ochre inline code, lifted bold and muted
+text. The chat canvas itself is not themeable, so the plugin also ships a
+palette wallpaper (`orca/images/moss-glow.webp`) for Orca to paint under chat and
+terminals — set **Settings → Terminal → Background Opacity** below 100% to see
+it. With **Settings → Appearance → Chat → Match terminal interface** on, Orca
+ignores the chat tokens and follows the terminal palette instead. `orca/README.md`
+covers all of it.
 
 Without plugins, Orca can still import the terminal colors: **Settings →
 Terminal →** theme picker **→ Import from YAML →** pick `orca/MOSS.yaml`. It
@@ -307,7 +311,7 @@ background, foreground, cursor and 16 ANSI slots only — the cursor accent and
 selection colors need the plugin route. Orca keeps imported themes in its own
 settings, so re-import after a `git pull`.
 
-Orca 1.4.246 or later is required.
+Orca 1.4.246 or later is required; the chat tokens need 1.4.254 or later.
 
 ### Updating
 
